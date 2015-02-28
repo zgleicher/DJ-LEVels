@@ -19,7 +19,7 @@
   </div>
 
   <form class="thing-form">
-    <label>Syncs in realtime across clients</label>
+    <label>Hello {{ getCurrentUser().name }}</label>
     <p class="input-group">
       <input type="text" class="form-control" placeholder="Add a new thing here." ng-model="newThing">
       <span class="input-group-btn">
@@ -27,6 +27,29 @@
       </span>
     </p>
   </form>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Groups:</h1>
+
+<form class="group-form">
+    <label>Syncs in realtime across clients</label>
+    <p class="input-group">
+      <input type="text" class="form-control" placeholder="Add a new group here." ng-model="newGroup">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="addGroup()">Create Group</button>
+      </span>
+    </p>
+  </form>
+
+      <ul class="nav nav-tabs nav-stacked col-md-12 col-lg-12" ng-repeat="group in levelsGroups">
+        <li><a href="#" tooltip="{{group._id}}">{{group.name}}<button type="button" class="close" ng-click="deleteGroup(group)">&times;</button></a></li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
 <footer class="footer">

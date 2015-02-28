@@ -1,0 +1,21 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1>SoundCloud</h1>
+    </div>
+    <div class="col-sm-12">
+    </div>
+  </div>
+</div>
+
+<script>
+  SC.initialize({
+    client_id: "66fd2fb89c48bdcf4d67c15d99baf2a8",
+    //redirect_uri: "http://example.com/callback.html",
+  });
+  SC.stream("/tracks/171405786", function(sound){
+  sound.play();
+}); 
+</script>
