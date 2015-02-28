@@ -13,6 +13,11 @@ angular.module('levelsApp')
         templateUrl: 'app/account/signup/signup.html',
         controller: 'SignupCtrl'
       })
+      .state('soundcloud', {
+        url:'/soundcloud',
+        templateUrl: 'app/account/soundcloud/soundcloud.html',
+        controller: 'SoundcloudCtrl'
+      })
       .state('settings', {
         url: '/settings',
         templateUrl: 'app/account/settings/settings.html',
