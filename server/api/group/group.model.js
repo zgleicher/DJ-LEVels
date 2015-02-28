@@ -36,7 +36,7 @@
 			ref: 'User',
 			required: '{PATH} is required!'
 		},
-		//ltracks				: [trackSchema],
+		tracks				: [trackSchema],
 		contributors	: [{ type: ObjectId, ref: 'User' }],
 		followers			: [{ type: ObjectId, ref: 'User' }],
 		public				: { type: Boolean, default: 'True' },
