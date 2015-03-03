@@ -20,14 +20,14 @@
       </md-toolbar>
     <md-list>
       <md-item ng-repeat="g in groups">
-        <md-item-content>
-          <!-- <a ui-sref='landing.center({message: {{g.name}}})'> -->
-          <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
-            <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{g.name}}"></span>
-            {{g.name}}
-          </md-button>
-          <!-- </a> -->
-        </md-item-content>
+        <a ui-sref='landing.center({groupid: "{{g.name}}" })'>
+          <md-item-content>
+            <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
+              <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{g.name}}"></span>
+              {{g.name}}
+            </md-button>
+          </md-item-content>
+        </a>
       </md-item>
       <md-item>
 <!--             <md-item-content>
@@ -48,10 +48,14 @@
   <div layout="column" flex class="content-wrapper" id="content">
     <md-content layout="column" flex class="md-padding">
         <span class="{{selectedGroup.classname}} avatar" role="img" aria-label="{{selectedGroup.name}}"></span>
+
+
         <h2>{{selectedGroup.name}}</h2>
-        <p>{{selectedGroup.content}}</p>
+
+        <div ui-view="center-content"></div>
+        <!-- <p>{{selectedGroup.content}}</p> -->
     </md-content>
-    <!-- <div ui-view="center"></div> -->
+    
   </div>
   
   <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
