@@ -16,7 +16,7 @@ angular.module('levelsApp')
 
     $scope.getCurrentUserId = function() {
       return Auth.getCurrentUser()._id;
-    }
+    };
 
     $scope.addThing = function() {
       if($scope.newThing === '') {

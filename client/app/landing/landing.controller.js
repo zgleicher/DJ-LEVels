@@ -1,114 +1,122 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope) {
-  $scope.message = 'Hello';
+.controller('LandingCtrl', function ($scope, $http, socket, Auth) {
+ // var allMembers = [ ],
+  var allGroups = [ ];
 
-  var allAvatars = [ ],
-  allGroups = [ ];
+//LOAD MEMBERS BASED ON GROUPS
 
-  $scope.selected      = null;
-  $scope.avatars       = allAvatars;
-  $scope.selectAvatar  = selectAvatar;
-  $scope.toggleSidenav = toggleSideNav;
-  $scope.showActions   = showActions;
-    //new
-    $scope.selectedGroup = null;
-    $scope.groups        = allGroups;
-    $scope.selectGroup   = selectGroup;
+$scope.selected      = null;
+$scope.members       = [];
+$scope.selectedGroup = null;
+$scope.groups        = allGroups;
 
-    loadAvatars();
-    loadGroups();
+  // *********************************
+  // Internal methods
+  // *********************************
+  $scope.getCurrentUserId = function() {
+    return Auth.getCurrentUser()._id;
+  };
+  
+  /**
+  * Load members for a group
+  * @param menuId
+  *
+  */
+  $scope.loadMembers = function(selectedGroup) {
+    // $http.get('/api/users').success(function(allMembers) {
+    //   $scope.members = allMembers;
+    //   socket.syncUpdates('user', $scope.members);
+    //   $scope.selected = allMembers[0];
+    // });
+   
+    // console.log($scope.members);
+    $scope.members = selectedGroup.contributors;
+    //TEMP
+    $scope.members = randomNum();
+    //$scope.members = ['1', '2', '3', '4'];
+    //socket.syncUpdates('user', $scope.members);
+    // $scope.selected = allMembers[0];
+    $scope.selected = $scope.members[0];
+  };
 
-    // *********************************
-    // Internal methods
-    // *********************************
-
-    /**
-     * Load all available avatars
-     * @param menuId
-     *
-     */
-     function loadAvatars() {
-      avatarsService
-      .loadAll()
-      .then( function( avatars ) {
-        allAvatars = avatars;
-
-        $scope.avatars = [].concat(avatars);
-        $scope.selected = avatars[0];
-      });
-    }
-
-    function loadGroups() {
-      groupService
-      .loadAll()
-      .then( function( groups ) {
-        allGroups = groups;
-
-        $scope.groups = [].concat(groups);
-        $scope.selectedGroup = groups[0];
-      });
-    }
-    /**
-     * Hide or Show the sideNav area
-     * @param menuId
-     */
-     function toggleSideNav( name ) {
-      $mdSidenav(name).toggle();
-    }
-
-    /**
-     * Select the current avatars
-     * @param menuId
-     */
-     function selectAvatar ( avatar ) {
-      $scope.selected = angular.isNumber(avatar) ? $scope.avatars[avatar] : avatar;
-      $scope.toggleSidenav('left');
-    }
-
-    function selectGroup( group ) {
-      $scope.selectedGroup = angular.isNumber(group) ? $scope.groups[group] : group;
-      $scope.toggleSidenav('left');
-    }
-
-    /**
-     * Show the bottom sheet
-     */
-     function showActions($event) {
-
-      $mdBottomSheet.show({
-        parent: angular.element(document.getElementById('content')),
-        template: '<md-bottom-sheet class="md-list md-has-header">' +
-        '<md-subheader>Avatar Actions</md-subheader>' +
-        '<md-list>' +
-        '<md-item ng-repeat="item in vm.items">' +
-        '<md-button ng-click="vm.performAction(item)">{{item.name}}</md-button>' +
-        '</md-item>' +
-        '</md-list>' +
-        '</md-bottom-sheet>',
-        bindToController : true,
-        controllerAs: "vm",
-        controller: [ '$mdBottomSheet', AvatarSheetController],
-        targetEvent: $event
-      }).then(function(clickedItem) {
-        $log.debug( clickedItem.name + ' clicked!');
-      });
-
-        /**
-         * Bottom Sheet controller for the Avatar Actions
-         */
-         function AvatarSheetController( $mdBottomSheet ) {
-          this.items = [
-          { name: 'Share', icon: 'share' },
-          { name: 'Copy', icon: 'copy' },
-          { name: 'Impersonate', icon: 'impersonate' },
-          { name: 'Singalong', icon: 'singalong' },
-          ];
-          this.performAction = function(action) {
-            $mdBottomSheet.hide(action);
-          };
-        }
-      }
-
+  $scope.loadGroups = function() {
+    $http.get('/api/groups').success(function(levelsGroups) {
+      $scope.groups = levelsGroups;
+      socket.syncUpdates('group', $scope.groups);
+      //$scope.selectedGroup = levelsGroups[0];
+      $scope.selectGroup(levelsGroups[0]);
     });
+  };
+
+  /**
+  * Hide or Show the sideNav area
+  * @param menuId
+  */
+  // $scope.toggleSideNav = function( name ) {
+  //   $mdSidenav(name).toggle();
+  // };
+
+  /**
+  * Select the current members
+  * @param menuId
+  */
+  $scope.selectMember = function ( member ) {
+    $scope.selected = angular.isNumber(member) ? $scope.members[member] : member;
+    $scope.toggleSidenav('left');
+  };
+
+  $scope.selectGroup = function ( group ) {
+    console.log(group);
+    $scope.selectedGroup = angular.isNumber(group) ? $scope.groups[group] : group;
+    //$scope.toggleSidenav('left');
+    //load members for that group
+    $scope.loadMembers(group);
+  };
+
+  $scope.addMember = function() {
+    if($scope.newThing === '') {
+      return;
+    }
+    $http.post('/api/things', { name: $scope.newThing });
+    $scope.newThing = '';
+  };
+
+  $scope.addGroup = function() {
+    if($scope.newGroup === '') {
+      return;
+    }
+    $http.post('/api/groups', {
+      name: $scope.newGroup,
+      owner: $scope.getCurrentUserId()
+    });
+    $scope.newGroup = '';
+  };
+
+  $scope.deleteThing = function(thing) {
+    $http.delete('/api/things/' + thing._id);
+  };
+  $scope.deleteGroup = function(group) {
+    $http.delete('/api/groups/' + group._id);
+  };
+
+  function randomNum() {
+    var arr = [],
+    num = Math.random()*8, 
+    i;
+    for (i = 0; i < num; i++) {
+      arr.push({ 'name': Math.round(Math.random() * 100)});
+    }
+    return arr;
+  }
+
+  $scope.$on('$destroy', function () {
+    socket.unsyncUpdates('thing');
+    socket.unsyncUpdates('group');
+  });
+
+  //load all groups, select one
+  $scope.loadGroups();
+  
+});

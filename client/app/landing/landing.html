@@ -1,56 +1,73 @@
 
+<md-toolbar id="nav-bar" layout="row" layout-align="center center">
+  <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
+    <span class="visuallyhidden">Menu</span>
+  </button>
+    <h1>
+      <span>DJ-LEVels</span>
+    </h1>
+    <h1>
+      <span class="pull-right">DJ-LEVels</span>
+    </h1>
+</md-toolbar>
 
-    <md-toolbar layout="row">
-      <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
-        <span class="visuallyhidden">Menu</span>
-      </button>
-      <h1>DJ-LEVels</h1>
-    </md-toolbar>
 
+<div layout="row" flex>
 
-
-    <div layout="row" flex>
-
-      <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
-        <md-list>
-          <md-item ng-repeat="g in groups">
-            <md-item-content>
-              <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selected }">
-                <span class="{{g.classname}} avatar"></span>
-                {{g.name}}
-              </md-button>
-            </md-item-content>
-          </md-item>
+  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">My Groups</h1>
+      </md-toolbar>
+    <md-list>
+      <md-item ng-repeat="g in groups">
+        <md-item-content>
+          <!-- <a ui-sref='landing.center({message: {{g.name}}})'> -->
+          <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
+            <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{g.name}}"></span>
+            {{g.name}}
+          </md-button>
+          <!-- </a> -->
+        </md-item-content>
+      </md-item>
+      <md-item>
+<!--             <md-item-content>
           <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
             <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
-        </md-button>
-        </md-list>
-      </md-sidenav>
-  
-      <div layout="column" flex class="content-wrapper" id="content">
-        <md-content layout="column" flex class="md-padding">
-            <span class="{{selected.classname}} avatar" role="img" aria-label="{{selected.name}}"></span>
-            <h2>{{selected.name}}</h2>
-            <p>{{selected.content}}</p>
-            <md-button class="action actionBtn" ng-click="showActions($event)">
-              <span class="visuallyhidden">Actions</span>
-            </md-button>
-        </md-content>
-      </div>
-      
-      <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
-        <md-list>
-          <md-item ng-repeat="it in avatars">
-            <md-item-content>
-              <md-button ng-click="selectAvatar(it)" ng-class="{'selected' : it === selected }">
-                <span class="{{it.classname}} avatar"></span>
-                {{it.name}}
-              </md-button>
-            </md-item-content>
-          </md-item>
-        </md-list>
-      </md-sidenav>
-   
+          </md-button>
+        </md-item-content> -->
+        <md-item-content>
+          <md-button ng-click="newGroup()">
+            <span class="avatar"><img src="../../assets/images/indigo.png" alt="Create new group"></span>
+            Create new group
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
 
+  <div layout="column" flex class="content-wrapper" id="content">
+    <md-content layout="column" flex class="md-padding">
+        <span class="{{selectedGroup.classname}} avatar" role="img" aria-label="{{selectedGroup.name}}"></span>
+        <h2>{{selectedGroup.name}}</h2>
+        <p>{{selectedGroup.content}}</p>
+    </md-content>
+    <!-- <div ui-view="center"></div> -->
+  </div>
+  
+  <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Members</h1>
+      </md-toolbar>
+    <md-list layout-align="center center">
+      <md-item ng-repeat="it in members">
+        <md-item-content>
+          <!-- <md-button ng-click="selectMember(it)" ng-class="{'selected' : it === selected }"> -->
+            <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{it.name}}"></span>
+            {{it.name}}
+          </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+</div>
  
-    </div>

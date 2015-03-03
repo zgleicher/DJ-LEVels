@@ -4,7 +4,10 @@ angular.module('levelsApp')
   .controller('NavbarCtrl', function ($scope, $location, Auth) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'link': '/',
+    }, {
+      'title': 'Landing',
+      'link': '/landing'
     }];
 
     $scope.isCollapsed = true;

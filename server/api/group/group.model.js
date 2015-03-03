@@ -5,7 +5,7 @@
 	    Schema 		= mongoose.Schema,
 	    ObjectId	= Schema.Types.ObjectId;
 
-	var trackSchema = Schema({
+	var trackSchema = new Schema({
 		track_id			: {
 			type: String,
 			required: '{PATH} is required!',

@@ -1,82 +1,120 @@
 
-md-toolbar {
+#nav-bar {
   background-color: #f80 !important;
+  color: white;
 }
 
-/* Sidenav area */
 
-md-list .md-button {
-  color: inherit;
-  font-weight: 500;
-  text-align: left;
-  width: 100%;
+section li {
+  display: inline;
+  display: inline-block;
+  background-color: #fff;
+  position: relative;
+  vertical-align: top;
+  cursor: default
 }
+
+.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}
+
+/*make right (members) sidenav skinnier,
+make both sidenav bars full height*/
+.md-sidenav-right {
+  min-width: 128px !important;
+  width: 50vw !important;
+  max-width: 128px !important;
+  min-height: calc(100vh - 85px) !important;
+  min-height: -o-calc(100vh - 85px);
+  min-height: -webkit-calc(100vh - 85px);
+  min-height: -moz-calc(100vh - 85px); 
+}
+
+  /* Sidenav area */
+
+  md-list .md-button {
+    color: inherit;
+    font-weight: 1000;
+    text-align: left;
+    width: 100%;
+  }
   md-list .md-button.selected {
     color: #03a9f4;
   }
 
-.avatar {
-  border: 1px solid #ddd;
-  display: inline-block;
-  margin: 0px;
-  vertical-align: middle;
-}
+  .avatar {
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin: 0px;
+    vertical-align: middle;
+  }
 
-/* Primary content area */
+  /* Primary content area */
 
-#content {
-  overflow: hidden;
-}
+  #content {
+    overflow: hidden;
+  }
   #content md-content {
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 5px;
   }
-    #content .md-button.action {
-      background-color: transparent;
-      border: none;
-      height: 38px;
-      margin: 8px auto 16px 0;
-      position: absolute;
-      top: 10px;
-      right: 25px;
-      width: 36px;
-    }
+  #content .md-button.action {
+    background-color: transparent;
+    border: none;
+    height: 38px;
+    margin: 8px auto 16px 0;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    width: 36px;
+  }
 
-    #content img {
-      display: block;
-      height: auto;
-      max-width: 500px;
-    }
+  #content img {
+    display: block;
+    height: auto;
+    max-width: 500px;
+  }
 
-/*KRISTIE PUT THIS HERE*/
-#groups {
-  /*background-color: rgb(70, 98, 137);*/
-}
+  /*KRISTIE PUT THIS HERE*/
+  #groups {
+    /*background-color: rgb(70, 98, 137);*/
+  }
 
-/* Utils */
+  /* Utils */
 
-.content-wrapper {
-  position: relative;
-}
+  .content-wrapper {
+    position: relative;
+  }
 
-.visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
+  .visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
 
-/* Typography support coming in 0.8.0 */
+  /* Typography support coming in 0.8.0 */
 
 /*md-toolbar h1 {
   font-size: 1.250em;
   font-weight: 400;
-}*/
+  }*/
 
 /* Using Data-URI converted from svg until <md-icon> becomes available
 https://github.com/google/material-design-icons
