@@ -1,2 +1,23 @@
 <div>{{message2}}</div>
 <h3>{{message}}</h3>
+
+<md-content>
+	<md-card>
+	  <!-- <img src="http://lorempixel.com/200/200" alt="Song title"> -->
+	  <md-card-content id="dropbox">
+	    <h2>This is the drop box</h2>
+	    <p>
+	      Drop here
+	    </p>
+	  </md-card-content>
+	</md-card>
+	<md-card ng-repeat="track in tracks">
+	  <img src="http://lorempixel.com/150/50" alt="Song title">
+	  <md-card-content>
+	    <h2>{{track.title}}</h2>
+	    <p>
+	      {{track.details}}
+	    </p>
+	  </md-card-content>
+	</md-card>
+</md-content>
