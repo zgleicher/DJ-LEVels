@@ -20,5 +20,18 @@
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
-  }
+  },
+  "homepage": "https://github.com/zgleicher/DJ-LEVels",
+  "authors": [
+    "Kristie Howard <kbh2120@columbia.edu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ]
 }
