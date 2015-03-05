@@ -36,29 +36,45 @@ angular.module('levelsApp')
                   
                   //MAKE API CALL TO SOUNDCLOUD, populate data, add track to tracks
                   SC.get('/resolve', { url: track_url }, function(track) {
-                    console.log(track);
-                    SC.get('/tracks/' + track.id + '/comments', function(comments) {
-                      for (var i = 0; i < 10; i++) {
-                        console.log('Someone said: ' + comments[i].body);
-                      }
-                    });
+                    //console.log(track);
+                    $scope.addTrack(track);
                   });
-
-
-
               }
               /* end logic for drag and drop */
 
-              //controller for the center part, ened to extract
-              console.log($stateParams);
+              //controller for the center part, need to extract
+              //console.log($stateParams);
               $scope.message = $stateParams.groupid; 
               //QUERY FOR TRACKS FOR THIS GROUP
               // $http.get('/api/groups/' + groupid).success(function (group) {
 
               //   $scope.tracks = group.tracks;
               // })
-              $scope.tracks = [{title: "Song1", details: "song blah blah"}, {title: "Song2", details: "song blaasdfh blah"}];
-              $scope.message2 = 'hello world. this is the UI-center view';
+              //$scope.tracks = [{title: "Song1", details: "song blah blah"}, {title: "Song2", details: "song blaasdfh blah"}];
+              $scope.tracks = [];
+              $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
+                // $scope.dataCount = newNames.length;
+                console.log("Scope tracks: " + $scope.tracks);
+                if(!$scope.$$phase){
+                  $scope.$apply();
+                }
+              });
+
+              //NEED TO CHANGE THIS TO LOAD TRACKS FOR GROUP
+              // $scope.tracks = [];
+              $scope.addTrack = function (track) {
+                //NEED TO ADD THIS TRACK TO ACTUAL GROUP IN DB
+                $scope.tracks.unshift({
+                  title: track.title,
+                  artist: track.user.username,
+                  image_url: track.artwork_url.replace('"', '')
+                });
+                console.log("added track " + $scope.tracks);
+                $scope.$digest();
+                
+              };
+
+            
             }
           }
         }

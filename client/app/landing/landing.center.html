@@ -1,6 +1,3 @@
-<div>{{message2}}</div>
-<h3>{{message}}</h3>
-
 <md-content>
 	<md-card>
 	  <!-- <img src="http://lorempixel.com/200/200" alt="Song title"> -->
@@ -12,12 +9,10 @@
 	  </md-card-content>
 	</md-card>
 	<md-card ng-repeat="track in tracks">
-	  <img src="http://lorempixel.com/150/50" alt="Song title">
+	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
 	    <h2>{{track.title}}</h2>
-	    <p>
-	      {{track.details}}
-	    </p>
+	    <p>{{track.artist}}</p>
 	  </md-card-content>
 	</md-card>
 </md-content>
