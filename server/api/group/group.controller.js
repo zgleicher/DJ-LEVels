@@ -55,6 +55,26 @@ exports.destroy = function(req, res) {
   });
 };
 
+exports.track = {
+  index: function(req, res) {
+    Group.findById(req.params.id, function(err, group) {
+      if (err) { return handleError(res, err); }
+      return res.json(200, group.tracks);
+    });
+  },
+  create: function(req, res) {
+    Group.findById(req.params.id, function(err, group) {
+      if (err) { return handleError(res, err); }
+      group.tracks.unshift(req.body);
+      console.log(group.tracks[0]);
+      group.save(function(err) {
+        if (err) { return handleError(res, err); }
+        return res.json(201, group.tracks[0]);
+      });
+    });
+  }
+};
+
 function handleError(res, err) {
   return res.send(500, err);
 }

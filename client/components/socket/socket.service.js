@@ -69,6 +69,7 @@ angular.module('levelsApp')
       unsyncUpdates: function (modelName) {
         socket.removeAllListeners(modelName + ':save');
         socket.removeAllListeners(modelName + ':remove');
-      }
+      },
+
     };
   });

@@ -6,11 +6,11 @@
 	    ObjectId	= Schema.Types.ObjectId;
 
 	var trackSchema = new Schema({
-		track_id			: {
+		track_url			: {
 			type: String,
 			required: '{PATH} is required!',
 		},
-		name					: {
+		title				: {
 			type: String,
 			required: '{PATH} is required!',
 		},
@@ -23,6 +23,7 @@
 			ref: 'User',
 			required: '{PATH} is required!'
 		},
+		image_url: String,
 		upvotes				: [{ type: ObjectId, ref: 'User' }],
 		downvotes			: [{ type: ObjectId, ref: 'User' }],
 		created_at 		: { type: Date, default: Date.now },
