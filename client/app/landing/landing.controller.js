@@ -6,7 +6,6 @@ angular.module('levelsApp')
   var allGroups = [ ];
 
 //LOAD MEMBERS BASED ON GROUPS
-$scope.groupAction = '';
 $scope.selected      = null;
 $scope.members       = [];
 $scope.selectedGroup = null;
@@ -90,7 +89,7 @@ $scope.groups        = allGroups;
     left: false,
     right: true
   };
-  
+
   $scope.getToastPosition = function() {
     return Object.keys($scope.toastPosition)
       .filter(function(pos) { return $scope.toastPosition[pos]; })
@@ -121,9 +120,8 @@ $scope.groups        = allGroups;
     })
     .then(function(groupName) {
       $scope.showGroupToast(groupName);
-      $scope.groupAction = 'You created group ' + groupName + '.';
     }, function() {
-      $scope.groupAction = 'You cancelled the create group dialog.';
+      //$scope.groupAction = 'You cancelled the create group dialog.';
     });
   };
 

@@ -14,6 +14,10 @@
 			type: String,
 			required: '{PATH} is required!',
 		},
+		artist				: {
+			type: String,
+			required: '{PATH} is required!',
+		},
 		submitted_by	: {
 			type: ObjectId,
 			ref: 'User',
