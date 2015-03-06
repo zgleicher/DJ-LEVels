@@ -13,7 +13,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams){
+            controller: function($scope, $stateParams, $http, Auth){
                 SC.initialize({
                   client_id: '8404d653618adb5d684fa8b257d4f924'
                 });
@@ -44,33 +44,41 @@ angular.module('levelsApp')
 
               //controller for the center part, need to extract
               //console.log($stateParams);
-              $scope.message = $stateParams.groupid; 
-              //QUERY FOR TRACKS FOR THIS GROUP
-              // $http.get('/api/groups/' + groupid).success(function (group) {
 
-              //   $scope.tracks = group.tracks;
-              // })
-              //$scope.tracks = [{title: "Song1", details: "song blah blah"}, {title: "Song2", details: "song blaasdfh blah"}];
-              $scope.tracks = [];
+              //QUERY FOR TRACKS FOR THIS GROUP
+              $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
+                $scope.group = group;
+                $scope.tracks = group.tracks;
+              })
+
               $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
                 // $scope.dataCount = newNames.length;
-                console.log("Scope tracks: " + $scope.tracks);
+                //console.log("Scope tracks: " + $scope.tracks);
                 if(!$scope.$$phase){
                   $scope.$apply();
                 }
               });
 
               //NEED TO CHANGE THIS TO LOAD TRACKS FOR GROUP
-              // $scope.tracks = [];
               $scope.addTrack = function (track) {
-                //NEED TO ADD THIS TRACK TO ACTUAL GROUP IN DB
                 $scope.tracks.unshift({
-                  title: track.title,
+                  track_id: track.title,
+                  name: track.title,
                   artist: track.user.username,
+                  submitted_by: Auth.getCurrentUser()._id,
                   image_url: track.artwork_url.replace('"', '')
                 });
-                console.log("added track " + $scope.tracks);
-                $scope.$digest();
+
+
+                // Update group object in db
+                $scope.group.tracks = $scope.tracks;
+                $http.put('/api/groups/' + $scope.group._id, $scope.group).success(function () {
+                  //$scope.$digest();
+                  console.log("added track " + $scope.tracks);
+                });
+
+
+                
                 
               };
 

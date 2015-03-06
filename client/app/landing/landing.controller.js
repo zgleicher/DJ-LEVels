@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $http, socket, Auth) {
+.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate) {
  // var allMembers = [ ],
   var allGroups = [ ];
 
 //LOAD MEMBERS BASED ON GROUPS
-
+$scope.groupAction = '';
 $scope.selected      = null;
 $scope.members       = [];
 $scope.selectedGroup = null;
@@ -83,16 +83,28 @@ $scope.groups        = allGroups;
     $scope.newThing = '';
   };
 
-  $scope.addGroup = function() {
-    if($scope.newGroup === '') {
-      return;
-    }
-    $http.post('/api/groups', {
-      name: $scope.newGroup,
-      owner: $scope.getCurrentUserId()
-    });
-    $scope.newGroup = '';
+  /* toast logic */
+  $scope.toastPosition = {
+    bottom: false,
+    top: true,
+    left: false,
+    right: true
   };
+  
+  $scope.getToastPosition = function() {
+    return Object.keys($scope.toastPosition)
+      .filter(function(pos) { return $scope.toastPosition[pos]; })
+      .join(' ');
+  };
+
+  $scope.showGroupToast = function(groupName) {
+    $mdToast.show(
+      $mdToast.simple()
+        .content('You created group '+ groupName)
+        .position($scope.getToastPosition())
+        .hideDelay(1500)
+    );
+  }
 
   $scope.deleteThing = function(thing) {
     $http.delete('/api/things/' + thing._id);
@@ -100,6 +112,49 @@ $scope.groups        = allGroups;
   $scope.deleteGroup = function(group) {
     $http.delete('/api/groups/' + group._id);
   };
+
+  $scope.showAddGroup = function(ev) {
+     $mdDialog.show({
+      controller: AddGroupController,
+      templateUrl: 'app/landing/landing.addGroup.html',      
+      targetEvent: ev,
+    })
+    .then(function(groupName) {
+      $scope.showGroupToast(groupName);
+      $scope.groupAction = 'You created group ' + groupName + '.';
+    }, function() {
+      $scope.groupAction = 'You cancelled the create group dialog.';
+    });
+  };
+
+  //
+  function AddGroupController($scope, $mdDialog) {
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+    $scope.finishForm = function(answer) {
+      $mdDialog.hide(answer);
+      $scope.newGroup = answer;
+      $scope.addGroup();
+    };
+
+    $scope.addGroup = function() {
+      if($scope.newGroup === '') {
+        return;
+      }
+      console.log('in add group: '+ $scope.newGroup);
+      $http.post('/api/groups', {
+        name: $scope.newGroup,
+        owner: Auth.getCurrentUser()._id
+      });
+      $scope.newGroup = '';
+    };
+  }
+
+
 
   function randomNum() {
     var arr = [],
