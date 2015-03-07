@@ -1,26 +1,22 @@
-<md-dialog aria-label="Mango (Fruit)">
+<md-dialog aria-label="Create a Group">
   <md-content class="md-padding">
-    <md-subheader class="md-sticky-no-effect">Create a New Group</md-subheader>
-        <form name="groupForm">
-          <md-input-container>
-            <label>Group Name</label>
-            <input required name="groupName" ng-model="groupName">
-            <div ng-messages="groupForm.groupName.$error">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-        
+    <md-subheader style="background-color: #dcedc8; margin: 0px;">Create a New Group</md-subheader>
+    <form name="groupForm">
+      <md-input-container>
+        <label>Group Name</label>
+        <input required name="groupName" ng-model="groupName">
+        <div ng-messages="groupForm.groupName.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
       <div class="md-actions" layout="row">
         <span flex></span>
-        <md-button ng-click="cancel()">
-         Cancel
-        </md-button>
-        <md-button ng-click="finishForm(groupName)" class="md-primary">
-          Create Group
-        </md-button>
+        <md-button ng-click="cancel()">Cancel</md-button>
+        <md-button ng-click="finishForm(groupName)" class="md-primary">Create Group</md-button>
       </div>
-      </form>
-    </md-content>
-	</md-dialog>
+    </form>
+  </md-content>
+</md-dialog>
+
 
 

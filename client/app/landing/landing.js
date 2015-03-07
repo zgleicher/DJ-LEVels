@@ -52,8 +52,6 @@ angular.module('levelsApp')
               })
 
               $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
-                // $scope.dataCount = newNames.length;
-                //console.log("Scope tracks: " + $scope.tracks);
                 if(!$scope.$$phase){
                   $scope.$apply();
                 }
