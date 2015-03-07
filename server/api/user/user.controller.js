@@ -99,3 +99,11 @@ exports.me = function(req, res, next) {
 exports.authCallback = function(req, res, next) {
   res.redirect('/');
 };
+
+exports.getName = function(req, res, next) {
+  console.log(req.params.id);
+  User.findById(req.params.id, function(err, user) {
+    if (err || !user) return res.status(404).json();
+    return res.status(200).json({ name: user.name });
+  });
+}

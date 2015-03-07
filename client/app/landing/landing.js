@@ -54,11 +54,33 @@ angular.module('levelsApp')
               //QUERY FOR TRACKS FOR THIS GROUP
               console.log('this happened');
               $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
+                for (var track in group.tracks) {
+                  if (group.tracks.hasOwnProperty(track)) {
+                    var uid = group.tracks[track].submitted_by;
+                    $http.get('/api/users/' + uid + '/name').success(function (usr) {
+                      group.tracks[track].submitted_by_name = usr.name;
+                      console.log(usr.name);
+                    });
+                    if (!group.tracks[track].submitted_by_name)
+                      group.tracks[track].submitted_by_name = 'someone';
+                  }
+                }
                 $scope.group = group;
                 $scope.tracks = group.tracks;
               });
               $scope.trigger = function() {
                 $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
+                  for (var track in group.tracks) {
+                    if (group.tracks.hasOwnProperty(track) && !group.tracks[track].submitted_by_name) {
+                      var uid = group.tracks[track].submitted_by;
+                      $http.get('/api/users/' + uid + '/name').success(function (usr) {
+                        group.tracks[track].submitted_by_name = usr.name;
+                        console.log(usr.name);
+                      });
+                      if (!group.tracks[track].submitted_by_name)
+                        group.tracks[track].submitted_by_name = 'someone';
+                    }
+                  }
                   $scope.group = group;
                   $scope.tracks = group.tracks;
                 });
@@ -78,7 +100,6 @@ angular.module('levelsApp')
 
               //NEED TO CHANGE THIS TO LOAD TRACKS FOR GROUP
               $scope.addTrack = function (track) {
-
                 var newTrack = {
                   track_url: track.title,
                   title: track.title,
@@ -91,13 +112,10 @@ angular.module('levelsApp')
                 // Update group object in db
                 $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack).success(function (track) {
                   //$scope.$digest();
+                  track.submitted_by_name = Auth.getCurrentUser().name;
                   $scope.tracks.unshift(track);
                   console.log("added track");
                 });
-
-
-                
-                
               };
 
             

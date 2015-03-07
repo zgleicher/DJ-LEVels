@@ -47,14 +47,16 @@ $scope.once = false;
       $scope.groups = levelsGroups;
       socket.syncUpdates('group', $scope.groups);
       //$scope.selectedGroup = levelsGroups[0];
-      $scope.selectGroup(levelsGroups[0]);
+      if (levelsGroups.length !== 0)
+        $scope.selectGroup(levelsGroups[0]);
     });
   };
 
   $scope.$watch(function (scope) { return scope.groups }, function (newGroups, oldGroups) {
     // $scope.dataCount = newNames.length;
     //console.log("Scope tracks: " + $scope.tracks);
-    $state.someShit.trigger();
+    if ($state.someShit)
+      $state.someShit.trigger();
     // if(!$scope.$$phase){
     //   $scope.$apply();
     // }
