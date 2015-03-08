@@ -17,5 +17,6 @@ router.get('/:id/tracks', controller.track.index);
 router.post('/:id/tracks', controller.track.create);
 //router.put('/:id/tracks/:track_id', controller.track.update);
 //router.delete('/:id/tracks/:track_id', controller.track.destroy);
+router.put('/:id/tracks/:track_id/vote', controller.track.vote);
 
 module.exports = router;

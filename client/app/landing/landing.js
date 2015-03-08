@@ -75,36 +75,12 @@ angular.module('levelsApp')
 */
               //QUERY FOR TRACKS FOR THIS GROUP
               $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
-                for (var track in group.tracks) {
-                  if (group.tracks.hasOwnProperty(track)) {
-                    var uid = group.tracks[track].submitted_by;
-                    $http.get('/api/users/' + uid + '/name').success(function (usr) {
-                      group.tracks[track].submitted_by_name = usr.name;
-                      console.log(usr.name);
-                    });
-                    if (!group.tracks[track].submitted_by_name) {
-                      group.tracks[track].submitted_by_name = 'someone';
-                    }
-                  }
-                }
                 $scope.group = group;
                 $scope.tracks = group.tracks;
               });
 
               $scope.trigger = function() {
                 $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
-                  for (var track in group.tracks) {
-                    if (group.tracks.hasOwnProperty(track) && !group.tracks[track].submitted_by_name) {
-                      var uid = group.tracks[track].submitted_by;
-                      $http.get('/api/users/' + uid + '/name').success(function (usr) {
-                        group.tracks[track].submitted_by_name = usr.name;
-                        console.log(usr.name);
-                      });
-                      if (!group.tracks[track].submitted_by_name) {
-                        group.tracks[track].submitted_by_name = 'someone';
-                      }
-                    }
-                  }
                   $scope.group = group;
                   $scope.tracks = group.tracks;
                 });
@@ -118,16 +94,28 @@ angular.module('levelsApp')
               $scope.upvoteTrack = function (track) {
                 console.log('upvoting '+track.title);
                 //NEED LOGIC HERE
+                $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
+                  { 
+                    "direction": "up",
+                    "user_id": Auth.getCurrentUser()._id
+                  }
+                );
               };
 
               $scope.downvoteTrack = function (track) {
                 console.log('downvoting '+track.title);
                 //NEED LOGIC HERE
+                $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
+                  { 
+                    "direction": "down",
+                    "user_id": Auth.getCurrentUser()._id
+                  }
+                );
               };
 
               $scope.getVotes = function (track) {
                 //NEED LOGIC HERE
-                return 20;
+                return track.upvotes.length - track.downvotes.length;
               };
 
 

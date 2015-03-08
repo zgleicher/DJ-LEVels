@@ -2,12 +2,21 @@
 
 var _ = require('lodash');
 var Group = require('./group.model');
+var User = require('../user/user.model');
+var async = require('async');
 
 // Get list of groups
 exports.index = function(req, res) {
   Group.find(function (err, groups) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, groups);
+    groups.forEach(function(group) {
+      group.tracks.forEach(function(track) {
+        User.findById(track.submitted_by, function(err, usr) {
+          track.submitted_by_name = usr ? usr.name : 'NOT FOUND';
+        });
+      });
+    });
+    console.log(groups);
+    res.json(200, groups);
   });
 };
 
@@ -72,6 +81,39 @@ exports.track = {
         return res.json(201, group.tracks[0]);
       });
     });
+  },
+  vote: function(req, res) {
+    Group.findById(req.params.id, function(err, group) {
+      if (err) { return handleError(res, err); }
+      var track = group.tracks.id(req.params.track_id);
+      if (!track) return res.json(404);
+      var index;
+      if (req.body.direction === 'up') {
+        if ((index = track.downvotes.indexOf(req.body.user_id)) !== -1)
+          track.downvotes.splice(index, 1); // remove user from downvotes
+        if ((index = track.upvotes.indexOf(req.body.user_id)) === -1)
+          track.upvotes.push(req.body.user_id);
+        else
+          track.upvotes.splice(index, 1); // reset this users vote
+        group.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200);
+        });
+      } else if (req.body.direction === 'down') {
+        if ((index = track.upvotes.indexOf(req.body.user_id)) !== -1)
+          track.upvotes.splice(index, 1); // remove user from upvotes
+        if ((index = track.downvotes.indexOf(req.body.user_id)) === -1)
+          track.downvotes.push(req.body.user_id);
+        else
+          track.downvotes.splice(index, 1);
+        group.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(200);
+        });
+      } else {
+        return res.json(400)
+      }
+    })
   }
 };
 
