@@ -7,13 +7,14 @@
     <h1><span>DJ-LEVels</span></h1>
     <span flex></span>
     <!-- now playing song -->
-    <span><ng-md-icon icon="fast_rewind" class="nav" size="48"></ng-md-icon></span>
-    <span><ng-md-icon icon="play_arrow" class="nav" size="48"></ng-md-icon></span>
-    <span><ng-md-icon icon="fast_forward" class="nav" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="fast_rewind" class="nav" ng-click="previousSong()" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="play_arrow" ng-show="!songIsPlaying" ng-click="playSong()" class="nav" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="pause" ng-show="songIsPlaying" ng-click="pauseSong()" class="nav" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="fast_forward" class="nav" ng-click="nextSong()" size="48"></ng-md-icon></span>
     <span flex></span>
     <!-- user info -->
     <h1><span><ng-md-icon icon="person" class="nav" size="48"></ng-md-icon></span></h1> 
-    <h3><span>Name</span></h3>
+    <h3><span>{{ getCurrentUserName() }}</span></h3>
 </md-toolbar>
 
 

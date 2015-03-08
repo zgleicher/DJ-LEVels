@@ -3,7 +3,7 @@
 angular.module('levelsApp')
 .controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state) {
  // var allMembers = [ ],
-  var allGroups = [ ];
+var allGroups = [ ];
 
 //LOAD MEMBERS BASED ON GROUPS
 $scope.selected      = null;
@@ -16,12 +16,42 @@ $scope.once = false;
 $scope.editMode = false;
 $scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
 
+/* song player */
+$scope.songIsPlaying = false;
+
+$scope.playSong = function () {
+  //NEED LOGIC TO PLAY SONG
+  $scope.songIsPlaying = true;
+  console.log('clicked play song');
+};
+
+$scope.pauseSong = function () {
+  //NEED LOGIC 
+  $scope.songIsPlaying = false;
+  console.log('clicked pause song');
+};
+
+$scope.nextSong = function () {
+  //NEED LOGIC 
+  console.log('clicked next song');
+};
+
+$scope.previousSong = function () {
+  //NEED LOGIC 
+  console.log('clicked previous song');
+};
+
   // *********************************
   // Internal methods
   // *********************************
   $scope.getCurrentUserId = function() {
     return Auth.getCurrentUser()._id;
   };
+
+  $scope.getCurrentUserName = function() {
+    return Auth.getCurrentUser().name;
+  };
+  
   
   /**
   * Load members for a group
@@ -55,7 +85,9 @@ $scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
       }
     });
   };
-
+  /* scope.groups is updated by socket whenever any (deep) change to groups happens,
+    whenever a group change happens, trigger inside of CenterCtrl */ 
+  //POSSIBLE OPTIMIZATION: only reload / trigger changed group
   $scope.$watch(
     function (scope) { return scope.groups; }, 
     function (newGroups, oldGroups) {
@@ -73,10 +105,7 @@ $scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
   //   $mdSidenav(name).toggle();
   // };
 
-  /**
-  * Select the current members
-  * @param menuId
-  */
+
   $scope.selectMember = function ( member ) {
     $scope.selected = angular.isNumber(member) ? $scope.members[member] : member;
     $scope.toggleSidenav('left');

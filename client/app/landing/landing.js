@@ -14,9 +14,10 @@ angular.module('levelsApp')
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
             controller: function($scope, $stateParams, $http, Auth, $state){
-                SC.initialize({
-                  client_id: '8404d653618adb5d684fa8b257d4f924'
-                });
+              /* soundcloud initializtion */
+              SC.initialize({
+                client_id: '8404d653618adb5d684fa8b257d4f924'
+              });
 
               /* logic for drag and drop */
               var dropbox = document.getElementById('dropbox');
@@ -42,6 +43,7 @@ angular.module('levelsApp')
 
               $scope.dropboxHover = false;
 
+              //NEED TO ADD google drive functionality for hovering (blue circle as the target)
               $scope.hovering = function (bool) {
                 if (bool === true) {
                   $scope.dropboxHover = true;
@@ -110,6 +112,7 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+
               /* track voting */
 
               $scope.upvoteTrack = function (track) {
@@ -129,20 +132,26 @@ angular.module('levelsApp')
 
 
               $scope.addTrack = function (track) {
+                track.artwork_url != null ?
+                    track.artwork_url.replace('"', '') : ''
+                var artURL = track.artwork_url.replace('-large', '-t500x500');
                 var newTrack = {
-                  track_url: track.title,
+                  track_url: track.permalink_url,
                   title: track.title,
                   artist: track.user.username,
                   submitted_by: Auth.getCurrentUser()._id,
-                  image_url: track.artwork_url !== null ?
-                    track.artwork_url.replace('"', '') : ''
+                  image_url: artURL
                 };
 
                 // Update group object in db
-                $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack).success(function (track) {
+                $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack)
+                .success(function (track) {
                   track.submitted_by_name = Auth.getCurrentUser().name;
                   $scope.tracks.unshift(track);
-                  console.log("added track");
+                  console.log("added track to db");
+                })
+                .error(function(track, status, headers, config) {
+                  console.log('error in post track: '+ status);
                 });
               };
 
