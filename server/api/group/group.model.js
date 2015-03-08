@@ -24,6 +24,10 @@
 			ref: 'User',
 			required: '{PATH} is required!'
 		},
+		submitted_by_name	: {
+			type: String,
+			required: '{PATH} is required!'
+		},
 		image_url: String,
 		upvotes				: [{ type: ObjectId, ref: 'User' }],
 		downvotes			: [{ type: ObjectId, ref: 'User' }],

@@ -8,14 +8,7 @@ var async = require('async');
 // Get list of groups
 exports.index = function(req, res) {
   Group.find(function (err, groups) {
-    groups.forEach(function(group) {
-      group.tracks.forEach(function(track) {
-        User.findById(track.submitted_by, function(err, usr) {
-          track.submitted_by_name = usr ? usr.name : 'NOT FOUND';
-        });
-      });
-    });
-    console.log(groups);
+    if (err) { return handleError(res, err); }
     res.json(200, groups);
   });
 };
@@ -75,7 +68,6 @@ exports.track = {
     Group.findById(req.params.id, function(err, group) {
       if (err) { return handleError(res, err); }
       group.tracks.unshift(req.body);
-      console.log(group.tracks[0]);
       group.save(function(err) {
         if (err) { return handleError(res, err); }
         return res.json(201, group.tracks[0]);
