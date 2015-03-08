@@ -37,6 +37,9 @@ ng-md-icon.nav{
   margin-top: 0px;
   margin-bottom: 0px;
 }
+.no-groups {
+  padding: 0 16px;
+}
 
 section li {
   display: inline;

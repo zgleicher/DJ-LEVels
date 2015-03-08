@@ -33,6 +33,13 @@
         </md-toolbar>
 
     <md-list>
+      <md-item ng-show="groups.length === 0">
+        <md-item-content class="no-groups">
+          
+            Add a group by clicking the + button above!
+          
+        </md-item-content>
+      </md-item>
       <md-item ng-repeat="g in groups">
           <md-item-content>
             <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
@@ -40,7 +47,7 @@
               {{g.name}}
             </md-button>
             <!-- <span flex></span> -->
-            <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="deleteGroup(g)" aria-label="Delete group"></ng-md-icon>
+            <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event, g)" aria-label="Delete group"></ng-md-icon>
       </md-item>
 <!--       <md-item>
         <md-item-content>

@@ -198,6 +198,23 @@ $scope.previousSong = function () {
     };
   }
 
+$scope.showDeleteGroup = function(ev, group) {
+  var confirm = $mdDialog.confirm()
+    .title('Would you like to delete your group ' + group.name + '?')
+    .content('All of your songs and members will be lost!')
+    .ariaLabel('Lucky day')
+    .ok('Delete group')
+    .cancel('Cancel')
+    .targetEvent(ev);
+
+  $mdDialog.show(confirm).then(function() {
+    $scope.alert = 'You deleted the group.';
+    $scope.deleteGroup(group);
+  }, function() {
+    $scope.alert = 'You did not delete the group';
+  });
+}
+
   function randomNum() {
     var arr = [],
     num = Math.random()*8, 
@@ -211,12 +228,10 @@ $scope.previousSong = function () {
   /* manage editing of groups */
   $scope.setEditMode = function() {
     $scope.editMode = true;
-  }
+  };
   $scope.cancelEditMode = function() {
     $scope.editMode = false;
   };
-
-
 
   $scope.$on('$destroy', function () {
     socket.unsyncUpdates('thing');
