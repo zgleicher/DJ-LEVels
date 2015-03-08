@@ -85,12 +85,14 @@ $scope.previousSong = function () {
       }
     });
   };
-  /* scope.groups is updated by socket whenever any (deep) change to groups happens,
-    whenever a group change happens, trigger inside of CenterCtrl */ 
+  
+  //scope.groups is updated by socket whenever any (deep) change to groups happens,
+  //whenever a group change happens, trigger inside of CenterCtrl */ 
   //POSSIBLE OPTIMIZATION: only reload / trigger changed group
   $scope.$watch(
     function (scope) { return scope.groups; }, 
-    function (newGroups, oldGroups) {
+    function () {
+      //can use newGroups, oldGroups as params later
       if ($state.someShit) {
         $state.someShit.trigger();
       }
@@ -213,7 +215,7 @@ $scope.showDeleteGroup = function(ev, group) {
   }, function() {
     $scope.alert = 'You did not delete the group';
   });
-}
+};
 
   function randomNum() {
     var arr = [],

@@ -54,14 +54,14 @@ angular.module('levelsApp')
 
               $scope.isHovering = function () {
                 return $scope.dropboxHover;
-              }
+              };
 
               /* song play logic */
 
               $scope.playSong = function (track) {
                 console.log('playing track ' + track.title);
                 //NEED TO ADD LOGIC HERE!
-              }
+              };
 
 /*
               $http.get('/api/groups').success(function(levelsGroups) {
@@ -120,8 +120,8 @@ angular.module('levelsApp')
 
 
               $scope.addTrack = function (track) {
-                track.artwork_url != null ?
-                    track.artwork_url.replace('"', '') : ''
+                track.artwork_url !== null ?
+                    track.artwork_url.replace('"', '') : '';
                 var artURL = track.artwork_url.replace('-large', '-t500x500');
                 var newTrack = {
                   track_url: track.permalink_url,
@@ -136,9 +136,9 @@ angular.module('levelsApp')
                 .success(function (track) {
                   track.submitted_by_name = Auth.getCurrentUser().name;
                   $scope.tracks.unshift(track);
-                  console.log("added track to db");
+                  // console.log("added track to db");
                 })
-                .error(function(track, status, headers, config) {
+                .error(function(track, status) {
                   console.log('error in post track: '+ status);
                 });
               };
