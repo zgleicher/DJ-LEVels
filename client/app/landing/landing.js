@@ -128,6 +128,7 @@ angular.module('levelsApp')
                   title: track.title,
                   artist: track.user.username,
                   submitted_by: Auth.getCurrentUser()._id,
+                  submitted_by_name: Auth.getCurrentUser().name,
                   image_url: artURL
                 };
 
