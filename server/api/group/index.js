@@ -12,4 +12,10 @@ router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
+router.get('/:id/tracks', controller.track.index);
+//router.get('/:id/tracks/track_id', controller.track.show);
+router.post('/:id/tracks', controller.track.create);
+//router.put('/:id/tracks/:track_id', controller.track.update);
+//router.delete('/:id/tracks/:track_id', controller.track.destroy);
+
 module.exports = router;

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate) {
+.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state) {
  // var allMembers = [ ],
   var allGroups = [ ];
 
@@ -10,6 +10,8 @@ $scope.selected      = null;
 $scope.members       = [];
 $scope.selectedGroup = null;
 $scope.groups        = allGroups;
+
+$scope.once = false;
 
   // *********************************
   // Internal methods
@@ -45,9 +47,20 @@ $scope.groups        = allGroups;
       $scope.groups = levelsGroups;
       socket.syncUpdates('group', $scope.groups);
       //$scope.selectedGroup = levelsGroups[0];
-      $scope.selectGroup(levelsGroups[0]);
+      if (levelsGroups.length !== 0)
+        $scope.selectGroup(levelsGroups[0]);
     });
   };
+
+  $scope.$watch(function (scope) { return scope.groups }, function (newGroups, oldGroups) {
+    // $scope.dataCount = newNames.length;
+    //console.log("Scope tracks: " + $scope.tracks);
+    if ($state.someShit)
+      $state.someShit.trigger();
+    // if(!$scope.$$phase){
+    //   $scope.$apply();
+    // }
+  }, true);
 
   /**
   * Hide or Show the sideNav area
@@ -72,6 +85,7 @@ $scope.groups        = allGroups;
     //$scope.toggleSidenav('left');
     //load members for that group
     $scope.loadMembers(group);
+    $state.go('landing.center', { groupid: group._id });
   };
 
   $scope.addMember = function() {
@@ -151,8 +165,6 @@ $scope.groups        = allGroups;
       $scope.newGroup = '';
     };
   }
-
-
 
   function randomNum() {
     var arr = [],

@@ -17,14 +17,14 @@
       </md-toolbar>
     <md-list>
       <md-item ng-repeat="g in groups">
-        <a ui-sref='landing.center({groupid: "{{g._id}}" })'>
+        <!-- <a ui-sref='landing.center({groupid: "{{g._id}}" })'> -->
           <md-item-content>
             <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
               <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{g.name}}"></span>
               {{g.name}}
             </md-button>
           </md-item-content>
-        </a>
+        <!-- </a> -->
       </md-item>
       <md-item>
 <!--  <md-item-content>

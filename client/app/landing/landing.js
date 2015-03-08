@@ -13,7 +13,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth){
+            controller: function($scope, $stateParams, $http, Auth, $state){
                 SC.initialize({
                   client_id: '8404d653618adb5d684fa8b257d4f924'
                 });
@@ -41,43 +41,89 @@ angular.module('levelsApp')
                   });
               }
               /* end logic for drag and drop */
-
-              //controller for the center part, need to extract
-              //console.log($stateParams);
-
-              //QUERY FOR TRACKS FOR THIS GROUP
-              $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
-                $scope.group = group;
-                $scope.tracks = group.tracks;
-              })
-
-              $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
-                if(!$scope.$$phase){
-                  $scope.$apply();
-                }
+/*
+              $http.get('/api/groups').success(function(levelsGroups) {
+                $scope.groups = levelsGroups;
+                socket.syncUpdates('group', $scope.groups);
               });
 
-              //NEED TO CHANGE THIS TO LOAD TRACKS FOR GROUP
+              $scope.$on('$destroy', function () {
+                socket.unsyncUpdates('group');
+              });
+*/
+              //QUERY FOR TRACKS FOR THIS GROUP
+              console.log('this happened');
+              $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
+                for (var track in group.tracks) {
+                  if (group.tracks.hasOwnProperty(track)) {
+                    var uid = group.tracks[track].submitted_by;
+                    $http.get('/api/users/' + uid + '/name').success(function (usr) {
+                      group.tracks[track].submitted_by_name = usr.name;
+                      console.log(usr.name);
+                    });
+                    if (!group.tracks[track].submitted_by_name)
+                      group.tracks[track].submitted_by_name = 'someone';
+                  }
+                }
+                $scope.group = group;
+                $scope.tracks = group.tracks;
+// <<<<<<< HEAD
+//               })
+
+//               // $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
+//               //   if(!$scope.$$phase){
+//               //     $scope.$apply();
+//               //   }
+// =======
+// >>>>>>> b1a7df44862b548ddcb48ebc9e45f38c4c4b10b0
+              });
+              $scope.trigger = function() {
+                $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
+                  for (var track in group.tracks) {
+                    if (group.tracks.hasOwnProperty(track) && !group.tracks[track].submitted_by_name) {
+                      var uid = group.tracks[track].submitted_by;
+                      $http.get('/api/users/' + uid + '/name').success(function (usr) {
+                        group.tracks[track].submitted_by_name = usr.name;
+                        console.log(usr.name);
+                      });
+                      if (!group.tracks[track].submitted_by_name)
+                        group.tracks[track].submitted_by_name = 'someone';
+                    }
+                  }
+                  $scope.group = group;
+                  $scope.tracks = group.tracks;
+                });
+              };
+              
+              $state.someShit = $scope;
+
+              // $scope.$watch(function (scope) { return scope.groups }, function (newGroups, oldGroups) {
+              //   // $scope.dataCount = newNames.length;
+              //   //console.log("Scope tracks: " + $scope.tracks);
+              //   console.log(_.difference(newGroups, oldGroups));
+
+              //   if(!$scope.$$phase){
+              //     $scope.$apply();
+              //   }
+              // }, true);
+
               $scope.addTrack = function (track) {
-                $scope.tracks.unshift({
-                  track_id: track.title,
-                  name: track.title,
+                var newTrack = {
+                  track_url: track.title,
+                  title: track.title,
                   artist: track.user.username,
                   submitted_by: Auth.getCurrentUser()._id,
-                  image_url: track.artwork_url.replace('"', '')
-                });
-
+                  image_url: track.artwork_url != null ?
+                    track.artwork_url.replace('"', '') : ''
+                };
 
                 // Update group object in db
-                $scope.group.tracks = $scope.tracks;
-                $http.put('/api/groups/' + $scope.group._id, $scope.group).success(function () {
+                $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack).success(function (track) {
                   //$scope.$digest();
-                  console.log("added track " + $scope.tracks);
+                  track.submitted_by_name = Auth.getCurrentUser().name;
+                  $scope.tracks.unshift(track);
+                  console.log("added track");
                 });
-
-
-                
-                
               };
 
             
