@@ -3,46 +3,42 @@
   <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
     <span class="visuallyhidden">Menu</span>
   </button>
-    <h1>
-      <span>DJ-LEVels</span>
-    </h1> 
+    <h1><span>DJ-LEVels</span></h1> 
 </md-toolbar>
 
 
 <div layout="row" flex>
 
   <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
-    <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">My Groups</h1>
-      </md-toolbar>
+      <md-toolbar>
+          <div class="md-toolbar-tools">
+            <span>My Groups</span>
+            <!-- fill up the space between left and right area -->
+            <span flex></span>
+            <ng-md-icon icon="mode_edit" size="18" ng-show="!editMode" ng-click="setEditMode()"></ng-md-icon>
+            <ng-md-icon icon="done" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon>
+            <ng-md-icon icon="add" size="18" ng-click="showAddGroup($event)"></ng-md-icon>
+          </div>
+        </md-toolbar>
+
     <md-list>
       <md-item ng-repeat="g in groups">
-        <!-- <a ui-sref='landing.center({groupid: "{{g._id}}" })'> -->
           <md-item-content>
             <md-button ng-click="selectGroup(g)" ng-class="{'selected' : g === selectedGroup }">
               <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{g.name}}"></span>
               {{g.name}}
             </md-button>
-          </md-item-content>
-        <!-- </a> -->
+            <!-- <span flex></span> -->
+            <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="deleteGroup(g)" aria-label="Delete group"></ng-md-icon>
       </md-item>
-      <md-item>
-<!--  <md-item-content>
-          <md-button class="md-fab md-primary md-hue-2" aria-label="Profile">
-            <md-icon md-svg-src="img/icons/ic_people_24px.svg"></md-icon>
-          </md-button>
-        </md-item-content> -->
+<!--       <md-item>
         <md-item-content>
           <md-button ng-click="showAddGroup($event)">
             <span class="avatar"><img src="../../assets/images/indigo.png" alt="Create new group"></span>
             Create new group
           </md-button>
         </md-item-content>
-      </md-item>
-      <br/>
-      <b layout="row" layout-align="center center" layout-margin>
-        {{groupAction}}
-      </b>
+      </md-item> -->
     </md-list>
   </md-sidenav>
 

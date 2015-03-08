@@ -12,6 +12,9 @@ $scope.selectedGroup = null;
 $scope.groups        = allGroups;
 
 $scope.once = false;
+/* keep track of when you are in edit groups mode */
+$scope.editMode = false;
+$scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
 
   // *********************************
   // Internal methods
@@ -47,20 +50,20 @@ $scope.once = false;
       $scope.groups = levelsGroups;
       socket.syncUpdates('group', $scope.groups);
       //$scope.selectedGroup = levelsGroups[0];
-      if (levelsGroups.length !== 0)
+      if (levelsGroups.length !== 0) {
         $scope.selectGroup(levelsGroups[0]);
+      }
     });
   };
 
-  $scope.$watch(function (scope) { return scope.groups }, function (newGroups, oldGroups) {
-    // $scope.dataCount = newNames.length;
-    //console.log("Scope tracks: " + $scope.tracks);
-    if ($state.someShit)
-      $state.someShit.trigger();
-    // if(!$scope.$$phase){
-    //   $scope.$apply();
-    // }
-  }, true);
+  $scope.$watch(
+    function (scope) { return scope.groups; }, 
+    function (newGroups, oldGroups) {
+      if ($state.someShit) {
+        $state.someShit.trigger();
+      }
+    }, 
+    true);
 
   /**
   * Hide or Show the sideNav area
@@ -117,7 +120,7 @@ $scope.once = false;
         .position($scope.getToastPosition())
         .hideDelay(1500)
     );
-  }
+  };
 
   $scope.deleteThing = function(thing) {
     $http.delete('/api/things/' + thing._id);
@@ -175,6 +178,16 @@ $scope.once = false;
     }
     return arr;
   }
+
+  /* manage editing of groups */
+  $scope.setEditMode = function() {
+    $scope.editMode = true;
+  }
+  $scope.cancelEditMode = function() {
+    $scope.editMode = false;
+  };
+
+
 
   $scope.$on('$destroy', function () {
     socket.unsyncUpdates('thing');

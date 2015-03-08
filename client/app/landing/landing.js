@@ -34,9 +34,8 @@ angular.module('levelsApp')
                   evt.preventDefault(); 
                   var track_url = evt.dataTransfer.getData('URL');
                   
-                  //MAKE API CALL TO SOUNDCLOUD, populate data, add track to tracks
+                  //make api call to soundcloud, populate data, add track to tracks
                   SC.get('/resolve', { url: track_url }, function(track) {
-                    //console.log(track);
                     $scope.addTrack(track);
                   });
               }
@@ -52,7 +51,7 @@ angular.module('levelsApp')
               });
 */
               //QUERY FOR TRACKS FOR THIS GROUP
-              console.log('this happened');
+              // console.log('this happened');
               $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
                 for (var track in group.tracks) {
                   if (group.tracks.hasOwnProperty(track)) {
@@ -61,8 +60,9 @@ angular.module('levelsApp')
                       group.tracks[track].submitted_by_name = usr.name;
                       console.log(usr.name);
                     });
-                    if (!group.tracks[track].submitted_by_name)
+                    if (!group.tracks[track].submitted_by_name) {
                       group.tracks[track].submitted_by_name = 'someone';
+                    }
                   }
                 }
                 $scope.group = group;
@@ -86,8 +86,9 @@ angular.module('levelsApp')
                         group.tracks[track].submitted_by_name = usr.name;
                         console.log(usr.name);
                       });
-                      if (!group.tracks[track].submitted_by_name)
+                      if (!group.tracks[track].submitted_by_name) {
                         group.tracks[track].submitted_by_name = 'someone';
+                      }
                     }
                   }
                   $scope.group = group;
@@ -97,29 +98,18 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
-              // $scope.$watch(function (scope) { return scope.groups }, function (newGroups, oldGroups) {
-              //   // $scope.dataCount = newNames.length;
-              //   //console.log("Scope tracks: " + $scope.tracks);
-              //   console.log(_.difference(newGroups, oldGroups));
-
-              //   if(!$scope.$$phase){
-              //     $scope.$apply();
-              //   }
-              // }, true);
-
               $scope.addTrack = function (track) {
                 var newTrack = {
                   track_url: track.title,
                   title: track.title,
                   artist: track.user.username,
                   submitted_by: Auth.getCurrentUser()._id,
-                  image_url: track.artwork_url != null ?
+                  image_url: track.artwork_url !== null ?
                     track.artwork_url.replace('"', '') : ''
                 };
 
                 // Update group object in db
                 $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack).success(function (track) {
-                  //$scope.$digest();
                   track.submitted_by_name = Auth.getCurrentUser().name;
                   $scope.tracks.unshift(track);
                   console.log("added track");

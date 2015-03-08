@@ -5,6 +5,23 @@
 }
 
 
+/* edit & save button */
+ng-md-icon {
+  fill: white;
+  padding: 0; 
+  display: inline-block; 
+  vertical-align:middle; 
+  margin: auto 8px auto auto;
+}
+
+ng-md-icon.delete-group {
+  fill: grey;
+  padding: 0; 
+  display: inline-block; 
+  vertical-align:middle; 
+  margin: auto 8px auto auto;
+}
+
 section li {
   display: inline;
   display: inline-block;
@@ -14,6 +31,7 @@ section li {
   cursor: default
 }
 
+/* group photos */
 .avatar {
   position: relative;
   width: 128px;
@@ -29,8 +47,8 @@ section li {
   -moz-transform:scale(0.70);
 }
 
-/*make right (members) sidenav skinnier,
-make both sidenav bars full height*/
+/* make right (members) sidenav skinnier,
+make both sidenav bars full height */
 .md-sidenav-right {
   min-width: 128px !important;
   width: 50vw !important;
@@ -85,11 +103,6 @@ make both sidenav bars full height*/
     display: block;
     height: auto;
     max-width: 500px;
-  }
-
-  /*KRISTIE PUT THIS HERE*/
-  #groups {
-    /*background-color: rgb(70, 98, 137);*/
   }
 
   /* Utils */

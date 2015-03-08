@@ -9,7 +9,8 @@ angular.module('levelsApp', [
   'ui.router',
   'ui.bootstrap',
   'ngMaterial',
-  'ngAria'
+  'ngAria',
+  'ngMdIcons'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider

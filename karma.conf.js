@@ -25,6 +25,7 @@ module.exports = function(config) {
       'client/bower_components/angular-material/angular-material.js',
       'client/bower_components/angular-animate/angular-animate.js',
       'client/bower_components/angular-aria/angular-aria.js',
+      'client/bower_components/angular-material-icons/angular-material-icons.js',
       'client/app/app.js',
       'client/app/app.coffee',
       'client/app/**/*.js',
