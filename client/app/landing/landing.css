@@ -2,11 +2,12 @@
 #nav-bar {
   background-color: #f80 !important;
   color: white;
+  padding: 0px 16px;
 }
 
 
 /* edit & save button */
-ng-md-icon {
+ng-md-icon.group-icons {
   fill: white;
   padding: 0; 
   display: inline-block; 
@@ -20,6 +21,21 @@ ng-md-icon.delete-group {
   display: inline-block; 
   vertical-align:middle; 
   margin: auto 8px auto auto;
+}
+
+ng-md-icon.vote {
+  fill: black;
+  padding: 0 0; 
+  vertical-align:middle; 
+}
+
+ng-md-icon.nav{
+  fill:white;
+}
+
+.vote {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 section li {

@@ -1,19 +1,38 @@
 <md-content>
 	<md-card>
-	  <!-- <img src="http://lorempixel.com/200/200" alt="Song title"> -->
-	  <md-card-content id="dropbox">
-	    <h2>This is the drop box</h2>
+	  <md-card-content id="dropbox" ng-mouseover="hovering(true)" ng-mouseout="hovering(false)">
+	    <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
 	    <p>
 	      Drop here
 	    </p>
-	  </md-card-content>
+	    <p ng-show="isHovering()">YOU ARE HOVERING</p>
+<!-- 	    <md-card-content id="dropbox">
+	      <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
+	      <p>
+	        Drop here
+	      </p>  
+	  </md-card-content> -->
 	</md-card>
 	<md-card ng-repeat="track in tracks">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
-	    <h2>{{track.title}}</h2>
-	    <p>{{track.artist}}</p>
-	    <p>Submitted by: {{track.submitted_by_name}}</p>
+			<div layout="row" layout-align="space-around center" layout-wrap>
+			  <div flex="10">
+			    <div layout="column" layout-align="center center">
+			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="upvoteTrack(track)" aria-label="Upvote track"></ng-md-icon>
+			    	<h2 class="vote">{{ getVotes(track) }}</h2>
+			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="downvoteTrack(track)" aria-label="Downvote track"></ng-md-icon>
+			    </div>
+			  </div>
+			  <div flex="80">
+			    <h2>{{track.title}}</h2>
+			    <p>{{track.artist}}</p>
+			    <p>Submitted by: {{track.submitted_by_name}}</p>
+			  </div>
+			  <div flex="10">
+			  	<ng-md-icon icon="play_arrow" size="48" ng-click="playSong(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+			  </div>
+			</div>
 	  </md-card-content>
 	</md-card>
 </md-content>

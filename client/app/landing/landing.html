@@ -1,9 +1,19 @@
 
-<md-toolbar id="nav-bar" layout="row" layout-align="center center">
-  <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
+<md-toolbar id="nav-bar" layout="row" layout-align="space-between center">
+    <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
     <span class="visuallyhidden">Menu</span>
   </button>
-    <h1><span>DJ-LEVels</span></h1> 
+    <!-- logo -->
+    <h1><span>DJ-LEVels</span></h1>
+    <span flex></span>
+    <!-- now playing song -->
+    <span><ng-md-icon icon="fast_rewind" class="nav" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="play_arrow" class="nav" size="48"></ng-md-icon></span>
+    <span><ng-md-icon icon="fast_forward" class="nav" size="48"></ng-md-icon></span>
+    <span flex></span>
+    <!-- user info -->
+    <h1><span><ng-md-icon icon="person" class="nav" size="48"></ng-md-icon></span></h1> 
+    <h3><span>Name</span></h3>
 </md-toolbar>
 
 
@@ -15,9 +25,9 @@
             <span>My Groups</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <ng-md-icon icon="mode_edit" size="18" ng-show="!editMode" ng-click="setEditMode()"></ng-md-icon>
-            <ng-md-icon icon="done" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon>
-            <ng-md-icon icon="add" size="18" ng-click="showAddGroup($event)"></ng-md-icon>
+            <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-click="setEditMode()"></ng-md-icon>
+            <ng-md-icon icon="done" class="group-icons" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon>
+            <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)"></ng-md-icon>
           </div>
         </md-toolbar>
 

@@ -39,7 +39,28 @@ angular.module('levelsApp')
                     $scope.addTrack(track);
                   });
               }
-              /* end logic for drag and drop */
+
+              $scope.dropboxHover = false;
+
+              $scope.hovering = function (bool) {
+                if (bool === true) {
+                  $scope.dropboxHover = true;
+                } else {
+                  $scope.dropboxHover = false;
+                }
+              };
+
+              $scope.isHovering = function () {
+                return $scope.dropboxHover;
+              }
+
+              /* song play logic */
+
+              $scope.playSong = function (track) {
+                console.log('playing track ' + track.title);
+                //NEED TO ADD LOGIC HERE!
+              }
+
 /*
               $http.get('/api/groups').success(function(levelsGroups) {
                 $scope.groups = levelsGroups;
@@ -51,7 +72,6 @@ angular.module('levelsApp')
               });
 */
               //QUERY FOR TRACKS FOR THIS GROUP
-              // console.log('this happened');
               $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
                 for (var track in group.tracks) {
                   if (group.tracks.hasOwnProperty(track)) {
@@ -67,16 +87,8 @@ angular.module('levelsApp')
                 }
                 $scope.group = group;
                 $scope.tracks = group.tracks;
-// <<<<<<< HEAD
-//               })
-
-//               // $scope.$watchCollection(function (scope) { return scope.tracks }, function (newTracks, oldTracks) {
-//               //   if(!$scope.$$phase){
-//               //     $scope.$apply();
-//               //   }
-// =======
-// >>>>>>> b1a7df44862b548ddcb48ebc9e45f38c4c4b10b0
               });
+
               $scope.trigger = function() {
                 $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
                   for (var track in group.tracks) {
@@ -98,6 +110,24 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+              /* track voting */
+
+              $scope.upvoteTrack = function (track) {
+                console.log('upvoting '+track.title);
+                //NEED LOGIC HERE
+              };
+
+              $scope.downvoteTrack = function (track) {
+                console.log('downvoting '+track.title);
+                //NEED LOGIC HERE
+              };
+
+              $scope.getVotes = function (track) {
+                //NEED LOGIC HERE
+                return 20;
+              };
+
+
               $scope.addTrack = function (track) {
                 var newTrack = {
                   track_url: track.title,
@@ -116,7 +146,7 @@ angular.module('levelsApp')
                 });
               };
 
-            
+
             }
           }
         }
