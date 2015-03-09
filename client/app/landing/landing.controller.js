@@ -25,10 +25,25 @@ $scope.currentTrack = undefined;
 $scope.currentSound = undefined;
 
 $scope.addIconColor = 'white';
+$scope.playIconColor = 'white';
+$scope.prevIconColor = 'white';
+$scope.nextIconColor = 'white';
 
-$scope.setAddIconColor = function(value) {
-  $scope.addIconColor = value;
-  console.log($scope.addIconColor);
+$scope.setIconColor = function(icon, value) {
+  switch (icon) {
+    case 'add':
+      $scope.addIconColor = value;
+      break;
+    case 'play':
+      $scope.playIconColor = value;
+      break;
+    case 'prev':
+      $scope.prevIconColor = value;
+      break;
+    case 'next':
+      $scope.nextIconColor = value;
+      break;
+  };
 };
 
 $scope.playSong = function () {
