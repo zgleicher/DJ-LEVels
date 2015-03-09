@@ -1,8 +1,14 @@
 <md-content>
 	<md-card>
 		<md-card-content id="groupbox">
-			<h1>{{group.name}}</h1>
-			<p>Owner: {{group.owner_name}}</p>
+<!-- 			<div layout="row" layout-align="center center"> -->
+			<div>
+<!-- 				<h1 style="display:inline">{{group.name}}</h1>
+				<h2 style="display:inline; color: grey">Created by {{group.owner_name}}</h2> -->
+				<h1>{{group.name}}</h1>
+				<h2>Created by {{group.owner_name}}</h2>
+			
+			</div>
 			<md-button ng-click="showContributors($event)">{{group.contributors.length}} contributors</md-button>
 			<md-button>{{group.followers.length}} followers</md-button>
 		</md-card-content>
