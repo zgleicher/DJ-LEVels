@@ -22,14 +22,16 @@
 
 <div layout="row" flex>
 
+<!-- make sidebar viewport height -->
+<div layout="column"> 
   <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Groups</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-hide="groups.length === 0" ng-click="setEditMode()"></ng-md-icon>
-            <ng-md-icon icon="done" class="group-icons" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon>
+            <!-- <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-hide="groups.length === 0" ng-click="setEditMode()"></ng-md-icon>
+            <ng-md-icon icon="done" class="group-icons" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon> -->
             <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)"></ng-md-icon>
           </div>
         </md-toolbar>
@@ -49,40 +51,40 @@
               {{g.name}}
             </md-button>
             <!-- <span flex></span> -->
-            <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event, g)" aria-label="Delete group"></ng-md-icon>
-      </md-item>
+      <!--       <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event, g)" aria-label="Delete group"></ng-md-icon> -->
+      <!-- </md-item> -->
 <!--       <md-item>
         <md-item-content>
           <md-button ng-click="showAddGroup($event)">
             <span class="avatar"><img src="../../assets/images/indigo.png" alt="Create new group"></span>
             Create new group
-          </md-button>
+          </md-button> -->
         </md-item-content>
-      </md-item> -->
+      </md-item>
     </md-list>
   </md-sidenav>
+</div>
 
   <div layout="column" flex class="content-wrapper" id="content">
-    <md-content layout="column" flex class="md-padding">
+    <md-content layout="column" flex>
         <div ui-view="center-content"></div>
     </md-content>
     
   </div>
   
-  <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
+<!--   <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
     <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">Members</h1>
       </md-toolbar>
     <md-list layout-align="center center">
       <md-item ng-repeat="it in members">
         <md-item-content>
-          <!-- <md-button ng-click="selectMember(it)" ng-class="{'selected' : it === selected }"> -->
             <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{it.name}}"></span>
             {{it.name}}
           </md-button>
         </md-item-content>
       </md-item>
     </md-list>
-  </md-sidenav>
+  </md-sidenav> -->
 </div>
  

@@ -41,6 +41,8 @@ ng-md-icon.nav{
   padding: 0 16px;
 }
 
+
+
 section li {
   display: inline;
   display: inline-block;
@@ -66,16 +68,21 @@ section li {
   -moz-transform:scale(0.70);
 }
 
-/* make right (members) sidenav skinnier,
-make both sidenav bars full height */
-.md-sidenav-right {
-  min-width: 128px !important;
-  width: 50vw !important;
-  max-width: 128px !important;
+
+.md-sidenav-left {
   min-height: calc(100vh - 85px) !important;
   min-height: -o-calc(100vh - 85px);
   min-height: -webkit-calc(100vh - 85px);
   min-height: -moz-calc(100vh - 85px); 
+  overflow-y: auto;
+}
+
+.centerContent {
+/*  max-height: calc(100vh - 85px) !important;
+  max-height: -o-calc(100vh - 85px);
+  max-height: -webkit-calc(100vh - 85px);
+  max-height: -moz-calc(100vh - 85px); */
+  overflow-y: auto;
 }
 
   /* Sidenav area */

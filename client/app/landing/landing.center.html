@@ -3,8 +3,8 @@
 		<md-card-content id="groupbox">
 			<h1>{{group.name}}</h1>
 			<p>Owner: {{group.owner_name}}</p>
-			<p>{{group.contributors.length}} contributors</p>
-			<p>{{group.followers.length}} followers</p>
+			<md-button>{{group.contributors.length}} contributors</md-button>
+			<md-button>{{group.followers.length}} followers</md-button>
 		</md-card-content>
 	</md-card>
 	<md-card>
@@ -21,7 +21,7 @@
 	      </p>  
 	  </md-card-content> -->
 	</md-card>
-	<md-card ng-repeat="track in tracks">
+	<md-card ng-repeat="track in tracks | orderBy : getVotes : reverse">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
 			<div layout="row" layout-align="space-around center" layout-wrap>
