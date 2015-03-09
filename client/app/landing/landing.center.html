@@ -3,7 +3,7 @@
 		<md-card-content id="groupbox">
 			<h1>{{group.name}}</h1>
 			<p>Owner: {{group.owner_name}}</p>
-			<md-button>{{group.contributors.length}} contributors</md-button>
+			<md-button ng-click="showContributors($event)">{{group.contributors.length}} contributors</md-button>
 			<md-button>{{group.followers.length}} followers</md-button>
 		</md-card-content>
 	</md-card>

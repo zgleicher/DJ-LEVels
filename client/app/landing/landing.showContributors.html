@@ -1,0 +1,44 @@
+<!-- <md-dialog aria-label="Contributors">
+  <md-content class="md-padding">
+    <md-subheader style="background-color: #3f51b5; color: white; margin: 0px;">Contributors</md-subheader>
+    <form name="groupForm">
+      <md-input-container>
+        <label>Group Name</label>
+        <input required name="groupName" ng-model="groupName">
+        <div ng-messages="groupForm.groupName.$error">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <div class="md-actions" layout="row">
+        <span flex></span>
+        <md-button type="button" ng-click="cancel()">Cancel</md-button>
+        <md-button ng-click="finishForm(groupName)" class="md-primary" type="submit">Create Group</md-button>
+      </div>
+    </form>
+  </md-content>
+</md-dialog>
+
+ -->
+<md-dialog aria-label="Mango (Fruit)">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      Contributors
+    </div>
+  </md-toolbar>
+  <md-content>
+    <!-- <md-subheader class="md-sticky-no-effect">Mango (Fruit)</md-subheader> -->
+    <p>
+      Add a contributor
+    </p>
+    <img style="margin: auto; max-width: 100%;" src="img/mangues.jpg">
+    <p>
+      These are the current contributors.
+    </p>
+  </md-content>
+  <div class="md-actions" layout="row">
+    <span flex></span>
+    <md-button type="submit" ng-click="finishForm()" class="md-primary">
+      Done
+    </md-button>
+  </div>
+</md-dialog>

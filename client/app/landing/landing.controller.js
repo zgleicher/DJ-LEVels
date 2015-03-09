@@ -14,8 +14,8 @@ $scope.groups        = allGroups;
 $scope.once = false;
 /* keep track of when you are in edit groups mode */
 $scope.editMode = false;
-$scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
 
+$rootScope.$landingCtrlScope = $scope;
 
 
 /* song player */
@@ -141,15 +141,8 @@ $scope.previousSong = function () {
     },
     true
   );
-  $rootScope.$landingCtrlScope = $scope;
-  /**
-  * Hide or Show the sideNav area
-  * @param menuId
-  */
-  // $scope.toggleSideNav = function( name ) {
-  //   $mdSidenav(name).toggle();
-  // };
 
+  
 
   $scope.selectMember = function ( member ) {
     $scope.selected = angular.isNumber(member) ? $scope.members[member] : member;
@@ -216,8 +209,7 @@ $scope.previousSong = function () {
     });
   };
 
-  var $parentScope = $scope;
-  //
+
   function AddGroupController($scope, $mdDialog) {
     $scope.hide = function() {
       $mdDialog.hide();
@@ -232,10 +224,7 @@ $scope.previousSong = function () {
     };
 
     $scope.addGroup = function() {
-      if($scope.newGroup === '') {
-        return;
-      }
-      console.log('in add group: '+ $scope.newGroup);
+      if($scope.newGroup === '') { return; }
       $http.post('/api/groups', {
         name: $scope.newGroup,
         owner: Auth.getCurrentUser()._id,
@@ -246,6 +235,8 @@ $scope.previousSong = function () {
       $scope.newGroup = '';
     };
   }
+
+/* Delete Group Confirmation */
 
 $scope.showDeleteGroup = function(ev, group) {
   var confirm = $mdDialog.confirm()
@@ -264,6 +255,12 @@ $scope.showDeleteGroup = function(ev, group) {
   });
 };
 
+
+
+
+
+
+
   function randomNum() {
     var arr = [],
     num = Math.random()*8, 
@@ -275,6 +272,7 @@ $scope.showDeleteGroup = function(ev, group) {
   }
 
   /* manage editing of groups */
+
   $scope.setEditMode = function() {
     $scope.editMode = true;
   };

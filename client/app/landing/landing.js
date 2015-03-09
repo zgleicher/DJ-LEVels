@@ -13,7 +13,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope){
+            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog){
               /* soundcloud initializtion */
               SC.initialize({
                 client_id: '8404d653618adb5d684fa8b257d4f924'
@@ -119,6 +119,51 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+
+              /* Show Members Functionality */ 
+
+              $scope.showContributors = function(ev) {
+                   $mdDialog.show({
+                    controller: ContributorsController,
+                    templateUrl: 'app/landing/landing.showContributors.html',      
+                    targetEvent: ev,
+                  })
+                  .then(function(groupName) {
+                    //$scope.showGroupToast(groupName);
+                  }, function() {
+                    //$scope.groupAction = 'You cancelled the create group dialog.';
+                  });
+                };
+
+
+                function ContributorsController($scope, $mdDialog) {
+                  $scope.hide = function() {
+                    $mdDialog.hide();
+                  };
+                  $scope.cancel = function() {
+                    $mdDialog.cancel();
+                  };
+                  $scope.finishForm = function(answer) {
+                    $mdDialog.hide(answer);
+                    // $scope.newGroup = answer;
+                    // $scope.addGroup();
+                  };
+
+                  $scope.addContributor = function() {
+                    if($scope.newGroup === '') { return; }
+                    $http.post('/api/groups', {
+                      name: $scope.newGroup,
+                      owner: Auth.getCurrentUser()._id,
+                      owner_name: Auth.getCurrentUser().name
+                    }).success(function (group) {
+                      $rootScope.$landingCtrlScope.selectGroup(group);
+                    });
+                    $scope.newGroup = '';
+                  };
+                }
+
+
+
               $scope.addContributor = function(user_id) {
                 $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
                     "user_id": user_id
@@ -157,11 +202,9 @@ angular.module('levelsApp')
                   return 'black'
               };
 
-              /* track voting */
+              /* Track Voting */
 
               $scope.upvoteTrack = function (track) {
-                console.log('upvoting '+track.title);
-                //NEED LOGIC HERE
                 $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
                   { 
                     "direction": "up",
@@ -171,8 +214,6 @@ angular.module('levelsApp')
               };
 
               $scope.downvoteTrack = function (track) {
-                console.log('downvoting '+track.title);
-                //NEED LOGIC HERE
                 $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
                   { 
                     "direction": "down",
@@ -182,7 +223,6 @@ angular.module('levelsApp')
               };
 
               $scope.getVotes = function (track) {
-                //NEED LOGIC HERE
                 return track.upvotes.length - track.downvotes.length;
               };
 
@@ -206,7 +246,6 @@ angular.module('levelsApp')
                 .success(function (track) {
                   track.submitted_by_name = Auth.getCurrentUser().name;
                   $scope.tracks.unshift(track);
-                  // console.log("added track to db");
                 })
                 .error(function(track, status) {
                   console.log('error in post track: '+ status);
