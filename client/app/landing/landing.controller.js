@@ -19,19 +19,32 @@ $scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
 
 
 /* song player */
+$scope.newTrack = false;
 $scope.songIsPlaying = false;
-$scope.currentTrack = {
-  'title': 'Hey this is a song'
-};
+$scope.currentTrack = undefined;
+$scope.currentSound = undefined;
 
 $scope.playSong = function () {
+  if ($scope.newTrack && $scope.currentSound)
+    $scope.currentSound.stop();
   //NEED LOGIC TO PLAY SONG
   $scope.songIsPlaying = true;
   console.log('clicked play song');
+  if ($scope.newTrack) {
+    SC.stream('/tracks/' + $scope.currentTrack.track_id, function(sound){
+      $scope.currentSound = sound;
+      $scope.currentSound.play();
+    });
+    $scope.newTrack = false;
+  } else {
+    $scope.currentSound.resume();
+  }
 };
 
 $scope.pauseSong = function () {
   //NEED LOGIC 
+  if ($scope.currentSound)
+    $scope.currentSound.pause();
   $scope.songIsPlaying = false;
   console.log('clicked pause song');
 };
@@ -39,11 +52,13 @@ $scope.pauseSong = function () {
 $scope.nextSong = function () {
   //NEED LOGIC 
   console.log('clicked next song');
+  $rootScope.$centerCtrlScope.playNext();
 };
 
 $scope.previousSong = function () {
   //NEED LOGIC 
   console.log('clicked previous song');
+  $rootScope.$centerCtrlScope.playPrevious();
 };
 
   // *********************************

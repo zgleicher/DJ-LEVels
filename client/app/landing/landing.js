@@ -13,11 +13,37 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth, $state){
+            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope){
               /* soundcloud initializtion */
               SC.initialize({
                 client_id: '8404d653618adb5d684fa8b257d4f924'
               });
+
+              $rootScope.$centerCtrlScope = $scope;
+
+              $scope.playNext = function() {
+                var index;
+                for (var i = 0; i < $scope.group.tracks.length; i++) {
+                  if ($scope.group.tracks[i].track_id === $scope.currentTrack.track_id) {
+                    index = i;
+                    break;
+                  }
+                }
+                if (index !== $scope.group.tracks.length - 1)
+                  $scope.playSong($scope.group.tracks[index + 1]);
+              };
+
+              $scope.playPrevious = function() {
+                var index;
+                for (var i = 0; i < $scope.group.tracks.length; i++) {
+                  if ($scope.group.tracks[i].track_id === $scope.currentTrack.track_id) {
+                    index = i;
+                    break;
+                  }
+                }
+                if (index !== 0)
+                  $scope.playSong($scope.group.tracks[index - 1]);
+              };
 
               /* logic for drag and drop */
               var dropbox = document.getElementById('dropbox');
@@ -60,6 +86,10 @@ angular.module('levelsApp')
 
               $scope.playSong = function (track) {
                 console.log('playing track ' + track.title);
+                $scope.currentTrack = track;
+                $rootScope.$landingCtrlScope.currentTrack = track;
+                $rootScope.$landingCtrlScope.newTrack = true;
+                $rootScope.$landingCtrlScope.playSong();
                 //NEED TO ADD LOGIC HERE!
               };
 
@@ -83,10 +113,35 @@ angular.module('levelsApp')
                 $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
                   $scope.group = group;
                   $scope.tracks = group.tracks;
+                  $rootScope.$landingCtrlScope.currentTrack = group.tracks[0];
                 });
               };
               
               $state.someShit = $scope;
+
+              $scope.addContributor = function(user_id) {
+                $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
+                    "user_id": user_id
+                });
+              };
+
+              $scope.removeContributor = function(user_id) {
+                $http.delete('/api/groups/' + $stateParams.groupid + '/contributors', {
+                    "user_id": user_id
+                });
+              };
+
+              $scope.addFollower = function(user_id) {
+                $http.put('/api/groups/' + $stateParams.groupid + '/followers', {
+                    "user_id": user_id
+                });
+              };
+
+              $scope.removeFollower = function(user_id) {
+                $http.delete('/api/groups/' + $stateParams.groupid + '/followers', {
+                    "user_id": user_id
+                });
+              };
 
               $scope.upColor = function(track) {
                 if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
@@ -137,6 +192,7 @@ angular.module('levelsApp')
                     track.artwork_url.replace('"', '') : '';
                 var artURL = track.artwork_url.replace('-large', '-t500x500');
                 var newTrack = {
+                  track_id: track.id,
                   track_url: track.permalink_url,
                   title: track.title,
                   artist: track.user.username,

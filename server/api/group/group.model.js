@@ -7,6 +7,10 @@
 	    ObjectId	= Schema.Types.ObjectId;
 
 	var trackSchema = new Schema({
+		track_id			: {
+			type: Number,
+			required: '{PATH} is required!'
+		},
 		track_url			: {
 			type: String,
 			required: '{PATH} is required!',
