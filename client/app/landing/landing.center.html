@@ -1,5 +1,13 @@
 <md-content>
 	<md-card>
+		<md-card-content id="groupbox">
+			<h1>{{group.name}}</h1>
+			<p>Owner: {{group.owner_name}}</p>
+			<p>{{group.contributors.length}} contributors</p>
+			<p>{{group.followers.length}} followers</p>
+		</md-card-content>
+	</md-card>
+	<md-card>
 	  <md-card-content id="dropbox" ng-mouseover="hovering(true)" ng-mouseout="hovering(false)">
 	    <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
 	    <p>
@@ -19,9 +27,9 @@
 			<div layout="row" layout-align="space-around center" layout-wrap>
 			  <div flex="10">
 			    <div layout="column" layout-align="center center">
-			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="upvoteTrack(track)" aria-label="Upvote track"></ng-md-icon>
+			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="upvoteTrack(track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
 			    	<h2 class="vote">{{ getVotes(track) }}</h2>
-			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="downvoteTrack(track)" aria-label="Downvote track"></ng-md-icon>
+			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="downvoteTrack(track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
 			    </div>
 			  </div>
 			  <div flex="80">

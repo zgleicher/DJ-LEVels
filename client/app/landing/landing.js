@@ -88,6 +88,19 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+              $scope.upColor = function(track) {
+                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
+              };
+
+              $scope.downColor = function(track) {
+                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
+              };
 
               /* track voting */
 

@@ -46,6 +46,10 @@
 			ref: 'User',
 			required: '{PATH} is required!'
 		},
+		owner_name				: {
+			type: String,
+			required: '{PATH} is required!'
+		},
 		tracks				: [trackSchema],
 		contributors	: [{ type: ObjectId, ref: 'User' }],
 		followers			: [{ type: ObjectId, ref: 'User' }],

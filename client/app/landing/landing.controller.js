@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state) {
+.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope) {
  // var allMembers = [ ],
 var allGroups = [ ];
 
@@ -91,14 +91,15 @@ $scope.previousSong = function () {
   //POSSIBLE OPTIMIZATION: only reload / trigger changed group
   $scope.$watch(
     function (scope) { return scope.groups; }, 
-    function () {
+    function (newGroups, oldGroups) {
       //can use newGroups, oldGroups as params later
       if ($state.someShit) {
         $state.someShit.trigger();
       }
-    }, 
-    true);
-
+    },
+    true
+  );
+  $rootScope.$landingCtrlScope = $scope;
   /**
   * Hide or Show the sideNav area
   * @param menuId
@@ -194,7 +195,10 @@ $scope.previousSong = function () {
       console.log('in add group: '+ $scope.newGroup);
       $http.post('/api/groups', {
         name: $scope.newGroup,
-        owner: Auth.getCurrentUser()._id
+        owner: Auth.getCurrentUser()._id,
+        owner_name: Auth.getCurrentUser().name
+      }).success(function (group) {
+        $rootScope.$landingCtrlScope.selectGroup(group);
       });
       $scope.newGroup = '';
     };
