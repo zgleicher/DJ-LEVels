@@ -24,6 +24,13 @@ $scope.songIsPlaying = false;
 $scope.currentTrack = undefined;
 $scope.currentSound = undefined;
 
+$scope.addIconColor = 'white';
+
+$scope.setAddIconColor = function(value) {
+  $scope.addIconColor = value;
+  console.log($scope.addIconColor);
+};
+
 $scope.playSong = function () {
   if ($scope.newTrack && $scope.currentSound)
     $scope.currentSound.stop();
