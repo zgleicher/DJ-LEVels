@@ -21,7 +21,7 @@
 	      </p>  
 	  </md-card-content> -->
 	</md-card>
-	<md-card ng-repeat="track in tracks | orderBy : getVotes : reverse">
+	<md-card ng-repeat="track in tracks | orderBy : getVotes : true">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
 			<div layout="row" layout-align="space-around center" layout-wrap>

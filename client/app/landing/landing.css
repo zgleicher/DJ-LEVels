@@ -77,11 +77,11 @@ section li {
   overflow-y: auto;
 }
 
-.centerContent {
-/*  max-height: calc(100vh - 85px) !important;
+#content {
+  max-height: calc(100vh - 85px) !important;
   max-height: -o-calc(100vh - 85px);
   max-height: -webkit-calc(100vh - 85px);
-  max-height: -moz-calc(100vh - 85px); */
+  max-height: -moz-calc(100vh - 85px); 
   overflow-y: auto;
 }
 
