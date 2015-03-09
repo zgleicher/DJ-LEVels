@@ -88,6 +88,19 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+              $scope.upColor = function(track) {
+                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
+              };
+
+              $scope.downColor = function(track) {
+                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
+              };
 
               /* track voting */
 
@@ -128,6 +141,7 @@ angular.module('levelsApp')
                   title: track.title,
                   artist: track.user.username,
                   submitted_by: Auth.getCurrentUser()._id,
+                  submitted_by_name: Auth.getCurrentUser().name,
                   image_url: artURL
                 };
 
