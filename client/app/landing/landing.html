@@ -26,7 +26,7 @@
             <span>My Groups</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-click="setEditMode()"></ng-md-icon>
+            <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-hide="groups.length === 0" ng-click="setEditMode()"></ng-md-icon>
             <ng-md-icon icon="done" class="group-icons" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon>
             <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)"></ng-md-icon>
           </div>

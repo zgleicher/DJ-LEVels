@@ -85,7 +85,7 @@ $scope.previousSong = function () {
       }
     });
   };
-  
+
   //scope.groups is updated by socket whenever any (deep) change to groups happens,
   //whenever a group change happens, trigger inside of CenterCtrl */ 
   //POSSIBLE OPTIMIZATION: only reload / trigger changed group
@@ -114,7 +114,7 @@ $scope.previousSong = function () {
   };
 
   $scope.selectGroup = function ( group ) {
-    console.log(group);
+    //console.log(group);
     $scope.selectedGroup = angular.isNumber(group) ? $scope.groups[group] : group;
     //$scope.toggleSidenav('left');
     //load members for that group
@@ -173,6 +173,7 @@ $scope.previousSong = function () {
     });
   };
 
+  var $parentScope = $scope;
   //
   function AddGroupController($scope, $mdDialog) {
     $scope.hide = function() {
@@ -195,6 +196,8 @@ $scope.previousSong = function () {
       $http.post('/api/groups', {
         name: $scope.newGroup,
         owner: Auth.getCurrentUser()._id
+      }).success(function(newGroup) {
+        $parentScope.selectGroup(newGroup);
       });
       $scope.newGroup = '';
     };
