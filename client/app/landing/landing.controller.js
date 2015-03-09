@@ -16,8 +16,13 @@ $scope.once = false;
 $scope.editMode = false;
 $scope.editIconUrL = 'client/assets/icons/ic_mode_edit_24px.svg';
 
+
+
 /* song player */
 $scope.songIsPlaying = false;
+$scope.currentTrack = {
+  'title': 'Hey this is a song'
+};
 
 $scope.playSong = function () {
   //NEED LOGIC TO PLAY SONG
