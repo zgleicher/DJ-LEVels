@@ -119,22 +119,98 @@ angular.module('levelsApp')
               
               $state.someShit = $scope;
 
+              /* Edit and Delete Group Functionality */
 
+              $scope.editMode = false;
+
+              $scope.isOwner = function() {
+                console.log($scope.group);
+                return $scope.group.owner === Auth.getCurrentUser()._id;
+              }
+
+              /* Delete Group Confirmation */
+
+              $scope.showDeleteGroup = function(ev) {
+                var confirm = $mdDialog.confirm()
+                  .title('Would you like to delete your group ' + $scope.group.name + '?')
+                  .content('All of your songs and members will be lost!')
+                  .ariaLabel('Lucky day')
+                  .ok('Delete group')
+                  .cancel('Cancel')
+                  .targetEvent(ev);
+
+                $mdDialog.show(confirm).then(function() {
+                  //$scope.alert = 'You deleted the group.';
+                  $rootScope.$landingCtrlScope.deleteGroup($scope.group);
+                }, function() {
+                  //$scope.alert = 'You did not delete the group';
+                });
+              };
               /* Show Members Functionality */ 
 
-              $scope.showContributors = function(ev) {
-                   $mdDialog.show({
-                    controller: ContributorsController,
-                    templateUrl: 'app/landing/landing.showContributors.html',      
-                    targetEvent: ev,
-                  })
-                  .then(function(groupName) {
-                    //$scope.showGroupToast(groupName);
-                  }, function() {
-                    //$scope.groupAction = 'You cancelled the create group dialog.';
-                  });
-                };
+              // $scope.showContributors = function(ev) {
+              //      $mdDialog.show({
+              //       controller: ContributorsController,
+              //       templateUrl: 'app/landing/landing.showContributors.html',      
+              //       targetEvent: ev,
+              //     })
+              //     .then(function(groupName) {
+              //       //$scope.showGroupToast(groupName);
+              //     }, function() {
+              //       //$scope.groupAction = 'You cancelled the create group dialog.';
+              //     });
+              //   };
 
+
+              //   function ContributorsController($scope, $mdDialog) {
+              //     $scope.hide = function() {
+              //       $mdDialog.hide();
+              //     };
+              //     $scope.cancel = function() {
+              //       $mdDialog.cancel();
+              //     };
+              //     $scope.finishForm = function(answer) {
+              //       $mdDialog.hide(answer);
+              //       // $scope.newGroup = answer;
+              //       // $scope.addGroup();
+              //     };
+
+              //     $scope.addContributor = function() {
+              //       if($scope.newGroup === '') { return; }
+              //       $http.post('/api/groups', {
+              //         name: $scope.newGroup,
+              //         owner: Auth.getCurrentUser()._id,
+              //         owner_name: Auth.getCurrentUser().name
+              //       }).success(function (group) {
+              //         $rootScope.$landingCtrlScope.selectGroup(group);
+              //       });
+              //       $scope.newGroup = '';
+              //     };
+              //   }
+
+              //default to closed
+              $scope.contributorsOpen = false;
+              $scope.followersOpen = false;
+
+              // $scope.showContributors = function() {
+              //   $scope.contributorsOpen = true;
+              //   $scope.followersOpen = false;
+              // };
+
+              // $scope.hideContributors = function() {
+              //   $scope.contributorsOpen = false;
+              //   $scope.followersOpen = false;
+              // };
+
+              // $scope.showFollowers = function() {
+              //   $scope.contributorsOpen = false;
+              //   $scope.followersOpen = true;
+              // };
+
+              // $scope.hideFollowers = function() {
+              //   $scope.contributorsOpen = false;
+              //   $scope.followersOpen = false;
+              // };
 
                 function ContributorsController($scope, $mdDialog) {
                   $scope.hide = function() {
@@ -163,44 +239,33 @@ angular.module('levelsApp')
                 }
 
 
-
-              $scope.addContributor = function(user_id) {
+              $scope.addContributor = function(userId, userName) {
                 $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
-                    "user_id": user_id
+                    "user_id": userId,
+                    "user_name": userName
                 });
               };
 
-              $scope.removeContributor = function(user_id) {
+              $scope.removeContributor = function(userId) {
                 $http.delete('/api/groups/' + $stateParams.groupid + '/contributors', {
-                    "user_id": user_id
+                    "user_id": userId
                 });
               };
 
-              $scope.addFollower = function(user_id) {
+              $scope.addFollower = function(userId, userName) {
                 $http.put('/api/groups/' + $stateParams.groupid + '/followers', {
-                    "user_id": user_id
+                    "user_id": userId,
+                    "user_name": userName
                 });
               };
 
-              $scope.removeFollower = function(user_id) {
+              $scope.removeFollower = function(userId) {
                 $http.delete('/api/groups/' + $stateParams.groupid + '/followers', {
-                    "user_id": user_id
+                    "user_id": userId
                 });
               };
 
-              $scope.upColor = function(track) {
-                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
-              };
-
-              $scope.downColor = function(track) {
-                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
-              };
+ 
 
               /* Track Voting */
 
@@ -250,6 +315,20 @@ angular.module('levelsApp')
                 .error(function(track, status) {
                   console.log('error in post track: '+ status);
                 });
+              };
+
+              $scope.upColor = function(track) {
+                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
+              };
+
+              $scope.downColor = function(track) {
+                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
+                  return 'orange'
+                else
+                  return 'black'
               };
 
 

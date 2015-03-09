@@ -12,8 +12,6 @@ $scope.selectedGroup = null;
 $scope.groups        = allGroups;
 
 $scope.once = false;
-/* keep track of when you are in edit groups mode */
-$scope.editMode = false;
 
 $rootScope.$landingCtrlScope = $scope;
 
@@ -193,10 +191,58 @@ $scope.previousSong = function () {
     $http.delete('/api/things/' + thing._id);
   };
   $scope.deleteGroup = function(group) {
-    $http.delete('/api/groups/' + group._id);
+    $http.delete('/api/groups/' + group._id).success(function (){
+      if ($scope.groups.length !== 0) {
+        $scope.selectGroup($scope.groups[0]);
+      }
+      // ADD IN TRIGGER DUMMY PAGE FOR NO GROUPS
+    });
   };
 
   $scope.showAddGroup = function(ev) {
+     $mdDialog.show({
+      controller: AddGroupController,
+      templateUrl: 'app/landing/landing.addGroup.html',      
+      targetEvent: ev,
+    })
+    .then(function(groupName) {
+      $scope.showGroupToast(groupName);
+    }, function() {
+      //$scope.groupAction = 'You cancelled the create group dialog.';
+    });
+  };
+
+
+  function AddGroupController($scope, $mdDialog) {
+    $scope.hide = function() {
+      $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+      $mdDialog.cancel();
+    };
+    $scope.finishForm = function(answer) {
+      $mdDialog.hide(answer);
+      $scope.newGroup = answer;
+      $scope.addGroup();
+    };
+
+    $scope.addGroup = function() {
+      if($scope.newGroup === '') { return; }
+      $http.post('/api/groups', {
+        name: $scope.newGroup,
+        owner: Auth.getCurrentUser()._id,
+        owner_name: Auth.getCurrentUser().name,
+        contributors: [{ "user_id": Auth.getCurrentUser()._id, "user_name": Auth.getCurrentUser().name }],
+        followers: [{ "user_id": Auth.getCurrentUser()._id, "user_name": Auth.getCurrentUser().name }],
+      }).success(function (group) {
+        $rootScope.$landingCtrlScope.selectGroup(group);
+      });
+      $scope.newGroup = '';
+    };
+  }
+
+/* Show Members Functionality
+$scope.showAddGroup = function(ev) {
      $mdDialog.show({
       controller: AddGroupController,
       templateUrl: 'app/landing/landing.addGroup.html',      
@@ -236,29 +282,9 @@ $scope.previousSong = function () {
     };
   }
 
-/* Delete Group Confirmation */
-
-$scope.showDeleteGroup = function(ev, group) {
-  var confirm = $mdDialog.confirm()
-    .title('Would you like to delete your group ' + group.name + '?')
-    .content('All of your songs and members will be lost!')
-    .ariaLabel('Lucky day')
-    .ok('Delete group')
-    .cancel('Cancel')
-    .targetEvent(ev);
-
-  $mdDialog.show(confirm).then(function() {
-    $scope.alert = 'You deleted the group.';
-    $scope.deleteGroup(group);
-  }, function() {
-    $scope.alert = 'You did not delete the group';
-  });
-};
 
 
-
-
-
+*/
 
 
   function randomNum() {
@@ -273,12 +299,12 @@ $scope.showDeleteGroup = function(ev, group) {
 
   /* manage editing of groups */
 
-  $scope.setEditMode = function() {
-    $scope.editMode = true;
-  };
-  $scope.cancelEditMode = function() {
-    $scope.editMode = false;
-  };
+  // $scope.setEditMode = function() {
+  //   $scope.editMode = true;
+  // };
+  // $scope.cancelEditMode = function() {
+  //   $scope.editMode = false;
+  // };
 
   $scope.$on('$destroy', function () {
     socket.unsyncUpdates('thing');
