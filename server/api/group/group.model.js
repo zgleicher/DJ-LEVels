@@ -55,8 +55,14 @@
 			required: '{PATH} is required!'
 		},
 		tracks				: [trackSchema],
-		contributors	: [{ type: ObjectId, ref: 'User' }],
-		followers			: [{ type: ObjectId, ref: 'User' }],
+		contributors	: [{
+			"user_id": { type: ObjectId, ref: 'User' },
+			"user_name": String
+		}],
+		followers			: [{
+			"user_id": { type: ObjectId, ref: 'User' },
+			"user_name": String
+		}],
 		public				: { type: Boolean, default: 'True' },
 		created_at 		: { type: Date, default: Date.now },
 		last_update 	: { type: Date, default: Date.now }
