@@ -23,35 +23,29 @@ A group of friends will have the ability to setup a playlist where everyone can 
 **Milestones:**
 
 1) User functionality
-- Landing / sign in page
-- Users can login with SoundCloud
-- Home page basic outline
-- REST API functioning
+[ ] Landing / sign in page
+[ ] Users can login with SoundCloud
+[x] Home page basic outline
+[x] REST API functioning
 
 2) Group functionality
-- User can create a group
-- User can join a group (when provided a link)
-- Group can be open or closed
-- 
+[x] User can create a group
+[ ] User can be added to a group
+[ ] Group can be open or closed
 
 3) Song functionality
-- User can add a song to a group (drag and drop?)
-- User can upvote or downvote a song
-- Songs play continuously 
-
+[x] User can add a song to a group (drag and drop?)
+[x] User can upvote or downvote a song
+[x] Songs play continuously 
+[ ] Song UI
 
 4) Extras
-- Songs show up in real time (socketio)
-- User can follow a group
-- User can find a group (or be invited) - group search
-- Google Drive style responsive drag and drop
+[x] Songs show up in real time (socketio)
+[x] User can follow a group
+[ ] User can find a group (or be invited) 
+[ ] Google Drive style responsive drag and drop
+[ ] User can like a track on DJ-LEVels that will like a track for them on SC
 
-**Design:**
-
-Looking into drag and drop interfaces.
-Angular Material Design
-
-ui-view / ui-router
 
 **Data Model:**
 
@@ -75,7 +69,3 @@ User
 
 Track
 
-
-
-
-# LEVELS
