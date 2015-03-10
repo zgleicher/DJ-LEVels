@@ -107,3 +107,12 @@ exports.getName = function(req, res, next) {
     return res.status(200).json({ name: user.name });
   });
 }
+
+exports.getSummary = function(req, res, next) {
+  User.find({})
+    .select('_id name email')
+    .exec(function(err, users) {
+      if (err) return res.send(500, err);
+      return res.json(200, users);
+    });
+}
