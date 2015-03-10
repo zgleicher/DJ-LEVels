@@ -15,5 +15,6 @@ router.get('/:id', auth.isAuthenticated(), controller.show);
 router.post('/', controller.create);
 
 router.get('/:id/name', controller.getName);
+router.get('/summary', controller.getSummary);
 
 module.exports = router;
