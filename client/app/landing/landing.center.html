@@ -27,9 +27,10 @@
 					</md-button>
 				</div>
 			</div> -->
+			<md-card>
 			<div class="groupTabs">
-				<md-tabs class="md-accent" md-selected="tabData.selectedIndex">
-				  <md-tab id="tab1" aria-controls="tab1-content">
+				<md-tabs class="" md-selected="tabData.selectedIndex">
+				  <md-tab class="" id="tab1" aria-controls="tab1-content">
 				    Info
 				  </md-tab>
 				  <md-tab id="tab2" aria-controls="tab2-content">
@@ -69,21 +70,9 @@
 								</md-button>
 							</div>
 						</div>
+						<h3 ng-click="getAllUsersSummary()"> click for all users </h3>
+						
 					  <h3>Add a contributor</h3>
-						 <form ng-submit="addContributor(userId,userName)" layout="column" style="padding-top:20px;padding-left:20px;">
-						  <div layout="row" layout-sm="column" layout-margin >
-						    <span class="memberAddTitle">Add a Contributor:</span>
-						    <md-input-container>
-						      <label for="label">Label</label>
-						      <input type="text" id="label" ng-model="userId">
-						    </md-input-container>
-						    <md-input-container>
-						      <label for="content">Content</label>
-						      <input type="text" id="content" ng-model="userName">
-						    </md-input-container>
-						    <md-button class="add-tab md-primary"  type="submit" style="max-height: 40px" >Add Contributor</md-button>
-						  </div>
-						</form>
 				  </div>
 
 
@@ -106,7 +95,31 @@
 				These are the {{group.followers.length}} followers
 			</div> -->
 		</md-card-content>
+		</md-card>
 	</md-card>
+	<md-card style="min-height: 300px;">
+		<md-content style="min-height: 300px" class="md-padding autocomplete" layout="column">
+		  <md-autocomplete
+		      ng-disabled="autocompleteUsers.isDisabled"
+		      md-no-cache="autocompleteUsers.noCache"
+		      md-selected-item="autocompleteUsers.selectedItem"
+		      md-search-text="autocompleteUsers.searchText"
+		      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+		      md-item-text="item.display"
+		      placeholder="Select from current DJ-LEVels users"
+		      flex="50">
+		    <span md-highlight-text="autocompleteUsers.searchText">{{item.display}} ({{item.value.email}})</span>
+		  </md-autocomplete>
+			<br/>
+			<div ng-show="autocompleteUsers.selectedItem !== null">
+			<md-button type="submit" ng-click="addContributor(autocompleteUsers.selectedItem.value)">
+			Add {{autocompleteUsers.selectedItem.value.name}}
+			</md-button>
+		</div>
+		</md-content>
+		
+	</md-card>
+
 	<md-card>
 	  <md-card-content id="dropbox" ng-mouseover="hovering(true)" ng-mouseout="hovering(false)">
 	    <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>

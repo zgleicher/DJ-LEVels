@@ -250,15 +250,69 @@ angular.module('levelsApp')
                 //     $scope.newGroup = '';
                 //   };
                 // }
+              $scope.getAllUsersSummary = function() {
+                console.log(Auth.getAllUsersSummary());
+                //return Auth.getAllUsersSummary();
+                return [
+                { "value": 
+                  { 
+                    "name": 'Noureen',
+                    "_id": '1234',
+                    "email": 'nan2130@columbia.edu'
+                  },
+                  "display": 'Noureen'
+                },
+                { "value": 
+                  { 
+                    "name": 'Kristie',
+                    "_id": '14924',
+                    "email": 'kbh2120@columbia.edu'
+                  },
+                  "display": 'Kristie'
+                },
+                {
+                  "value": {
+                    "name": 'kristie howard',
+                    '_id': '54fe69ec3bf6ce6bddfd93ec',
+                    "email": 'kristiehow@gmail.com'
+                  },
+                  "display": 'kristie howard'
+                }];
+              }
 
-
-              $scope.addContributor = function(userId, userName) {
-                console.log('adding contributor ' + userName);
-                // $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
-                //     "user_id": userId,
-                //     "user_name": userName
-                // });
+              $scope.autocompleteUsers = {
+                'isDisabled': false,
+                'noCache': false,
+                'selectedItem': null,
+                'searchText': null,
+                'querySearch': function (query) {
+                  if (query) {
+                    var members = $scope.getAllUsersSummary();
+                    console.log(members);
+                    return members.filter(function (user) {
+                      var userName = angular.lowercase(user.value.name);
+                      var lowercaseQuery = angular.lowercase(query);
+                      return (userName.indexOf(lowercaseQuery) > -1);
+                    });
+                  } else {
+                    return $scope.getAllUsersSummary();
+                  }
+                },
+                'simulateQuery': true,
               };
+
+              $scope.addContributor = function(user) {
+                console.log('adding contributor ' + user.name);
+                $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
+                    "user_id": user._id,
+                    "user_name": user.name
+                }).success(function(data) {
+                  console.log('hi from success put: ' + data);
+                }).error(function(err) {
+                  console.log(err);
+                });
+              };
+              //SHOULD ADD A CONTRIBUTOR TO  FOLLOWERS TOO
 
               $scope.removeContributor = function(userId) {
                 $http.delete('/api/groups/' + $stateParams.groupid + '/contributors', {

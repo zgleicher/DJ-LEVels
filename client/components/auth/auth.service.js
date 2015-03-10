@@ -13,7 +13,7 @@ angular.module('levelsApp')
        * for autocomplete purposes and adding group members
        */
       getAllUsersSummary: function() {
-        $http.get('/users/summary').success(function(allMembers) {
+        $http.get('/api/users/summary').success(function(allMembers) {
           return allMembers;
         });
       },
