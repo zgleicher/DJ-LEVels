@@ -107,6 +107,73 @@ section li {
   overflow-y: auto;
 }
 
+.members-box {
+  min-height: 150px;
+}
+
+.groupTabs .sample {
+  height: 450px; }
+.groupTabs #tab1-content {
+  background-color: #3F51B5; }
+.groupTabs #tab2-content {
+  background-color: #673AB7; }
+.groupTabs #tab3-content {
+  background-color: #00796B; }
+.groupTabs .tabpanel-container {
+  display: block;
+  position: relative;
+  background: white;
+  border: 0px solid black;
+  height: 300px;
+  overflow: hidden; }
+.groupTabs [role="tabpanel"] {
+  color: white;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  transition: all cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s;
+  position: absolute; }
+.groupTabs [role="tabpanel"].ng-leave.ng-leave-active, .groupTabs [role="tabpanel"].ng-enter {
+  top: -300px; }
+.groupTabs [role="tabpanel"].ng-leave, .groupTabs [role="tabpanel"].ng-enter.ng-enter-active {
+  top: 0; }
+.groupTabs [role="tabpanel"].ng-leave {
+  z-index: 100; }
+.groupTabs .tabpanel-container [role="tabpanel"] {
+  padding: 20px; }
+.groupTabs .md-header {
+  background-color: #1976D2 !important; }
+.groupTabs md-tab {
+  color: #90caf9 !important; }
+.groupTabs md-tab.active, .groupTabs md-tab:focus {
+  color: white !important; }
+.groupTabs .md-header .md-ripple {
+  border-color: #FFFF8D !important; }
+.groupTabs md-tabs-ink-bar {
+  background-color: #FFFF8D !important; }
+.groupTabs md-tabs .md-paginator {
+  color: white; }
+
+/*create padding below when tooltip is there*/
+.member-tab-box {
+  padding-bottom: 10px;
+}
+.member-tab-box:hover {
+  padding-bottom: 40px;
+}
+
+.memberAddTitle {
+  padding-top: 8px;
+  padding-right: 8px;
+  text-align: left;
+  text-transform: uppercase;
+  color: #888;
+  margin-top: 24px; }
+}
+
+
+
+
   /* Sidenav area */
 
   md-list .md-button {

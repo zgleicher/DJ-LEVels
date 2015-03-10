@@ -212,38 +212,52 @@ angular.module('levelsApp')
               //   $scope.followersOpen = false;
               // };
 
-                function ContributorsController($scope, $mdDialog) {
-                  $scope.hide = function() {
-                    $mdDialog.hide();
-                  };
-                  $scope.cancel = function() {
-                    $mdDialog.cancel();
-                  };
-                  $scope.finishForm = function(answer) {
-                    $mdDialog.hide(answer);
-                    // $scope.newGroup = answer;
-                    // $scope.addGroup();
-                  };
 
-                  $scope.addContributor = function() {
-                    if($scope.newGroup === '') { return; }
-                    $http.post('/api/groups', {
-                      name: $scope.newGroup,
-                      owner: Auth.getCurrentUser()._id,
-                      owner_name: Auth.getCurrentUser().name
-                    }).success(function (group) {
-                      $rootScope.$landingCtrlScope.selectGroup(group);
-                    });
-                    $scope.newGroup = '';
-                  };
-                }
+              $scope.tabData = {
+                selectedIndex : 0,
+              };
+
+              $scope.tabNext = function() {
+                $scope.tabData.selectedIndex = Math.min($scope.tabData.selectedIndex + 1, 2) ;
+              };
+              $scope.previous = function() {
+                $scope.tabData.selectedIndex = Math.max($scope.tabData.selectedIndex - 1, 0);
+              };
+
+
+                // function ContributorsController($scope, $mdDialog) {
+                //   $scope.hide = function() {
+                //     $mdDialog.hide();
+                //   };
+                //   $scope.cancel = function() {
+                //     $mdDialog.cancel();
+                //   };
+                //   $scope.finishForm = function(answer) {
+                //     $mdDialog.hide(answer);
+                //     // $scope.newGroup = answer;
+                //     // $scope.addGroup();
+                //   };
+
+                //   $scope.addContributor = function() {
+                //     if($scope.newGroup === '') { return; }
+                //     $http.post('/api/groups', {
+                //       name: $scope.newGroup,
+                //       owner: Auth.getCurrentUser()._id,
+                //       owner_name: Auth.getCurrentUser().name
+                //     }).success(function (group) {
+                //       $rootScope.$landingCtrlScope.selectGroup(group);
+                //     });
+                //     $scope.newGroup = '';
+                //   };
+                // }
 
 
               $scope.addContributor = function(userId, userName) {
-                $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
-                    "user_id": userId,
-                    "user_name": userName
-                });
+                console.log('adding contributor ' + userName);
+                // $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
+                //     "user_id": userId,
+                //     "user_name": userName
+                // });
               };
 
               $scope.removeContributor = function(userId) {

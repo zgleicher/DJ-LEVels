@@ -13,25 +13,98 @@
         <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
         <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{group.name}}"></ng-md-icon>
       </div>
-				<h2>Created by {{group.owner_name}}</h2>
+				
 			
 			
-			<md-button ng-click="contributorsOpen = !contributorsOpen">{{group.contributors.length}} contributors</md-button>
-			<md-button  ng-click="followersOpen = !followersOpen">{{group.followers.length}} followers</md-button>
-			<!-- contributors content -->
-			<div ng-show="contributorsOpen">
-				These are the {{group.contributors.length}} contributors.
-				<div layout="row" ng-repeat="contributor in group.contributors">
+<!-- 			<md-button ng-click="contributorsOpen = !contributorsOpen; followersOpen = false">{{group.contributors.length}} contributors</md-button>
+			<md-button  ng-click="followersOpen = !followersOpen; contributorsOpen = false">{{group.followers.length}} followers</md-button>
+			
+			<div ng-show="contributorsOpen" class="members-box" layout-align="start start">
+				These are the {{group.contributors.length}} contributors. -->
+<!-- 				<div layout="row" ng-repeat="contributor in group.contributors">
 					<md-button class="md-fab">
 						<md-tooltip>{{contributor.user_name}}</md-tooltip>
 					</md-button>
 				</div>
+			</div> -->
+			<div class="groupTabs">
+				<md-tabs class="md-accent" md-selected="tabData.selectedIndex">
+				  <md-tab id="tab1" aria-controls="tab1-content">
+				    Info
+				  </md-tab>
+				  <md-tab id="tab2" aria-controls="tab2-content">
+				    Contributors
+				  </md-tab>
+				  <md-tab id="tab3" aria-controls="tab3-content">
+				    Followers
+				  </md-tab>
+				</md-tabs>
+				<ng-switch on="tabData.selectedIndex" class="tabpanel-container">
+				  <div role="tabpanel"
+				       id="tab1-content"
+				       aria-labelledby="tab1"
+				       ng-switch-when="0"
+				       md-swipe-left="next()"
+				       md-swipe-right="previous()" >
+				      <h2>Created by {{group.owner_name}}</h2>
+				      <p ng-show="group.tracks.length === 1"> 1 Track</p>
+				      <p ng-show="group.tracks.length !== 1">{{group.tracks.length}} Tracks</p>
+				      <p ng-show="group.contributors.length === 1"> 1 Contributor</p>
+				      <p ng-show="group.contributors.length !== 1">{{group.contributors.length}} Contributors</p>
+				      <p ng-show="group.followers.length === 1"> 1 Follower</p>
+				      <p ng-show="group.followers.length !== 1">{{group.followers.length}} Followers</p>
+				  </div>
+				  <div role="tabpanel"
+				       id="tab2-content"
+				       aria-labelledby="tab2"
+				       ng-switch-when="1"
+				       md-swipe-left="next()"
+				       md-swipe-right="previous()" >
+				  	<h3 ng-show="group.contributors.length === 1">There is 1 contributor who can add and remove songs from {{group.name}}.</h3>
+				  	<h3 ng-show="group.contributors.length !== 1">There are {{group.contributors.length}} contributors who can add and remove songs from {{group.name}}.</h3>
+				  	<div layout="row" ng-repeat="contributor in group.contributors">
+							<div class="member-tab-box">
+								<md-button class="md-fab">
+									<md-tooltip>{{contributor.user_name}}</md-tooltip>
+								</md-button>
+							</div>
+						</div>
+					  <h3>Add a contributor</h3>
+						 <form ng-submit="addContributor(userId,userName)" layout="column" style="padding-top:20px;padding-left:20px;">
+						  <div layout="row" layout-sm="column" layout-margin >
+						    <span class="memberAddTitle">Add a Contributor:</span>
+						    <md-input-container>
+						      <label for="label">Label</label>
+						      <input type="text" id="label" ng-model="userId">
+						    </md-input-container>
+						    <md-input-container>
+						      <label for="content">Content</label>
+						      <input type="text" id="content" ng-model="userName">
+						    </md-input-container>
+						    <md-button class="add-tab md-primary"  type="submit" style="max-height: 40px" >Add Contributor</md-button>
+						  </div>
+						</form>
+				  </div>
 
+
+				  <div role="tabpanel"
+				       id="tab3-content"
+				       aria-labelledby="tab3"
+				       ng-switch-when="2"
+				       md-swipe-left="next()"
+				       md-swipe-right="previous()" >
+				      View for Item #3<br/>
+				      tabData.selectedIndex = 2
+				  </div>
+				</ng-switch>
 			</div>
+<!-- 		</div> -->
+
+
 			<!-- followers content -->
-			<div ng-show="followersOpen">
+<!-- 			<div ng-show="followersOpen">
 				These are the {{group.followers.length}} followers
-			</div>
+			</div> -->
 		</md-card-content>
 	</md-card>
 	<md-card>

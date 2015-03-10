@@ -8,6 +8,15 @@ angular.module('levelsApp')
     }
 
     return {
+      /**
+       * Get a summary of all users registered with DJ-LEVels
+       * for autocomplete purposes and adding group members
+       */
+      getAllUsersSummary: function() {
+        $http.get('/users/summary').success(function(allMembers) {
+          return allMembers;
+        });
+      },
 
       /**
        * Authenticate user and save token
