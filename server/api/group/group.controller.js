@@ -130,8 +130,8 @@ exports.track = {
             if (err) { return handleError(res, err); }
             return res.json(204);
           });
-        }
-        return res.json(400);
+        } else
+          return res.json(400);
       });
     });
   },
@@ -166,8 +166,8 @@ exports.track = {
             return res.json(204);
           });
         }
-
-        return res.json(400);
+        else
+          return res.json(400);
       });
     });
   },
