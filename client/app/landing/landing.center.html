@@ -97,30 +97,33 @@
 		</md-card-content>
 		</md-card>
 	</md-card>
-	<md-card style="min-height: 300px;">
-		<md-content style="min-height: 300px" class="md-padding autocomplete" layout="column">
-		  <md-autocomplete
-		      ng-disabled="autocompleteUsers.isDisabled"
-		      md-no-cache="autocompleteUsers.noCache"
-		      md-selected-item="autocompleteUsers.selectedItem"
-		      md-search-text="autocompleteUsers.searchText"
-		      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
-		      md-item-text="item.display"
-		      placeholder="Select from current DJ-LEVels users"
-		      flex="50">
-		    <span md-highlight-text="autocompleteUsers.searchText">{{item.display}} ({{item.value.email}})</span>
-		  </md-autocomplete>
-			<br/>
-			<div ng-show="autocompleteUsers.selectedItem !== null">
-			<md-button type="submit" ng-click="addContributor(autocompleteUsers.selectedItem.value)">
-			Add {{autocompleteUsers.selectedItem.value.name}}
-			</md-button>
-		</div>
+	<md-card style="min-height: 200px;">
+		<md-content style="min-height: 200px" class="md-padding autocomplete" layout="row" layout-margin>
+		  <div flex="80" layout="column">
+			  <md-autocomplete
+			      ng-disabled="autocompleteUsers.isDisabled"
+			      md-no-cache="autocompleteUsers.noCache"
+			      md-selected-item="autocompleteUsers.selectedItem"
+			      md-search-text="autocompleteUsers.searchText"
+			      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+			      md-item-text="item.name"
+			      placeholder="Select from current DJ-LEVels users">
+			    <span md-highlight-text="autocompleteUsers.searchText">{{item.name}} ({{item.email}})</span>
+			  </md-autocomplete>
+		  </div>
+			<!-- <br/> -->
+			<div  flex="20">
+				<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''" ng-click="addContributor(autocompleteUsers.selectedItem)">
+				Add Contributor
+				</md-button>
+				<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="addContributor(autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()">
+				Add {{autocompleteUsers.selectedItem.name}}
+				</md-button>
+			</div>
 		</md-content>
-		
 	</md-card>
 
-	<md-card>
+	<md-card class="">
 	  <md-card-content id="dropbox" ng-mouseover="hovering(true)" ng-mouseout="hovering(false)">
 	    <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
 	    <p>

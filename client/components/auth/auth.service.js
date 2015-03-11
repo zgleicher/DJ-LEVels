@@ -3,6 +3,8 @@
 angular.module('levelsApp')
   .factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
     var currentUser = {};
+    var allUsersSummary = null; 
+
     if($cookieStore.get('token')) {
       currentUser = User.get();
     }
@@ -13,8 +15,22 @@ angular.module('levelsApp')
        * for autocomplete purposes and adding group members
        */
       getAllUsersSummary: function() {
+        if (allUsersSummary === null){
+          return this.updateAllUsersSummary(function(allUsers) {
+            allUsersSummary = allUsers;
+            console.log('IN ALL USERS SUMMARY IS: '+ allUsersSummary);
+            return allUsersSummary;
+          });
+        }
+        console.log('all users summary is: ' +  allUsersSummary);
+        return allUsersSummary;
+      },
+      /* CHECK LOGIC!! */
+      updateAllUsersSummary: function(callback) {
         $http.get('/api/users/summary').success(function(allMembers) {
-          return allMembers;
+          allUsersSummary = allMembers;
+          console.log('all members is' + allMembers[0]);
+          return callback(allUsersSummary);
         });
       },
 
@@ -72,6 +88,7 @@ angular.module('levelsApp')
           function(data) {
             $cookieStore.put('token', data.token);
             currentUser = User.get();
+            updateAllUsersSummary();
             return cb(user);
           },
           function(err) {
@@ -149,7 +166,11 @@ angular.module('levelsApp')
        * Get auth token
        */
       getToken: function() {
+        //initialize the all users
+        updateAllUsersSummary();
         return $cookieStore.get('token');
-      }
+      },
+
+      
     };
   });

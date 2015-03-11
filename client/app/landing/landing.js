@@ -93,16 +93,6 @@ angular.module('levelsApp')
                 //NEED TO ADD LOGIC HERE!
               };
 
-/*
-              $http.get('/api/groups').success(function(levelsGroups) {
-                $scope.groups = levelsGroups;
-                socket.syncUpdates('group', $scope.groups);
-              });
-
-              $scope.$on('$destroy', function () {
-                socket.unsyncUpdates('group');
-              });
-*/
               //QUERY FOR TRACKS FOR THIS GROUP
               $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
                 $scope.group = group;
@@ -251,34 +241,37 @@ angular.module('levelsApp')
                 //   };
                 // }
               $scope.getAllUsersSummary = function() {
-                console.log(Auth.getAllUsersSummary());
-                //return Auth.getAllUsersSummary();
-                return [
-                { "value": 
-                  { 
-                    "name": 'Noureen',
-                    "_id": '1234',
-                    "email": 'nan2130@columbia.edu'
-                  },
-                  "display": 'Noureen'
-                },
-                { "value": 
-                  { 
-                    "name": 'Kristie',
-                    "_id": '14924',
-                    "email": 'kbh2120@columbia.edu'
-                  },
-                  "display": 'Kristie'
-                },
-                {
-                  "value": {
-                    "name": 'kristie howard',
-                    '_id': '54fe69ec3bf6ce6bddfd93ec',
-                    "email": 'kristiehow@gmail.com'
-                  },
-                  "display": 'kristie howard'
-                }];
-              }
+                var callback = function (array) {
+                  console.log('hi in callback: ' + array);
+                };
+                Auth.getAllUsersSummary(callback);
+                // return members;
+                // return [
+                // { "value": 
+                //   { 
+                //     "name": 'Noureen',
+                //     "_id": '1234',
+                //     "email": 'nan2130@columbia.edu'
+                //   },
+                //   "display": 'Noureen'
+                // },
+                // { "value": 
+                //   { 
+                //     "name": 'Kristie',
+                //     "_id": '14924',
+                //     "email": 'kbh2120@columbia.edu'
+                //   },
+                //   "display": 'Kristie'
+                // },
+                // {
+                //   "value": {
+                //     "name": 'kristie howard',
+                //     '_id': '54fe69ec3bf6ce6bddfd93ec',
+                //     "email": 'kristiehow@gmail.com'
+                //   },
+                //   "display": 'kristie howard'
+                // }];
+              };
 
               $scope.autocompleteUsers = {
                 'isDisabled': false,
@@ -287,15 +280,32 @@ angular.module('levelsApp')
                 'searchText': null,
                 'querySearch': function (query) {
                   if (query) {
-                    var members = $scope.getAllUsersSummary();
+                    var members = Auth.getAllUsersSummary();
                     console.log(members);
                     return members.filter(function (user) {
-                      var userName = angular.lowercase(user.value.name);
+                      var userName = angular.lowercase(user.name);
                       var lowercaseQuery = angular.lowercase(query);
                       return (userName.indexOf(lowercaseQuery) > -1);
                     });
+
+                  //   var callback = function (array) {
+                  //     console.log('hi in cb, array is this long: ' + array.length);
+                  //     console.log(array[0]);
+                  //     var filtered = array.filter(function (user) {
+                  //       var userName = angular.lowercase(user.name);
+                  //       var lowercaseQuery = angular.lowercase(query);
+                  //       return (userName.indexOf(lowercaseQuery) > -1);
+                  //     });
+                  //     console.log('FILTERED ARRAY is this long: ' + filtered.length);
+                  //     console.log(filtered[0]);
+                  //     return filtered;
+                  //   };
+                    
+                  //   return Auth.getAllUsersSummary(callback);
+
                   } else {
-                    return $scope.getAllUsersSummary();
+                    // return $scope.getAllUsersSummary();
+                    return [];
                   }
                 },
                 'simulateQuery': true,
@@ -308,6 +318,7 @@ angular.module('levelsApp')
                     "user_name": user.name
                 }).success(function(data) {
                   console.log('hi from success put: ' + data);
+                  console.log($scope.group.contributors);
                 }).error(function(err) {
                   console.log(err);
                 });
