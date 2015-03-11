@@ -126,9 +126,11 @@ exports.track = {
 
         if (group.contributors.indexOf(req.body.user_id) === -1) {
           group.contributors.push(req.body.user_id);
-          return res.json(204);
+          group.save(function (err) {
+            if (err) { return handleError(res, err); }
+            return res.json(204);
+          });
         }
-
         return res.json(400);
       });
     });
@@ -140,7 +142,10 @@ exports.track = {
       var index;
       if ((index = group.contributors.indexOf(req.body.user_id)) !== -1) {
         group.contributors.splice(index, 1);
-        return res.json(204);
+        group.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(204);
+        });
       }
       else
         return res.json(404);
@@ -156,7 +161,10 @@ exports.track = {
 
         if (group.followers.indexOf(req.body.user_id) === -1) {
           group.followers.push(req.body.user_id);
-          return res.json(204);
+          group.save(function (err) {
+            if (err) { return handleError(res, err); }
+            return res.json(204);
+          });
         }
 
         return res.json(400);
@@ -170,7 +178,10 @@ exports.track = {
       var index;
       if ((index = group.followers.indexOf(req.body.user_id)) !== -1) {
         group.followers.splice(index, 1);
-        return res.json(204);
+        group.save(function (err) {
+          if (err) { return handleError(res, err); }
+          return res.json(204);
+        });
       }
       else
         return res.json(404);
