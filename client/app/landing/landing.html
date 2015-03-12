@@ -8,8 +8,8 @@
     <span flex></span>
     <!-- now playing song -->
     <span><ng-md-icon icon="fast_rewind" class="nav" ng-click="previousSong()" size="48" style="fill:{{prevIconColor}}" ng-mouseenter="setIconColor('prev','orange')" ng-mouseleave="setIconColor('prev','white')"></ng-md-icon></span>
-    <span><ng-md-icon icon="play_arrow" ng-show="!songIsPlaying" ng-click="playSong()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
-    <span><ng-md-icon icon="pause" ng-show="songIsPlaying" ng-click="pauseSong()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
+    <span><ng-md-icon icon="play_arrow" ng-show="!playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
+    <span><ng-md-icon icon="pause" ng-show="playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
     <span><ng-md-icon icon="fast_forward" class="nav" ng-click="nextSong()" size="48" style="fill:{{nextIconColor}}" ng-mouseenter="setIconColor('next','orange')" ng-mouseleave="setIconColor('next','white')"></ng-md-icon></span>
     <span>{{currentTrack ? currentTrack.title : ''}}</span>
     <span flex></span>

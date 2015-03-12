@@ -13,11 +13,11 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog){
+            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog, playerService){
               /* soundcloud initializtion */
-              SC.initialize({
-                client_id: '8404d653618adb5d684fa8b257d4f924'
-              });
+              // SC.initialize({
+              //   client_id: '8404d653618adb5d684fa8b257d4f924'
+              // });
 
               $rootScope.$centerCtrlScope = $scope;
 
@@ -46,32 +46,81 @@ angular.module('levelsApp')
               };
 
               /* logic for drag and drop */
-              var dropbox = document.getElementById('dragzone');
-              dropbox.addEventListener('dragenter', enter, false);
-              dropbox.addEventListener('dragleave', exit, false);
-              dropbox.addEventListener('dragover', noopHandler, false);
-              dropbox.addEventListener('drop', drop, false);
+             // var dropzone = document.getElementById( "dropzone" );
+              // console.log(dropzone);
+              // var dragster = new Dragster( dropzone );
+              // document.addEventListener( "dragster:enter", function (e) {
+              //   e.target.classList.add( "dragged-over" );
+              // }, false );
 
-              function noopHandler(evt) {
-                  evt.stopPropagation();
-                  evt.preventDefault();
-              }
-              function enter(evt) {
-                 console.log('dragging');
-              }
-              function exit(evt) {
-                console.log('leaving');
-              }
-              function drop(evt) {
-                  evt.stopPropagation();
-                  evt.preventDefault(); 
-                  var track_url = evt.dataTransfer.getData('URL');
+              // document.addEventListener( "dragster:leave", function (e) {
+              //   e.target.classList.remove( "dragged-over" );
+              // }, false );
+
+              // dropzone.on("drop", function (event) {
+              //   evt.stopPropagation();
+              //   evt.preventDefault(); 
+              //   var track_url = evt.dataTransfer.getData('URL');
+                
+              //   //make api call to soundcloud, populate data, add track to tracks
+              //   SC.get('/resolve', { url: track_url }, function(track) {
+              //     $scope.addTrack(track);
+              //   });
+              //   dragster.dragleave(event);
+              // });
+              $('#dropzone').dragster({
+                  enter: function (dragsterEvent, event) {
+                      $('#overlayBox').addClass('overlay');
+                      $scope.draggingSong = true;
+                      console.log('HI');
+                  },
+                  leave: function (dragsterEvent, event) {
+                      $('#overlayBox').removeClass('overlay');
+                      $scope.draggingSong = false;
+                      console.log('bye');
+                  },
+                  drop: function (dragsterEvent, event) {
+                      event.stopPropagation();
+                      event.preventDefault(); 
+                      $('#overlayBox').removeClass('overlay');
+                      console.log('DROPPED');
+                      console.log(dragsterEvent);
+                      console.log(event);
+                      var track_url = event.dataTransfer.getData('URL');
+                      SC.get('/resolve', { url: track_url }, function(track) {
+                        $scope.addTrack(track);
+                      });
+                  }
+              });
+              // var dropbox = document.getElementById('dropzone');
+              // dropbox.addEventListener('dragenter', enter, false);
+              // dropbox.addEventListener('dragleave', exit, false);
+              // dropbox.addEventListener('dragover', noopHandler, false);
+              // dropbox.addEventListener('drop', drop, false);
+              // $scope.draggingSong = false;
+
+              // function noopHandler(evt) {
+              //     evt.stopPropagation();
+              //     evt.preventDefault();
+              // }
+              // function enter(evt) {
+              //   $scope.draggingSong = true;
+              //    console.log('dragging');
+              // }
+              // function exit(evt) {
+              //   $scope.draggingSong = false;
+              //   console.log('leaving');
+              // }
+              // function drop(evt) {
+              //     evt.stopPropagation();
+              //     evt.preventDefault(); 
+              //     var track_url = evt.dataTransfer.getData('URL');
                   
-                  //make api call to soundcloud, populate data, add track to tracks
-                  SC.get('/resolve', { url: track_url }, function(track) {
-                    $scope.addTrack(track);
-                  });
-              }
+              //     //make api call to soundcloud, populate data, add track to tracks
+                  // SC.get('/resolve', { url: track_url }, function(track) {
+                  //   $scope.addTrack(track);
+                  // });
+              // }
 
               $scope.dropboxHover = false;
 

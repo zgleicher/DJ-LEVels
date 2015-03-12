@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope) {
+.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService) {
  // var allMembers = [ ],
 var allGroups = [ ];
 

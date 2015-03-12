@@ -92,18 +92,18 @@ section li {
 
 
 .md-sidenav-left {
-  min-height: calc(100vh - 85px) !important;
-  min-height: -o-calc(100vh - 85px);
-  min-height: -webkit-calc(100vh - 85px);
-  min-height: -moz-calc(100vh - 85px); 
+  min-height: calc(100vh - 103px) !important;
+  min-height: -o-calc(100vh - 103px);
+  min-height: -webkit-calc(100vh - 103px);
+  min-height: -moz-calc(100vh - 103px); 
   overflow-y: auto;
 }
 
 #content {
-  max-height: calc(100vh - 85px) !important;
-  max-height: -o-calc(100vh - 85px);
-  max-height: -webkit-calc(100vh - 85px);
-  max-height: -moz-calc(100vh - 85px); 
+  max-height: calc(100vh - 103px) !important;
+  max-height: -o-calc(100vh - 103px);
+  max-height: -webkit-calc(100vh - 103px);
+  max-height: -moz-calc(100vh - 103px); 
   overflow-y: auto;
 }
 
@@ -213,6 +213,8 @@ section li {
   }
 }
 
+
+
 .pulse {
   display: inline-block;
   -webkit-transform: translateZ(0);
@@ -230,6 +232,35 @@ section li {
   animation-iteration-count: infinite;
 }
 
+
+/* Dropzone Overlay */
+.overlay {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:rgba(255, 255, 255, 0.85);
+    background: url(data:;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAABl0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuNUmK/OAAAAATSURBVBhXY2RgYNgHxGAAYuwDAA78AjwwRoQYAAAAAElFTkSuQmCC) repeat scroll transparent\9;
+    z-index:9999;
+    color:white;
+}
+.overlay {
+    text-align: center;
+}
+ 
+.overlay:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em;
+}
+
+
+#dropzone {
+  position:relative;
+}
 
   /* Sidenav area */
 
