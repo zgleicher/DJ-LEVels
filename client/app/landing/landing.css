@@ -264,21 +264,17 @@ section li {
   width: 400px !important;
   height:400px !important;
   border-radius: 50%;
-  position:absolute;
-  top:calc(50% - 200px);
-  top:-o-calc(50% - 200px);
-  top:-webkit-calc(50% - 200px);
-  top: -moz-calc(50% - 200px);
+  position: absolute;
+  /*center of center content - radius, using vh to adjust for hidden overflow*/
+  top:calc(((100vh - 103px) * .5) - 200px);
+  top:-o-calc(((100vh - 103px) * .5) - 200px);
+  top:-webkit-calc(((100vh - 103px) * .5) - 200px);
+  top: -moz-calc(((100vh - 103px) * .5) - 200px);
+  /*center of center content - radius, using % of center container*/
   left:calc(50% - 200px);
   left:-o-calc(50% - 200px);
   left:-webkit-calc(50% - 200px);
   left: -moz-calc(50% - 200px);
-/*  right:0;
-  bottom:0;*/
-
-}
-
-#dropHereWrapper {
 
 }
 
