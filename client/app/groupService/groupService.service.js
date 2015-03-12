@@ -9,10 +9,10 @@ angular.module('levelsApp')
 
     $http.get('/api/groups').success(function(groups) {
       this.groups = groups;
-      socket.syncUpdates('group', this.groups);
-      if (levelsGroups.length !== 0) {
+      if (this.groups.length !== 0) {
         this.selectGroup(this.groups[0]);
       }
+      socket.syncUpdates('group', this.groups);
     }.bind(this));
 
     this.selectGroup = function(group) {
