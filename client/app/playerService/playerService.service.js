@@ -39,7 +39,7 @@ angular.module('levelsApp')
     	SC.stream('/tracks/' + track.track_id, function(sound) {
       	this.currentSound = sound;
       	return cb(null);
-    	});
+    	}.bind(this));
     }.bind(this);
 
     this.playTrack = function(track) {
