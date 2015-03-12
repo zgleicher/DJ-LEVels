@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .config(function ($stateProvider) {
+  .config(function ($stateProvider, $authProvider) {
     $stateProvider
       .state('login', {
         url: '/login',
@@ -24,4 +24,12 @@ angular.module('levelsApp')
         controller: 'SettingsCtrl',
         authenticate: true
       });
+
+    $authProvider.oauth2({
+      name: 'soundcloud',
+      url: '/auth/soundcloud',
+      redirectUri: 'http://localhost:9000/auth/soundcloud',
+      clientId: '66fd2fb89c48bdcf4d67c15d99baf2a8',
+      authorizationEndpoint: 'https://soundcloud.com/connect',
+    });
   });
