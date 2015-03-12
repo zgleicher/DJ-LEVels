@@ -64,10 +64,10 @@
 				      </div>
 				    	<!-- <br/> -->
 				    	<div  flex="20">
-				    		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''" ng-click="addContributor(autocompleteUsers.selectedItem)" aria-label="Add Contributor">
+				    		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
 				    		Add Contributor
 				    		</md-button>
-				    		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="addContributor(autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()" aria-label="Add {{autocompleteUsers.selectedItem.name}}">
+				    		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('contributors', autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()">
 				    		Add {{autocompleteUsers.selectedItem.name}}
 				    		</md-button>
 				    	</div>

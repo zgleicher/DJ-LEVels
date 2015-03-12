@@ -9,9 +9,10 @@ angular.module('levelsApp')
 
     $http.get('/api/groups').success(function(groups) {
       this.groups = groups;
-      if (this.groups.length !== 0) {
+      if (this.groups.length !== 0)
         this.selectGroup(this.groups[0]);
-      }
+      else 
+      	$state.go('landing.no-groups');
       socket.syncUpdates('group', this.groups, this.updateGroupState);
     }.bind(this));
 
@@ -22,11 +23,13 @@ angular.module('levelsApp')
     		this.selectedGroup = item;
     	else if (event === 'deleted' && this.groups.length > 0)
     		this.selectGroup(this.groups[0]);
+    	else 
+      	$state.go('landing.no-groups');
     }.bind(this);
 
     this.selectGroup = function(group) {
     	this.selectedGroup = group;
-    	$state.go('landing.center');
+    	$state.go('landing.center', { groupid: group._id });
     }.bind(this);
 
     this.createGroup = function(name) {
