@@ -13,7 +13,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog, playerService){
+            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog, playerService, groupService){
               /* soundcloud initializtion */
               // SC.initialize({
               //   client_id: '8404d653618adb5d684fa8b257d4f924'
@@ -148,7 +148,7 @@ angular.module('levelsApp')
 
               $scope.showDeleteGroup = function(ev) {
                 var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete your group ' + $scope.group.name + '?')
+                  .title('Would you like to delete your group ' + groupService.selectedGroup.name + '?')
                   .content('All of your songs and members will be lost!')
                   .ariaLabel('Lucky day')
                   .ok('Delete group')
@@ -157,7 +157,7 @@ angular.module('levelsApp')
 
                 $mdDialog.show(confirm).then(function() {
                   //$scope.alert = 'You deleted the group.';
-                  groupService.deleteGroup(groupService.selectedGroup);
+                  groupService.deleteSelectedGroup();
                 }, function() {
                   //$scope.alert = 'You did not delete the group';
                 });
