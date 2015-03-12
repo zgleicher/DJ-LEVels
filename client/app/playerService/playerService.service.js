@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('playerService', function () {
+  .service('playerService', function (groupService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     
     SC.initialize({
@@ -26,7 +26,13 @@ angular.module('levelsApp')
     		this.currentSound.play();
     		this.isPaused = false;
     		this.isPlaying = true;
+    	} else {
+    		this.playTrack(groupService.nextTrack());
     	}
+    }.bind(this);
+
+    this.playNext = function() {
+    	this.playTrack(groupService.nextTrack());
     }.bind(this);
 
     this.loadTrack = function(track, cb) {
@@ -47,5 +53,4 @@ angular.module('levelsApp')
     		this.togglePlay();
     	}.bind(this));
     }.bind(this);
-
   });

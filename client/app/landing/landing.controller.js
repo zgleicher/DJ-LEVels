@@ -29,18 +29,6 @@ $scope.setIconColor = function(icon, value) {
   };
 };
 
-$scope.nextSong = function () {
-  //NEED LOGIC 
-  console.log('clicked next song');
-  $rootScope.$centerCtrlScope.playNext();
-};
-
-$scope.previousSong = function () {
-  //NEED LOGIC 
-  console.log('clicked previous song');
-  $rootScope.$centerCtrlScope.playPrevious();
-};
-
   // *********************************
   // Internal methods
   // *********************************
