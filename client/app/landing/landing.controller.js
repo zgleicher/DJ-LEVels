@@ -14,6 +14,7 @@ $scope.groups        = allGroups;
 $scope.once = false;
 
 $rootScope.$landingCtrlScope = $scope;
+$scope.playerService = playerService;
 
 
 /* song player */
