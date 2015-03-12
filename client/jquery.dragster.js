@@ -1,5 +1,5 @@
 (function ($) {
-
+    jQuery.event.props.push( "dataTransfer" );
     $.fn.dragster = function (options) {
         var settings = $.extend({
             enter: $.noop,

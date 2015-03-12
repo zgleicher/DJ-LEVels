@@ -18,7 +18,7 @@ angular.module('levelsApp')
               // SC.initialize({
               //   client_id: '8404d653618adb5d684fa8b257d4f924'
               // });
-
+              $scope.playerService = playerService;
               $rootScope.$centerCtrlScope = $scope;
 
               $scope.playNext = function() {
@@ -71,21 +71,19 @@ angular.module('levelsApp')
               $('#dropzone').dragster({
                   enter: function (dragsterEvent, event) {
                       $('#overlayBox').addClass('overlay');
+                      $('#overlayBox').removeClass('visuallyhidden');
                       $scope.draggingSong = true;
-                      console.log('HI');
                   },
                   leave: function (dragsterEvent, event) {
                       $('#overlayBox').removeClass('overlay');
+                      $('#overlayBox').addClass('visuallyhidden');
                       $scope.draggingSong = false;
-                      console.log('bye');
                   },
                   drop: function (dragsterEvent, event) {
                       event.stopPropagation();
                       event.preventDefault(); 
                       $('#overlayBox').removeClass('overlay');
-                      console.log('DROPPED');
-                      console.log(dragsterEvent);
-                      console.log(event);
+                      $('#overlayBox').addClass('visuallyhidden');
                       var track_url = event.dataTransfer.getData('URL');
                       SC.get('/resolve', { url: track_url }, function(track) {
                         $scope.addTrack(track);

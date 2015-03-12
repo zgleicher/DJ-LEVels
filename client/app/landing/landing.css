@@ -257,6 +257,18 @@ section li {
     margin-right: -0.25em;
 }
 
+#dropHere {
+  width: 400px !important;
+  height:400px !important;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+
+
 
 #dropzone {
   position:relative;

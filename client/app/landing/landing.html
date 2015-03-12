@@ -11,7 +11,7 @@
     <span><ng-md-icon icon="play_arrow" ng-show="!playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
     <span><ng-md-icon icon="pause" ng-show="playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
     <span><ng-md-icon icon="fast_forward" class="nav" ng-click="nextSong()" size="48" style="fill:{{nextIconColor}}" ng-mouseenter="setIconColor('next','orange')" ng-mouseleave="setIconColor('next','white')"></ng-md-icon></span>
-    <span>{{currentTrack ? currentTrack.title : ''}}</span>
+    <span>{{playerService.currentTrack ? playerService.currentTrack.title : ''}}</span>
     <span flex></span>
 
     <!-- user info -->
@@ -30,8 +30,6 @@
             <span>My Groups</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
- <!--            <ng-md-icon icon="mode_edit" class="group-icons" size="18" ng-show="!editMode" ng-hide="groups.length === 0" ng-click="setEditMode()"></ng-md-icon>
-            <ng-md-icon icon="done" class="group-icons" size="18" ng-show="editMode" ng-click="cancelEditMode()"></ng-md-icon> -->
             <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('add','orange')" ng-mouseleave="setIconColor('add','white')"></ng-md-icon>
           </div>
         </md-toolbar>
@@ -50,41 +48,15 @@
               <span class="avatar"><img src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
               {{g.name}}
             </md-button>
-            <!-- <span flex></span> -->
-      <!--       <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event, g)" aria-label="Delete group"></ng-md-icon> -->
-      <!-- </md-item> -->
-<!--       <md-item>
-        <md-item-content>
-          <md-button ng-click="showAddGroup($event)">
-            <span class="avatar"><img src="../../assets/images/indigo.png" alt="Create new group"></span>
-            Create new group
-          </md-button> -->
         </md-item-content>
       </md-item>
     </md-list>
   </md-sidenav>
 </div>
-
   <div layout="column" flex id="content"> <!-- flex class="content-wrapper" -->
     <md-content layout="column" flex>
         <div ui-view="center-content"></div>
     </md-content>
-    
   </div>
-  
-<!--   <md-sidenav class="md-sidenav-right md-whiteframe-z1" md-component-id="right" md-is-locked-open="$media('gt-sm')">
-    <md-toolbar class="md-theme-light">
-        <h1 class="md-toolbar-tools">Members</h1>
-      </md-toolbar>
-    <md-list layout-align="center center">
-      <md-item ng-repeat="it in members">
-        <md-item-content>
-            <span class="avatar"><img src="http://lorempixel.com/128/128" alt="{{it.name}}"></span>
-            {{it.name}}
-          </md-button>
-        </md-item-content>
-      </md-item>
-    </md-list>
-  </md-sidenav> -->
 </div>
  
