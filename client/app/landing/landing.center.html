@@ -155,9 +155,9 @@
 			<div layout="row" layout-align="space-around center" layout-wrap>
 			  <div flex="10">
 			    <div layout="column" layout-align="center center">
-			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="upvoteTrack(track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
+			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
 			    	<h2 class="vote">{{ getVotes(track) }}</h2>
-			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="downvoteTrack(track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
+			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
 			    </div>
 			  </div>
 			  <div flex="80">

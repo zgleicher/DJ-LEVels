@@ -86,7 +86,7 @@ angular.module('levelsApp')
                       $('#overlayBox').addClass('visuallyhidden');
                       var track_url = event.dataTransfer.getData('URL');
                       SC.get('/resolve', { url: track_url }, function(track) {
-                        $scope.addTrack(track);
+                        groupService.addTrack(track);
                       });
                   }
               });
@@ -248,89 +248,8 @@ angular.module('levelsApp')
                 'simulateQuery': true,
               };
 
-              $scope.addContributor = function(user) {
-                console.log('adding contributor ' + user.name);
-                $http.put('/api/groups/' + $stateParams.groupid + '/contributors', {
-                    "user_id": user._id,
-                    "user_name": user.name
-                }).success(function(data) {
-                  console.log('hi from success put: ' + data);
-                  console.log($scope.group.contributors);
-                }).error(function(err) {
-                  console.log(err);
-                });
-              };
-              //SHOULD ADD A CONTRIBUTOR TO  FOLLOWERS TOO
-
-              $scope.removeContributor = function(userId) {
-                $http.delete('/api/groups/' + $stateParams.groupid + '/contributors', {
-                    "user_id": userId
-                });
-              };
-
-              $scope.addFollower = function(userId, userName) {
-                $http.put('/api/groups/' + $stateParams.groupid + '/followers', {
-                    "user_id": userId,
-                    "user_name": userName
-                });
-              };
-
-              $scope.removeFollower = function(userId) {
-                $http.delete('/api/groups/' + $stateParams.groupid + '/followers', {
-                    "user_id": userId
-                });
-              };
-
- 
-
-              /* Track Voting */
-
-              $scope.upvoteTrack = function (track) {
-                $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
-                  { 
-                    "direction": "up",
-                    "user_id": Auth.getCurrentUser()._id
-                  }
-                );
-              };
-
-              $scope.downvoteTrack = function (track) {
-                $http.put('/api/groups/' + $scope.group._id + '/tracks/' + track._id + '/vote',
-                  { 
-                    "direction": "down",
-                    "user_id": Auth.getCurrentUser()._id
-                  }
-                );
-              };
-
               $scope.getVotes = function (track) {
                 return track.upvotes.length - track.downvotes.length;
-              };
-
-
-              $scope.addTrack = function (track) {
-                track.artwork_url !== null ?
-                    track.artwork_url.replace('"', '') : '';
-                var artURL = track.artwork_url.replace('-large', '-t500x500');
-                var newTrack = {
-                  track_id: track.id,
-                  track_url: track.permalink_url,
-                  title: track.title,
-                  artist: track.user.username,
-                  submitted_by: Auth.getCurrentUser()._id,
-                  submitted_by_name: Auth.getCurrentUser().name,
-                  image_url: artURL
-                };
-
-                // Update group object in db
-                $http.post('/api/groups/' + $scope.group._id + '/tracks', newTrack)
-                .success(function (track) {
-                  track.submitted_by_name = Auth.getCurrentUser().name;
-                  $scope.tracks.unshift(track);
-                })
-                .error(function(track, status) {
-                  console.log('error in post track: '+ status);
-                });
               };
 
               $scope.upColor = function(track) {
