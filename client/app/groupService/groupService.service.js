@@ -23,8 +23,10 @@ angular.module('levelsApp')
     		this.selectedGroup = item;
     	else if (event === 'deleted' && this.groups.length > 0)
     		this.selectGroup(this.groups[0]);
-    	else 
-      	$state.go('landing.no-groups');
+    	else {
+        console.log('going to no groups');
+        $state.go('landing.no-groups');
+      } 
     }.bind(this);
 
     this.selectGroup = function(group) {

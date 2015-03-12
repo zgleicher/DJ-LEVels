@@ -96,6 +96,10 @@ section li {
   min-height: -o-calc(100vh - 103px);
   min-height: -webkit-calc(100vh - 103px);
   min-height: -moz-calc(100vh - 103px); 
+  max-height: calc(100vh - 103px) !important;
+  max-height: -o-calc(100vh - 103px);
+  max-height: -webkit-calc(100vh - 103px);
+  max-height: -moz-calc(100vh - 103px); 
   overflow-y: auto;
 }
 
@@ -405,13 +409,6 @@ section li {
     right: 25px;
     width: 36px;
   }
-
-  #content img {
-    display: block;
-    height: auto;
-    max-width: 500px;
-  }
-
   /* Utils */
 
   .content-wrapper {

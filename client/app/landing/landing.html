@@ -24,7 +24,7 @@
 
 <!-- make sidebar viewport height -->
 <div layout="column"> 
-  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Groups</span>
@@ -54,7 +54,7 @@
   </md-sidenav>
 </div>
   <div layout="column" flex id="content"> <!-- flex class="content-wrapper" -->
-    <md-content layout="column" flex>
+    <md-content id="testingScroll" layout="column" flex>
         <div ui-view="center-content"></div>
     </md-content>
   </div>
