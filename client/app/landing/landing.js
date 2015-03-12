@@ -46,15 +46,21 @@ angular.module('levelsApp')
               };
 
               /* logic for drag and drop */
-              var dropbox = document.getElementById('dropbox');
-              dropbox.addEventListener('dragenter', noopHandler, false);
-              dropbox.addEventListener('dragexit', noopHandler, false);
+              var dropbox = document.getElementById('dragzone');
+              dropbox.addEventListener('dragenter', enter, false);
+              dropbox.addEventListener('dragleave', exit, false);
               dropbox.addEventListener('dragover', noopHandler, false);
               dropbox.addEventListener('drop', drop, false);
 
               function noopHandler(evt) {
                   evt.stopPropagation();
                   evt.preventDefault();
+              }
+              function enter(evt) {
+                 console.log('dragging');
+              }
+              function exit(evt) {
+                console.log('leaving');
               }
               function drop(evt) {
                   evt.stopPropagation();

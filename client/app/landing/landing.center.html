@@ -1,4 +1,4 @@
-<md-content>
+<div id="dragzone">
 	<md-card>
 		<md-card-content id="groupbox">
 			<div layout="row" layout-align="spread-apart center">
@@ -41,6 +41,7 @@
 				  </md-tab>
 				</md-tabs>
 				<ng-switch on="tabData.selectedIndex" class="tabpanel-container">
+				  <!-- information tab -->
 				  <div role="tabpanel"
 				       id="tab1-content"
 				       aria-labelledby="tab1"
@@ -55,27 +56,51 @@
 				      <p ng-show="group.followers.length === 1"> 1 Follower</p>
 				      <p ng-show="group.followers.length !== 1">{{group.followers.length}} Followers</p>
 				  </div>
+
+				  <!-- contributors tab -->
 				  <div role="tabpanel"
 				       id="tab2-content"
 				       aria-labelledby="tab2"
 				       ng-switch-when="1"
 				       md-swipe-left="next()"
 				       md-swipe-right="previous()" >
+
+				    <div style="min-height: 150px" class="autocomplete" layout="row" layout-margin>
+				      <div flex="80" layout="column">
+				    	  <md-autocomplete
+				    	      ng-disabled="autocompleteUsers.isDisabled"
+				    	      md-no-cache="autocompleteUsers.noCache"
+				    	      md-selected-item="autocompleteUsers.selectedItem"
+				    	      md-search-text="autocompleteUsers.searchText"
+				    	      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+				    	      md-item-text="item.name"
+				    	      placeholder="Select from current DJ-LEVels users">
+				    	    <span md-highlight-text="autocompleteUsers.searchText">{{item.name}} ({{item.email}})</span>
+				    	  </md-autocomplete>
+				      </div>
+				    	<!-- <br/> -->
+				    	<div  flex="20">
+				    		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''" ng-click="addContributor(autocompleteUsers.selectedItem)">
+				    		Add Contributor
+				    		</md-button>
+				    		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="addContributor(autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()">
+				    		Add {{autocompleteUsers.selectedItem.name}}
+				    		</md-button>
+				    	</div>
+				    </div>
 				  	<h3 ng-show="group.contributors.length === 1">There is 1 contributor who can add and remove songs from {{group.name}}.</h3>
 				  	<h3 ng-show="group.contributors.length !== 1">There are {{group.contributors.length}} contributors who can add and remove songs from {{group.name}}.</h3>
-				  	<div layout="row" ng-repeat="contributor in group.contributors">
-							<div class="member-tab-box">
+				  	<div layout="row" layout-wrap>
+							<div class="member-tab-box" ng-repeat="contributor in group.contributors" flex="5">
 								<md-button class="md-fab">
 									<md-tooltip>{{contributor.user_name}}</md-tooltip>
 								</md-button>
 							</div>
 						</div>
-						<h3 ng-click="getAllUsersSummary()"> click for all users </h3>
-						
-					  <h3>Add a contributor</h3>
+
 				  </div>
 
-
+					<!-- followers tab -->
 				  <div role="tabpanel"
 				       id="tab3-content"
 				       aria-labelledby="tab3"
@@ -97,8 +122,8 @@
 		</md-card-content>
 		</md-card>
 	</md-card>
-	<md-card style="min-height: 200px;">
-		<md-content style="min-height: 200px" class="md-padding autocomplete" layout="row" layout-margin>
+	<md-card style="min-height: 150px;">
+		<md-content style="min-height: 150px" class="autocomplete" layout="row" layout-margin>
 		  <div flex="80" layout="column">
 			  <md-autocomplete
 			      ng-disabled="autocompleteUsers.isDisabled"
@@ -159,4 +184,4 @@
 			</div>
 	  </md-card-content>
 	</md-card>
-</md-content>
+</div>

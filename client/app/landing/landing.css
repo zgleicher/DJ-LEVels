@@ -109,6 +109,7 @@ section li {
 
 .members-box {
   /*min-height: 150px;*/
+
 }
 
 .groupTabs .sample {
@@ -125,8 +126,10 @@ section li {
   position: relative;
   background: white;
   border: 0px solid black;
-  height: 300px;
-  overflow: hidden; }
+  min-height: 200px;
+  overflow-y: auto; 
+}
+
 .groupTabs [role="tabpanel"] {
   /*color: white;*/
   width: 100%;
@@ -165,6 +168,8 @@ section li {
 /*create padding below when tooltip is there*/
 .member-tab-box {
   padding-bottom: 10px;
+  margin: 10px 20px;
+  min-width: 40px;
 }
 .member-tab-box:hover {
   padding-bottom: 40px;
@@ -179,9 +184,9 @@ section li {
   margin-top: 24px; }
 }
 
-.autocomplete {
+/*.autocomplete {
   min-height: 500px;
-}
+}*/
 
 
 @-webkit-keyframes pulse {
