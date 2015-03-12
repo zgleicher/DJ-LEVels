@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, socket, Auth) {
+  .service('groupService', function ($http, $state, socket, Auth) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.groups;
@@ -17,6 +17,7 @@ angular.module('levelsApp')
 
     this.selectGroup = function(group) {
     	this.selectedGroup = group;
+    	$state.go('landing.center');
     }.bind(this);
 
     this.createGroup = function(name) {

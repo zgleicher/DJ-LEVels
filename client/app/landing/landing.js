@@ -135,33 +135,6 @@ angular.module('levelsApp')
                 return $scope.dropboxHover;
               };
 
-              /* song play logic */
-
-              $scope.playSong = function (track) {
-                console.log('playing track ' + track.title);
-                $scope.currentTrack = track;
-                $rootScope.$landingCtrlScope.currentTrack = track;
-                $rootScope.$landingCtrlScope.newTrack = true;
-                $rootScope.$landingCtrlScope.playSong();
-                //NEED TO ADD LOGIC HERE!
-              };
-
-              //QUERY FOR TRACKS FOR THIS GROUP
-              $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
-                $scope.group = group;
-                $scope.tracks = group.tracks;
-              });
-
-              $scope.trigger = function() {
-                $http.get('/api/groups/' + $stateParams.groupid).success(function (group) {
-                  $scope.group = group;
-                  $scope.tracks = group.tracks;
-                  $rootScope.$landingCtrlScope.currentTrack = group.tracks[0];
-                });
-              };
-              
-              $state.someShit = $scope;
-
               /* Edit and Delete Group Functionality */
 
               $scope.editMode = false;
@@ -184,7 +157,7 @@ angular.module('levelsApp')
 
                 $mdDialog.show(confirm).then(function() {
                   //$scope.alert = 'You deleted the group.';
-                  $rootScope.$landingCtrlScope.deleteGroup($scope.group);
+                  groupService.deleteGroup(groupService.selectedGroup);
                 }, function() {
                   //$scope.alert = 'You did not delete the group';
                 });
