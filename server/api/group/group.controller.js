@@ -124,8 +124,13 @@ exports.track = {
         if (err) { return handleError(res, err); }
         if (!usr) return res.json(404);
 
-        if (group.contributors.indexOf(req.body.user_id) === -1) {
-          group.contributors.push(req.body.user_id);
+        if (group.contributors.map(function (contributor) {
+              return contributor.user_id; 
+            }).indexOf(req.body.user_id) === -1) {
+          group.contributors.push({
+            "user_name": req.body.user_name,
+            "user_id": req.body.user_id
+          });
           group.save(function (err) {
             if (err) { return handleError(res, err); }
             return res.json(204);
@@ -140,7 +145,9 @@ exports.track = {
     Group.findById(req.params.id, function(err, group) {
       if (err) { return handleError(res, err); }
       var index;
-      if ((index = group.contributors.indexOf(req.body.user_id)) !== -1) {
+      if ((index = group.contributors.map(function (contributor) {
+            return contributor.user_id; 
+          }).indexOf(req.body.user_id)) !== -1) {
         group.contributors.splice(index, 1);
         group.save(function (err) {
           if (err) { return handleError(res, err); }
@@ -159,8 +166,13 @@ exports.track = {
         if (err) { return handleError(res, err); }
         if (!usr) return res.json(404);
 
-        if (group.followers.indexOf(req.body.user_id) === -1) {
-          group.followers.push(req.body.user_id);
+        if (group.followers.map(function (follower) {
+              return follower.user_id; 
+            }).indexOf(req.body.user_id) === -1) {
+          group.followers.push({
+            "user_name": req.body.user_name,
+            "user_id": req.body.user_id
+          });
           group.save(function (err) {
             if (err) { return handleError(res, err); }
             return res.json(204);
@@ -176,7 +188,9 @@ exports.track = {
     Group.findById(req.params.id, function(err, group) {
       if (err) { return handleError(res, err); }
       var index;
-      if ((index = group.followers.indexOf(req.body.user_id)) !== -1) {
+      if ((index = group.followers.map(function (follower) {
+            return follower.user_id; 
+          }).indexOf(req.body.user_id)) !== -1) {
         group.followers.splice(index, 1);
         group.save(function (err) {
           if (err) { return handleError(res, err); }
