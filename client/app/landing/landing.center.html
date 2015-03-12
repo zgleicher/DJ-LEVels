@@ -1,3 +1,4 @@
+
 <div id="dropzone">
 	<md-card>
 		<md-card-content id="groupbox">
@@ -5,13 +6,13 @@
 			<!-- <div> -->
 <!-- 				<h1 style="display:inline">{{group.name}}</h1>
 				<h2 style="display:inline; color: grey">Created by {{group.owner_name}}</h2> -->
-				<h1>{{group.name}}</h1>
+				<h1>{{groupService.selectedGroup.name}}</h1>
 				<span flex></span>
 				<!-- edit delete mode -->
 				<!-- ADD BACK IN ng-hide="!isOwner()"  -->
         <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
         <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
-        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{group.name}}"></ng-md-icon>
+        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon>
       </div>
 				
 			
@@ -48,13 +49,13 @@
 				       ng-switch-when="0"
 				       md-swipe-left="next()"
 				       md-swipe-right="previous()" >
-				      <h2>Created by {{group.owner_name}}</h2>
-				      <p ng-show="group.tracks.length === 1"> 1 Track</p>
-				      <p ng-show="group.tracks.length !== 1">{{group.tracks.length}} Tracks</p>
-				      <p ng-show="group.contributors.length === 1"> 1 Contributor</p>
-				      <p ng-show="group.contributors.length !== 1">{{group.contributors.length}} Contributors</p>
-				      <p ng-show="group.followers.length === 1"> 1 Follower</p>
-				      <p ng-show="group.followers.length !== 1">{{group.followers.length}} Followers</p>
+				      <h2>Created by {{groupService.selectedGroup.owner_name}}</h2>
+				      <p ng-show="groupService.selectedGroup.tracks.length === 1"> 1 Track</p>
+				      <p ng-show="groupService.selectedGroup.tracks.length !== 1">{{groupService.selectedGroup.tracks.length}} Tracks</p>
+				      <p ng-show="groupService.selectedGroup.contributors.length === 1"> 1 Contributor</p>
+				      <p ng-show="groupService.selectedGroup.contributors.length !== 1">{{groupService.selectedGroup.contributors.length}} Contributors</p>
+				      <p ng-show="groupService.selectedGroup.followers.length === 1"> 1 Follower</p>
+				      <p ng-show="groupService.selectedGroup.followers.length !== 1">{{groupService.selectedGroup.followers.length}} Followers</p>
 				  </div>
 
 				  <!-- contributors tab -->
@@ -88,10 +89,10 @@
 				    		</md-button>
 				    	</div>
 				    </div>
-				  	<h3 ng-show="group.contributors.length === 1">There is 1 contributor who can add and remove songs from {{group.name}}.</h3>
-				  	<h3 ng-show="group.contributors.length !== 1">There are {{group.contributors.length}} contributors who can add and remove songs from {{group.name}}.</h3>
+				  	<h3 ng-show="groupService.selectedGroup.contributors.length === 1">There is 1 contributor who can add and remove songs from {{groupService.selectedGroup.name}}.</h3>
+				  	<h3 ng-show="groupService.selectedGroup.contributors.length !== 1">There are {{groupService.selectedGroup.contributors.length}} contributors who can add and remove songs from {{groupService.selectedGroup.name}}.</h3>
 				  	<div layout="row" layout-wrap>
-							<div class="member-tab-box" ng-repeat="contributor in group.contributors" flex="5">
+							<div class="member-tab-box" ng-repeat="contributor in groupService.selectedGroup.contributors" flex="5">
 								<md-button class="md-fab">
 									<md-tooltip>{{contributor.user_name}}</md-tooltip>
 								</md-button>
@@ -162,7 +163,7 @@
 	      </p>  
 	  </md-card-content> -->
 	</md-card>
-	<md-card ng-repeat="track in tracks | orderBy : getVotes : true">
+	<md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : getVotes : true">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
 			<div layout="row" layout-align="space-around center" layout-wrap>

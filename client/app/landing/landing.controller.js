@@ -5,6 +5,7 @@ angular.module('levelsApp')
 
 $scope.playerService = playerService;
 $scope.groupService = groupService;
+$scope.Auth = Auth;
 
 $scope.addIconColor = 'white';
 $scope.playIconColor = 'white';
