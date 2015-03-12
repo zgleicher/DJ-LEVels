@@ -32,18 +32,15 @@ angular.module('levelsApp')
         followers: [user],
       }).success(function (group) {
         this.selectGroup(group);
-      });
+      }.bind(this));
     }.bind(this);
 
-    this.deleteGroup = function(group) {
-	    var selectAnother = false;
-	    if (selectedGroup === group)
-	    	selectAnother = true;
-	    $http.delete('/api/groups/' + group._id).success(function () {
-	      if (selectAnother && this.groups.length !== 0) {
+    this.deleteSelectedGroup = function() {
+	    $http.delete('/api/groups/' + this.selectedGroup._id).success(function () {
+	      if (this.groups.length !== 0) {
 	        this.selectGroup(this.groups[0]);
-	      } else if (selectAnother) {
-	      	// No groups to select
+	      } else {
+	      	// No other groups to select
 	      }
 	    }.bind(this));
   	}.bind(this);
