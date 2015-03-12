@@ -46,13 +46,8 @@
 			unique: true
 		},
 		owner					: {
-			type: ObjectId,
-			ref: 'User',
-			required: '{PATH} is required!'
-		},
-		owner_name				: {
-			type: String,
-			required: '{PATH} is required!'
+			"user_id": { type: ObjectId, ref: 'User' },
+			"user_name": String
 		},
 		tracks				: [trackSchema],
 		contributors	: [{
