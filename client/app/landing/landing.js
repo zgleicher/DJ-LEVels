@@ -120,20 +120,7 @@ angular.module('levelsApp')
                   // });
               // }
 
-              $scope.dropboxHover = false;
 
-              //NEED TO ADD google drive functionality for hovering (blue circle as the target)
-              $scope.hovering = function (bool) {
-                if (bool === true) {
-                  $scope.dropboxHover = true;
-                } else {
-                  $scope.dropboxHover = false;
-                }
-              };
-
-              $scope.isHovering = function () {
-                return $scope.dropboxHover;
-              };
 
               /* Edit and Delete Group Functionality */
 
@@ -204,31 +191,6 @@ angular.module('levelsApp')
               //     };
               //   }
 
-              //default to closed
-              $scope.contributorsOpen = false;
-              $scope.followersOpen = false;
-
-              // $scope.showContributors = function() {
-              //   $scope.contributorsOpen = true;
-              //   $scope.followersOpen = false;
-              // };
-
-              // $scope.hideContributors = function() {
-              //   $scope.contributorsOpen = false;
-              //   $scope.followersOpen = false;
-              // };
-
-              // $scope.showFollowers = function() {
-              //   $scope.contributorsOpen = false;
-              //   $scope.followersOpen = true;
-              // };
-
-              // $scope.hideFollowers = function() {
-              //   $scope.contributorsOpen = false;
-              //   $scope.followersOpen = false;
-              // };
-
-
               $scope.tabData = {
                 selectedIndex : 0,
               };
@@ -236,67 +198,16 @@ angular.module('levelsApp')
               $scope.tabNext = function() {
                 $scope.tabData.selectedIndex = Math.min($scope.tabData.selectedIndex + 1, 2) ;
               };
+
               $scope.previous = function() {
                 $scope.tabData.selectedIndex = Math.max($scope.tabData.selectedIndex - 1, 0);
               };
 
-
-                // function ContributorsController($scope, $mdDialog) {
-                //   $scope.hide = function() {
-                //     $mdDialog.hide();
-                //   };
-                //   $scope.cancel = function() {
-                //     $mdDialog.cancel();
-                //   };
-                //   $scope.finishForm = function(answer) {
-                //     $mdDialog.hide(answer);
-                //     // $scope.newGroup = answer;
-                //     // $scope.addGroup();
-                //   };
-
-                //   $scope.addContributor = function() {
-                //     if($scope.newGroup === '') { return; }
-                //     $http.post('/api/groups', {
-                //       name: $scope.newGroup,
-                //       owner: Auth.getCurrentUser()._id,
-                //       owner_name: Auth.getCurrentUser().name
-                //     }).success(function (group) {
-                //       $rootScope.$landingCtrlScope.selectGroup(group);
-                //     });
-                //     $scope.newGroup = '';
-                //   };
-                // }
               $scope.getAllUsersSummary = function() {
                 var callback = function (array) {
                   console.log('hi in callback: ' + array);
                 };
                 Auth.getAllUsersSummary(callback);
-                // return members;
-                // return [
-                // { "value": 
-                //   { 
-                //     "name": 'Noureen',
-                //     "_id": '1234',
-                //     "email": 'nan2130@columbia.edu'
-                //   },
-                //   "display": 'Noureen'
-                // },
-                // { "value": 
-                //   { 
-                //     "name": 'Kristie',
-                //     "_id": '14924',
-                //     "email": 'kbh2120@columbia.edu'
-                //   },
-                //   "display": 'Kristie'
-                // },
-                // {
-                //   "value": {
-                //     "name": 'kristie howard',
-                //     '_id': '54fe69ec3bf6ce6bddfd93ec',
-                //     "email": 'kristiehow@gmail.com'
-                //   },
-                //   "display": 'kristie howard'
-                // }];
               };
 
               $scope.autocompleteUsers = {

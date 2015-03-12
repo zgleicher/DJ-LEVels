@@ -149,20 +149,6 @@
 		</md-content>
 	</md-card> -->
 
-	<md-card class="">
-	  <md-card-content id="dropbox" ng-mouseover="hovering(true)" ng-mouseout="hovering(false)">
-	    <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
-	    <p>
-	      Drop here
-	    </p>
-	    <p ng-show="isHovering()">YOU ARE HOVERING</p>
-<!-- 	    <md-card-content id="dropbox">
-	      <h2>Drag and drop a SoundCloud song URL here to add it to the playlist.</h2>
-	      <p>
-	        Drop here
-	      </p>  
-	  </md-card-content> -->
-	</md-card>
 	<md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : getVotes : true">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
@@ -186,10 +172,10 @@
 	  </md-card-content>
 	</md-card>
 	<!-- drag show overlay-->
-	<div id="overlayBox" class="visuallyhidden">
-		<div class="" layout="column" layout-align="center center" layout-margin>
-			<md-button id="dropHere" class="md-fab" aria-label="Drop a SoundCloud URL here"><ng-md-icon icon="insert_drive_file" size="200" style="fill:white"></ng-md-icon></md-button>
-			<div>Drag and drop a SoundCloud URL here to add a song to this group!</div>
+	<div id="overlayBox" class="visuallyhidden"> <!-- class="visuallyhidden" -->
+		<div id="dropHereWrapper" layout="column" layout-align="center center" layout-margin>
+			<md-button id="dropHere" class="md-fab pulse2"  aria-label="Drop a SoundCloud URL here"><ng-md-icon icon="insert_drive_file" size="200" style="fill:white"></ng-md-icon></md-button>
+			<div style="color: black">Drag and drop a SoundCloud URL here to add a song to this group!</div>s
 		</div>
 	</div>
 </div>
