@@ -12,11 +12,17 @@ angular.module('levelsApp')
       if (this.groups.length !== 0) {
         this.selectGroup(this.groups[0]);
       }
-      socket.syncUpdates('group', this.groups);
+      socket.syncUpdates('group', this.groups, this.updateGroupState);
     }.bind(this));
 
-
     /* Core group functions */
+
+    this.updateGroupState = function(event, item, array) {
+    	if (event === 'updated' && item._id === this.selectedGroup._id)
+    		this.selectedGroup = item;
+    	else if (event === 'deleted' && this.groups.length > 0)
+    		this.selectGroup(this.groups[0]);
+    }.bind(this);
 
     this.selectGroup = function(group) {
     	this.selectedGroup = group;
@@ -39,22 +45,32 @@ angular.module('levelsApp')
     }.bind(this);
 
     this.deleteSelectedGroup = function() {
-	    $http.delete('/api/groups/' + this.selectedGroup._id).success(function () {
-	      if (this.groups.length !== 0) {
-	        this.selectGroup(this.groups[0]);
-	      } else {
-	      	// No other groups to select
-	      }
-	    }.bind(this));
+	    $http.delete('/api/groups/' + this.selectedGroup._id);
   	}.bind(this);
 
-
   	/* Track functions */ 
+  	this.getTrackScore = function (track) {
+      return track.upvotes.length - track.downvotes.length;
+    };
+
+  	this.nextTrack = function() {
+  		var sorted = this.selectedGroup.tracks.sort(function (a, b) {
+  			return this.getTrackScore(a) - this.getTrackScore(b);
+  		}.bind(this));
+  		if (!this.selectedGroup.selectedTrack) {
+  			this.selectedGroup.selectedTrack = sorted[0];
+  		} else {
+  			var index = sorted.indexOf(this.selectedGroup.selectedTrack);
+  			this.selectedGroup.selectedTrack = index < sorted.length - 1 ? sorted[index + 1] : sorted[0];
+  		}
+  		return this.selectedGroup.selectedTrack;
+  	}.bind(this);
 
   	this.addTrack = function (track) {
       track.artwork_url !== null ?
           track.artwork_url.replace('"', '') : '';
-      var artURL = track.artwork_url.replace('-large', '-t500x500');
+      var artURL = track.artwork_url !== null ?
+      		track.artwork_url.replace('-large', '-t500x500') : '';
 
       var newTrack = {
         track_id: track.id,

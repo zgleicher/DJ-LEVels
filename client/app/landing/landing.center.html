@@ -149,14 +149,14 @@
 		</md-content>
 	</md-card> -->
 
-	<md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : getVotes : true">
+	<md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
 			<div layout="row" layout-align="space-around center" layout-wrap>
 			  <div flex="10">
 			    <div layout="column" layout-align="center center">
 			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-			    	<h2 class="vote">{{ getVotes(track) }}</h2>
+			    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
 			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
 			    </div>
 			  </div>

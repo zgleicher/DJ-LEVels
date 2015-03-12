@@ -21,18 +21,6 @@ angular.module('levelsApp')
               $scope.playerService = playerService;
               $rootScope.$centerCtrlScope = $scope;
 
-              $scope.playNext = function() {
-                var index;
-                for (var i = 0; i < $scope.group.tracks.length; i++) {
-                  if ($scope.group.tracks[i].track_id === $scope.currentTrack.track_id) {
-                    index = i;
-                    break;
-                  }
-                }
-                if (index !== $scope.group.tracks.length - 1)
-                  $scope.playSong($scope.group.tracks[index + 1]);
-              };
-
               $scope.playPrevious = function() {
                 var index;
                 for (var i = 0; i < $scope.group.tracks.length; i++) {
@@ -246,10 +234,6 @@ angular.module('levelsApp')
                   }
                 },
                 'simulateQuery': true,
-              };
-
-              $scope.getVotes = function (track) {
-                return track.upvotes.length - track.downvotes.length;
               };
 
               $scope.upColor = function(track) {
