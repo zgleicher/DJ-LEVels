@@ -123,9 +123,8 @@ exports.track = {
       User.findById(req.body.user_id, function(err, usr) {
         if (err) { return handleError(res, err); }
         if (!usr) return res.json(404);
-
         if (group.contributors.map(function (contributor) {
-              return contributor.user_id; 
+              return String(contributor.user_id); 
             }).indexOf(req.body.user_id) === -1) {
           group.contributors.push({
             "user_name": req.body.user_name,
@@ -146,7 +145,7 @@ exports.track = {
       if (err) { return handleError(res, err); }
       var index;
       if ((index = group.contributors.map(function (contributor) {
-            return contributor.user_id; 
+            return String(contributor.user_id); 
           }).indexOf(req.body.user_id)) !== -1) {
         group.contributors.splice(index, 1);
         group.save(function (err) {
@@ -167,7 +166,7 @@ exports.track = {
         if (!usr) return res.json(404);
 
         if (group.followers.map(function (follower) {
-              return follower.user_id; 
+              return String(follower.user_id); 
             }).indexOf(req.body.user_id) === -1) {
           group.followers.push({
             "user_name": req.body.user_name,
@@ -189,7 +188,7 @@ exports.track = {
       if (err) { return handleError(res, err); }
       var index;
       if ((index = group.followers.map(function (follower) {
-            return follower.user_id; 
+            return String(follower.user_id); 
           }).indexOf(req.body.user_id)) !== -1) {
         group.followers.splice(index, 1);
         group.save(function (err) {

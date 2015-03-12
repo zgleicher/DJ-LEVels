@@ -8,6 +8,13 @@ angular.module('levelsApp')
         templateUrl: 'app/landing/landing.html',
         controller: 'LandingCtrl'
       })
+      .state('landing.no-groups', {
+        url: '/landing/no-groups',
+        templateUrl: 'app/landing/landing.noGroups.html',
+        controller: function() {
+          console.log('test');
+        }
+      })
       .state('landing.center', {
         url: '/center/:groupid',
         views: {
@@ -191,13 +198,6 @@ angular.module('levelsApp')
                 $scope.tabData.selectedIndex = Math.max($scope.tabData.selectedIndex - 1, 0);
               };
 
-              $scope.getAllUsersSummary = function() {
-                var callback = function (array) {
-                  console.log('hi in callback: ' + array);
-                };
-                Auth.getAllUsersSummary(callback);
-              };
-
               $scope.autocompleteUsers = {
                 'isDisabled': false,
                 'noCache': false,
@@ -212,21 +212,6 @@ angular.module('levelsApp')
                       var lowercaseQuery = angular.lowercase(query);
                       return (userName.indexOf(lowercaseQuery) > -1);
                     });
-
-                  //   var callback = function (array) {
-                  //     console.log('hi in cb, array is this long: ' + array.length);
-                  //     console.log(array[0]);
-                  //     var filtered = array.filter(function (user) {
-                  //       var userName = angular.lowercase(user.name);
-                  //       var lowercaseQuery = angular.lowercase(query);
-                  //       return (userName.indexOf(lowercaseQuery) > -1);
-                  //     });
-                  //     console.log('FILTERED ARRAY is this long: ' + filtered.length);
-                  //     console.log(filtered[0]);
-                  //     return filtered;
-                  //   };
-                    
-                  //   return Auth.getAllUsersSummary(callback);
 
                   } else {
                     // return $scope.getAllUsersSummary();
