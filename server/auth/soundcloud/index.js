@@ -22,12 +22,15 @@ router.post('/', function(req, res) {
     if(!err) {
       var accessToken = body.access_token;
       var qs = {oauth_token: accessToken};
-      console.log(qs);
 
-      request.get({url: soundcloudUserUrl, qs: qs, json: true}, function(err, response, body) {
-        console.log(err);
-        console.log(body);
+      //Use access token to get user info
+      request.get({url: soundcloudUserUrl, qs: qs, json: true}, function(err, response, user) {
+        if (!err) {
+          // TODO(@sam): User is an user json obect returnd by the request to SC api (https://developers.soundcloud.com/docs/api/reference#me)
+          // Store this username in db if it has not been put in db
+        }
       });
+      return res.json({token: accessToken});
     }
   });
 
