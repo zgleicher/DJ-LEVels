@@ -47,6 +47,10 @@ angular.module('levelsApp', [
     };
   })
 
+  .factory('SC', function ($window) {
+    return $window.SC;
+  })
+
   .run(function ($rootScope, $location, Auth) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
