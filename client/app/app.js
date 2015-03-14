@@ -10,7 +10,8 @@ angular.module('levelsApp', [
   'ui.bootstrap',
   'ngMaterial',
   'ngAria',
-  'ngMdIcons'
+  'ngMdIcons',
+  'satellizer'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
@@ -44,6 +45,10 @@ angular.module('levelsApp', [
         }
       }
     };
+  })
+
+  .factory('SC', function ($window) {
+    return $window.SC;
   })
 
   .run(function ($rootScope, $location, Auth) {
