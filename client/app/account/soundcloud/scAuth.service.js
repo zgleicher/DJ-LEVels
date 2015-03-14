@@ -8,7 +8,7 @@ Methods implemented to get the user id of the user logged in and the favorite tr
 angular.module('levelsApp')
   .service('scAuthService', function ($auth, $http, $q) {
 
-    this.getUserId = function() {
+    this.getUser = function() {
       var deferred = $q.defer();
       if (!$auth.isAuthenticated()) { 
         deferred.reject('Not Logged In');
@@ -20,8 +20,8 @@ angular.module('levelsApp')
           params: {oauth_token: token}
         })
         .then(function (response) {
-          var userId = response.data.id;
-          deferred.resolve(userId);
+          var user = response.data;
+          deferred.resolve(user);
         });
         return deferred.promise;
     }; 

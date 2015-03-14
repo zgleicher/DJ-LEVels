@@ -15,8 +15,10 @@
     <span flex></span>
 
     <!-- user info -->
+    <md-button ng-show="!isAuthenticated()" ng-click="authenticate('soundcloud')">Login</md-button>
+    <md-button ng-show="isAuthenticated()" ng-click="logout()">Logout</md-button>
     <h1><span><ng-md-icon icon="person" class="nav" size="48"></ng-md-icon></span></h1> 
-    <h3><span>{{ getCurrentUserName() }}</span></h3>
+    <span>{{username}}</span>
 </md-toolbar>
 
 

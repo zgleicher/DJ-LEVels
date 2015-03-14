@@ -26,14 +26,15 @@ angular.module('levelsApp')
     $auth.logout();
   };
 
-  $scope.getUserId = function() {
-    scAuthService.getUserId().then(function(id) {
-      $scope.userId = id;
+  $scope.getUser = function() {
+    scAuthService.getUserId().then(function(user) {
+      $scope.user = user;
     });
   };
 
   $scope.getFavoriteTracks = function() {
-    scAuthService.getUserId().then(function(id) {
+    scAuthService.getUser().then(function(user) {
+      id = user.id;
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
         $scope.tracks = tracks;
       });

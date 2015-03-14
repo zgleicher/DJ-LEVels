@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
+.controller('LandingCtrl', function ($scope, $auth, scAuthService, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
+
+if ($auth.isAuthenticated()) {
+  scAuthService.getUser().then(function(user) {
+    $scope.username = user.username;
+  });
+}
 
 $scope.playerService = playerService;
 $scope.groupService = groupService;
@@ -77,6 +83,31 @@ $scope.setIconColor = function(icon, value) {
     });
   };
 
+  $scope.authenticate = function(provider) {
+    $auth.authenticate(provider).then(function(response) {
+      //Login Success
+      scAuthService.getUser().then(function(user) {
+        $scope.username = user.username;
+      });
+    })
+    .catch(function(response) {
+      //Login Fail
+    });
+  };
+
+  $scope.isAuthenticated = function() {
+    return $auth.isAuthenticated();
+  };
+
+  $scope.logout = function() {
+    $auth.logout();
+  };
+
+  $scope.getUser = function() {
+    scAuthService.getUserId().then(function(user) {
+      $scope
+    });
+  };
 
   function AddGroupController($scope, $mdDialog, groupService) {
     $scope.hide = function() {

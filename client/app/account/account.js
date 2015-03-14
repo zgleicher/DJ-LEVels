@@ -34,4 +34,6 @@ angular.module('levelsApp')
       requiredUrlParams: ['scope'],
       scope: 'non-expiring'
     });
+    
+    $authProvider.loginRedirect = '/landing';
   });
