@@ -99,10 +99,10 @@
 		</md-card-content>
 		</md-card>
 	</md-card>
-	<md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
+	<!-- <md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
 	  <img src="{{track.image_url}}" alt="Song title">
 	  <md-card-content>
-			<div layout="row" layout-align="space-around center" layout-wrap>
+			<div layout="row" layout-align="space-around center" layout-margin layout-padding>
 			  <div flex="10">
 			    <div layout="column" layout-align="center center">
 			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
@@ -120,7 +120,81 @@
 			  </div>
 			</div>
 	  </md-card-content>
+	</md-card> -->
+	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
+	<md-card>
+	  <!-- <img src="{{track.image_url}}" alt="Song title"> -->
+	  <md-card-content>
+			<div layout="row" layout-align="space-between center" layout-padding>
+			  <!-- voting -->
+			  <div flex="10">
+<!-- 			    <div layout="column" layout-align="center center">
+			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
+			    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
+			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
+			    </div> -->
+			    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+			  </div>
+
+			  <div>
+			    <h3 style="display:inline">{{track.title}}</h3> 
+			    <p  style="display:inline">{{track.artist}}</p>
+			    <!-- <p>Submitted by: {{track.submitted_by_name}}</p> -->
+			  </div>
+			  <span flex></span>
+			  <div flex="10">
+			  	<ng-md-icon icon="play_arrow" size="48" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+			  </div>
+			</div>
+	  </md-card-content>
 	</md-card>
+	<!-- <md-card> -->
+	  <!-- <img src="{{track.image_url}}" alt="Song title"> -->
+<!-- 		  <md-card-content>
+		  	<div layout="column" layout-align="center start"> -->
+				<!-- <div layout="row" layout-align="space-around center" layout-margin layout-padding> -->
+<!-- 				  <div flex="10">
+				    <div layout="column" layout-align="center center">
+				    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
+				    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
+				    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
+				    </div>
+				  </div>
+				  <div flex="80">
+				    <h2>{{track.title}}</h2>
+				    <p>{{track.artist}}</p>
+				    <p>Submitted by: {{track.submitted_by_name}}</p>
+				  </div>
+				  <div flex="10">
+				  	<ng-md-icon icon="play_arrow" size="48" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+				  </div> -->
+
+<!-- 					<div layout="row" layout-align="space-between center">
+						<div flex="33">
+							<img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+						</div>
+						<div flex="66">
+							<div>
+								<h2>{{track.title}}</h2> 
+								<p>{{track.artist}}</p>
+								<p>Submitted by: {{track.submitted_by_name}}</p>
+							</div>
+							<div layout="column" layout-align="center center">
+								<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
+								<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
+								<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
+							</div>
+						</div>
+						
+					</div>
+					<div>waveform</div>
+				</div>
+		  </md-card-content>
+		</md-card> -->
+
+	</div>
+	
+
 	<!-- drag show overlay-->
 	<div id="overlayBox" class="visuallyhidden overlay"> 
 		<div id="dropHereWrapper" layout="column" layout-align="center center" layout-margin>
