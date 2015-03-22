@@ -152,7 +152,7 @@
 					  <div layout="column" flex="10">
 						  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
 						  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
-						  <small>{{ playerService.currentTime || 0 }} - {{playerService.duration}}</small>
+						  <small ng-show="playerService.isCurrentTrack(track)">{{ playerService.currentTime || 0 | prettyTime }} - {{playerService.duration | prettyTime}}</small>
 					  </div>
 			  </div>
 <!-- 			  <div ng-show="shouldShowStats(track)">

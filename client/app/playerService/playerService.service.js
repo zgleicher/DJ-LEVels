@@ -43,7 +43,7 @@ angular.module('levelsApp')
     		this.currentSound.stop();
     		this.currentsound = '';
     		this.isPlaying = false;
-    	}
+    	}  
     	this.currentTrack = track;
     	SC.stream('/tracks/' + track.track_id, {
           whileplaying: function () {
@@ -79,4 +79,7 @@ angular.module('levelsApp')
         return this.currentTrack === track && this.isPlaying;
     }.bind(this);
 
+    this.isCurrentTrack = function(track) {
+        return this.currentTrack === track;
+    }.bind(this);
   });
