@@ -99,100 +99,71 @@
 		</md-card-content>
 		</md-card>
 	</md-card>
-	<!-- <md-card ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
-	  <img src="{{track.image_url}}" alt="Song title">
-	  <md-card-content>
-			<div layout="row" layout-align="space-around center" layout-margin layout-padding>
-			  <div flex="10">
-			    <div layout="column" layout-align="center center">
-			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-			    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
-			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
-			    </div>
-			  </div>
-			  <div flex="80">
-			    <h2>{{track.title}}</h2>
-			    <p>{{track.artist}}</p>
-			    <p>Submitted by: {{track.submitted_by_name}}</p>
-			  </div>
-			  <div flex="10">
-			  	<ng-md-icon icon="play_arrow" size="48" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
-			  </div>
-			</div>
-	  </md-card-content>
-	</md-card> -->
+<!-- group cards -->
 	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
-	<md-card>
-	  <!-- <img src="{{track.image_url}}" alt="Song title"> -->
-	  <md-card-content>
-			<div layout="row" layout-align="space-between center" layout-padding>
-			  <!-- voting -->
-			  <div flex="10">
-<!-- 			    <div layout="column" layout-align="center center">
-			    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-			    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
-			    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
-			    </div> -->
-			    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
-			  </div>
-
-			  <div>
-			    <h3 style="display:inline">{{track.title}}</h3> 
-			    <p  style="display:inline">{{track.artist}}</p>
-			    <!-- <p>Submitted by: {{track.submitted_by_name}}</p> -->
-			  </div>
-			  <span flex></span>
-			  <div flex="10">
-			  	<ng-md-icon icon="play_arrow" size="48" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
-			  </div>
-			</div>
-	  </md-card-content>
-	</md-card>
-	<!-- <md-card> -->
-	  <!-- <img src="{{track.image_url}}" alt="Song title"> -->
-<!-- 		  <md-card-content>
-		  	<div layout="column" layout-align="center start"> -->
-				<!-- <div layout="row" layout-align="space-around center" layout-margin layout-padding> -->
-<!-- 				  <div flex="10">
-				    <div layout="column" layout-align="center center">
-				    	<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-				    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
-				    	<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
-				    </div>
+		<md-card>
+		  <md-card-content>
+				<div layout="row" layout-align="space-between center">
+				  <span flex="10">
+				    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+				  </span>
+				  <div style="padding-right: 16px; padding-left: 16px;">
+				    <h3 style="display:inline">{{track.title}}</h3> 
+				    <p style="display:inline">{{track.artist}}</p>
 				  </div>
-				  <div flex="80">
-				    <h2>{{track.title}}</h2>
-				    <p>{{track.artist}}</p>
-				    <p>Submitted by: {{track.submitted_by_name}}</p>
-				  </div>
+				  <span flex></span>
 				  <div flex="10">
-				  	<ng-md-icon icon="play_arrow" size="48" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
-				  </div> -->
-
-<!-- 					<div layout="row" layout-align="space-between center">
-						<div flex="33">
-							<img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
-						</div>
-						<div flex="66">
-							<div>
-								<h2>{{track.title}}</h2> 
-								<p>{{track.artist}}</p>
-								<p>Submitted by: {{track.submitted_by_name}}</p>
-							</div>
-							<div layout="column" layout-align="center center">
-								<ng-md-icon icon="arrow_drop_up" class="vote" size="48" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-								<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
-								<ng-md-icon icon="arrow_drop_down" class="vote" size="48" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
-							</div>
-						</div>
-						
-					</div>
-					<div>waveform</div>
+				  	  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+			  		  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
+				  </div>
 				</div>
 		  </md-card-content>
-		</md-card> -->
-
-	</div>
+		</md-card>
+		<md-card>
+		  <md-card-content>
+					<div layout="row" layout-align="space-between center">
+					  <div flex="20">
+					    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+						</div>
+					  <div style="padding-right: 16px; padding-left: 16px;" flex>
+					    <h2>{{track.title}}</h2>
+					    <p>{{track.artist}}</p>
+					    <p>Submitted by: {{track.submitted_by_name}}</p>
+					    <p>
+					    	<h2 class="vote" style="display:inline">{{ groupService.getTrackScore(track) }}</h2>
+					    	<md-button ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track"> Upvote </md-button>
+					    	<md-button ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track"> Downvote </md-button>
+					    </p>
+					  </div>
+					  
+					  <!-- <div flex="10">
+					    <div layout="column" layout-align="center center">
+					    	<ng-md-icon icon="arrow_drop_up" class="vote" size="36" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
+					    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
+					    	<ng-md-icon icon="arrow_drop_down" class="vote" size="36" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
+					    </div>
+					  </div> -->
+<!-- 					  <div>
+					  <md-button>upvote</md-button>
+					  </div>
+					  <div>
+					  <md-button>downvote</md-button>
+						</div> -->
+					  <div layout="column" flex="10">
+						  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+						  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
+						  <small>{{ playerService.currentTime || 0 }} - {{playerService.duration}}</small>
+					  </div>
+			  </div>
+<!-- 			  <div ng-show="shouldShowStats(track)">
+			  	HELLLo hovering
+			  </div> -->
+			  <div>
+			  	<span id="progressBar" flex><md-progress-linear md-mode="determinate" value="40"></md-progress-linear></span>
+			  </div>
+		  </md-card-content>
+		</md-card>
+	</div> <!-- end group repeat -->
 	
 
 	<!-- drag show overlay-->

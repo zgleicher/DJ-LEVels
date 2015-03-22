@@ -8,7 +8,10 @@ angular.module('levelsApp')
     	client_id: '8404d653618adb5d684fa8b257d4f924'
     });
 
+    var player = this;
     this.currentSound;
+    this.currentTime;
+    this.duration;
     this.currentTrack;
     this.isPlaying = false;
     this.isPaused = false;
@@ -42,15 +45,38 @@ angular.module('levelsApp')
     		this.isPlaying = false;
     	}
     	this.currentTrack = track;
-    	SC.stream('/tracks/' + track.track_id, function(sound) {
-      	this.currentSound = sound;
-      	return cb(null);
+    	SC.stream('/tracks/' + track.track_id, {
+          whileplaying: function () {
+            player.currentTime = this.position;
+            console.log(player.currentTime);
+          },
+          onload: function () {
+            player.duration = this.duration;
+          }
+        }, function(sound) {
+          	this.currentSound = sound;
+            console.log(this.currentSound);
+            // this.duration = sound['durationEstimate'];
+            // console.log('duration is ' + this.duration);
+            // this.currentTime = sound.position;
+            // console.log('current time is ' + this.currentTime);
+          	return cb(null);
     	}.bind(this));
     }.bind(this);
 
     this.playTrack = function(track) {
-    	this.loadTrack(track, function(err) {
-    		this.togglePlay();
-    	}.bind(this));
+        if (track === this.currentTrack) {
+            this.togglePlay();
+        } else {
+            this.loadTrack(track, function(err) {
+                this.togglePlay();
+            }.bind(this));
+        }
+    	
     }.bind(this);
+
+    this.isCurrentTrackPlaying = function(track) {
+        return this.currentTrack === track && this.isPlaying;
+    }.bind(this);
+
   });

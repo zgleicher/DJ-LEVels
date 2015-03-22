@@ -7,18 +7,23 @@
     <h1><span class="pulse">DJ-LEVels</span></h1>
     <span flex></span>
     <!-- now playing song -->
-    <span><ng-md-icon icon="fast_rewind" class="nav" ng-click="previousSong()" size="48" style="fill:{{prevIconColor}}" ng-mouseenter="setIconColor('prev','orange')" ng-mouseleave="setIconColor('prev','white')"></ng-md-icon></span>
-    <span><ng-md-icon icon="play_arrow" ng-show="!playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
-    <span><ng-md-icon icon="pause" ng-show="playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
-    <span><ng-md-icon icon="fast_forward" class="nav" ng-click="playerService.playNext()" size="48" style="fill:{{nextIconColor}}" ng-mouseenter="setIconColor('next','orange')" ng-mouseleave="setIconColor('next','white')"></ng-md-icon></span>
-    <span>{{playerService.currentTrack ? playerService.currentTrack.title : ''}}</span>
+    <span layout="column" layout-align="center center">
+      <span layout="row">
+        <span><ng-md-icon icon="fast_rewind" class="nav" ng-click="previousSong()" size="36" style="fill:{{prevIconColor}}" ng-mouseenter="setIconColor('prev','orange')" ng-mouseleave="setIconColor('prev','white')"></ng-md-icon></span>
+        <span><ng-md-icon icon="play_arrow" ng-show="!playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="36" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
+        <span><ng-md-icon icon="pause" ng-show="playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="36" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
+        <span><ng-md-icon icon="fast_forward" class="nav" ng-click="playerService.playNext()" size="36" style="fill:{{nextIconColor}}" ng-mouseenter="setIconColor('next','orange')" ng-mouseleave="setIconColor('next','white')"></ng-md-icon></span>
+      </span>
+      <span>{{playerService.currentTrack ? playerService.currentTrack.title : ''}}</span>
+    </span>
     <span flex></span>
 
     <!-- user info -->
     <md-button ng-show="!isAuthenticated()" ng-click="authenticate('soundcloud')">Login</md-button>
-    <md-button ng-show="isAuthenticated()" ng-click="logout()">Logout</md-button>
-    <h1><span><ng-md-icon icon="person" class="nav" size="48"></ng-md-icon></span></h1> 
+    
+    <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1> 
     <span>{{username}}</span>
+    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="cancel" size="36" style="fill: white"></ng-md-icon></md-button>
 </md-toolbar>
 
 
@@ -26,7 +31,7 @@
 
 <!-- make sidebar viewport height -->
 <div layout="column"> 
-  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$media('gt-sm')">
+  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Groups</span>

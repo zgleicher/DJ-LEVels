@@ -5,6 +5,10 @@
   padding: 0px 16px;
 }
 
+md-progress-linear {
+  padding-top: 10px;
+  margin-bottom: 20px; }
+
 
 /* edit & save button */
 ng-md-icon.group-icons {

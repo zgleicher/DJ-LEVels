@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $auth, scAuthService, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
+.controller('LandingCtrl', function ($scope, $auth, scAuthService, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService, $mdSidenav) {
 
 if ($auth.isAuthenticated()) {
   scAuthService.getUser().then(function(user) {
