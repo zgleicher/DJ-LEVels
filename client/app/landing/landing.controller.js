@@ -18,6 +18,16 @@ $scope.playIconColor = 'white';
 $scope.prevIconColor = 'white';
 $scope.nextIconColor = 'white';
 
+/* Watch Song Player */
+
+$scope.$watch('playerService.currentTime', function(newValue, oldValue) {
+    
+}, true);
+
+$scope.$watch('playerService.duration', function(newValue, oldValue) {
+    
+}, true);
+
 $scope.setIconColor = function(icon, value) {
   switch (icon) {
     case 'add':

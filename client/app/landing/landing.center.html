@@ -1,27 +1,28 @@
 <div id="dropzone">
-	<md-card>
-		<md-card-content id="groupbox">
+	<md-card id="gbox">
+		<md-toolbar class="md-toolbar-tools" style="background-color: #03a9f4;">
 			<div layout="row" layout-align="spread-apart center">
 				<h1>{{groupService.selectedGroup.name}}</h1>
 				<span flex></span>
 				<!-- edit delete mode -->
 				<!-- ADD BACK IN ng-hide="!isOwner()"  -->
-        <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
-        <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
-        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon>
+        
       </div>
-
-			<md-card>
+		</md-toolbar>
+		<md-card-content>
 			<div class="groupTabs">
 				<md-tabs class="" md-selected="tabData.selectedIndex">
-				  <md-tab class="" id="tab1" aria-controls="tab1-content">
+				  <md-tab id="tab1" md-on-select="sizeTab('regular')" aria-controls="tab1-content">
 				    Info
 				  </md-tab>
-				  <md-tab id="tab2" aria-controls="tab2-content">
+				  <md-tab id="tab2" md-on-select="sizeTab('tall')" aria-controls="tab2-content">
 				    Contributors
 				  </md-tab>
-				  <md-tab id="tab3" aria-controls="tab3-content">
+				  <md-tab id="tab3" md-on-select="sizeTab('tall')" aria-controls="tab3-content">
 				    Followers
+				  </md-tab>
+				  <md-tab id="tab4" md-on-select="sizeTab('short')" aria-controls="tab4-content">
+				    Settings
 				  </md-tab>
 				</md-tabs>
 				<ng-switch on="tabData.selectedIndex" class="tabpanel-container">
@@ -31,8 +32,8 @@
 				       aria-labelledby="tab1"
 				       ng-switch-when="0"
 				       md-swipe-left="next()"
-				       md-swipe-right="previous()" >
-				      <h2>Created by {{groupService.selectedGroup.owner_name}}</h2>
+				       md-swipe-right="previous()">
+				      <h2>Created by {{groupService.selectedGroup.owner.user_name}}</h2>
 				      <p ng-show="groupService.selectedGroup.tracks.length === 1"> 1 Track</p>
 				      <p ng-show="groupService.selectedGroup.tracks.length !== 1">{{groupService.selectedGroup.tracks.length}} Tracks</p>
 				      <p ng-show="groupService.selectedGroup.contributors.length === 1"> 1 Contributor</p>
@@ -47,9 +48,11 @@
 				       aria-labelledby="tab2"
 				       ng-switch-when="1"
 				       md-swipe-left="next()"
-				       md-swipe-right="previous()" >
+				       md-swipe-right="previous()"
+				       class="groupbox"
+				       >
 
-				    <div style="min-height: 150px" class="autocomplete" layout="row" layout-margin>
+				    <div style="min-height: 60px" class="autocomplete" layout="row" layout-margin>
 				      <div flex="80" layout="column">
 				    	  <md-autocomplete
 				    	      ng-disabled="autocompleteUsers.isDisabled"
@@ -90,18 +93,31 @@
 				       aria-labelledby="tab3"
 				       ng-switch-when="2"
 				       md-swipe-left="next()"
-				       md-swipe-right="previous()" >
+				       md-swipe-right="previous()" 
+				       class="groupbox">
 				      View for Item #3<br/>
 				      tabData.selectedIndex = 2
 				  </div>
+				  <!-- settings tab -->
+				   <div role="tabpanel"
+				        id="tab4-content"
+				        aria-labelledby="tab4"
+				        ng-switch-when="3"
+				        md-swipe-left="next()"
+				        md-swipe-right="previous()" 
+				        class="groupbox">
+				        <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
+				        <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
+				        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon>
+				        <md-button ng-show="isOwner(groupService.selectedGroup)">Hello</md-button>
+				   </div> 
 				</ng-switch>
 			</div>
 		</md-card-content>
-		</md-card>
 	</md-card>
 <!-- group cards -->
 	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
-		<md-card>
+		<md-card ng-show="!playerService.isCurrentTrack(track)">
 		  <md-card-content>
 				<div layout="row" layout-align="space-between center">
 				  <span flex="10">
@@ -113,13 +129,13 @@
 				  </div>
 				  <span flex></span>
 				  <div flex="10">
-				  	  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
-			  		  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
+				  	  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track); updateTimer()" aria-label="Play {{ track.title }}"></ng-md-icon>
+<!-- 			  		  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon> -->
 				  </div>
 				</div>
 		  </md-card-content>
 		</md-card>
-		<md-card>
+		<md-card class="song-detail" ng-show="playerService.isCurrentTrack(track)">
 		  <md-card-content>
 					<div layout="row" layout-align="space-between center">
 					  <div flex="20">
@@ -150,16 +166,16 @@
 					  <md-button>downvote</md-button>
 						</div> -->
 					  <div layout="column" flex="10">
-						  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track)" aria-label="Play {{ track.title }}"></ng-md-icon>
+						  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track); updateTimer()" aria-label="Play {{ track.title }}"></ng-md-icon>
 						  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
-						  <small ng-show="playerService.isCurrentTrack(track)">{{ playerService.currentTime || 0 | prettyTime }} - {{playerService.duration | prettyTime}}</small>
+						  <small ng-show="playerService.isCurrentTrack(track)">{{ currentTime || 0 | prettyTime }} - {{ duration | prettyTime}}</small>
 					  </div>
 			  </div>
 <!-- 			  <div ng-show="shouldShowStats(track)">
 			  	HELLLo hovering
 			  </div> -->
 			  <div>
-			  	<span id="progressBar" flex><md-progress-linear md-mode="determinate" value="40"></md-progress-linear></span>
+			  	<span id="progressBar" ng-show="playerService.isCurrentTrack(track)" flex><md-progress-linear md-mode="determinate" value="{{progressValue|| 0 }}"></md-progress-linear></span>
 			  </div>
 		  </md-card-content>
 		</md-card>
