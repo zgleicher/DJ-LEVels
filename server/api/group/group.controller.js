@@ -77,6 +77,25 @@ exports.track = {
     });
   },
 
+  destroy: function(req, res) {
+    Group.findById(req.params.id, function(err, group) {
+      if (err) { return handleError(res, err); }
+      var index = -1;
+      for (var i = 0; i < group.tracks.length; i++) {
+        if (String(group.tracks[i]._id) === String(req.params.track_id)) {
+          index = i;
+          break;
+        }
+      }
+      if (index === -1) return res.json(404);
+      group.tracks.splice(index, 1);
+      group.save(function (err) {
+        if (err) { return handleError(res, err); }
+        return res.json(202);
+      });
+    });
+  },
+
   vote: function(req, res) {
     Group.findById(req.params.id, function(err, group) {
       if (err) { return handleError(res, err); }

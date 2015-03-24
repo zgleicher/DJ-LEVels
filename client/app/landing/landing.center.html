@@ -149,6 +149,7 @@
 					    	<h2 class="vote" style="display:inline">{{ groupService.getTrackScore(track) }}</h2>
 					    	<md-button ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track"> Upvote </md-button>
 					    	<md-button ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track"> Downvote </md-button>
+					    	<md-button ng-click="showDeleteTrack($event, track)" aria-label="Delete track"> Delete Track </md-button>
 					    </p>
 					  </div>
 					  

@@ -31,27 +31,21 @@ angular.module('levelsApp')
               $rootScope.$centerCtrlScope = $scope;
 
               /* Watch Player Values */
-              // $scope.$watch(function (){
-              //     return playerService.currentTime;
-              //   }, function(newValue, oldValue) {
-              //     $scope.currentTime = newValue;
-              //     console.log('updated currentTime');
-              //   }, true);
 
               $scope.$watch(function() {
                   return playerService.duration;
                 }, function(newValue, oldValue) {
                   $scope.duration = newValue;
-                  console.log('updated duration');
+                 // console.log('updated duration');
               }, true);
 
               /* */
               $scope.updateTimer = function() {
-                console.log('CLICKED UPDATE TIMER');
+                //console.log('CLICKED UPDATE TIMER');
                 $interval(function(){
                   $scope.currentTime = playerService.currentTime;
                   $scope.progressValue = playerService.currentTime / playerService.duration * 100;
-                  console.log('updating timer');
+                 // console.log('updating timer');
                 },500);
               };
 
@@ -112,19 +106,37 @@ angular.module('levelsApp')
                 var confirm = $mdDialog.confirm()
                   .title('Would you like to delete your group ' + groupService.selectedGroup.name + '?')
                   .content('All of your songs and members will be lost!')
-                  .ariaLabel('Lucky day')
+                  .ariaLabel('Delete Group')
                   .ok('Delete group')
                   .cancel('Cancel')
                   .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                  //$scope.alert = 'You deleted the group.';
+                  //$scope.alerts = 'You deleted the group.';
                   groupService.deleteSelectedGroup();
                 }, function() {
                   //$scope.alert = 'You did not delete the group';
                 });
               };
 
+              /* Delete Track Confirmation */
+
+              $scope.showDeleteTrack = function(ev, track) {
+                var confirmTrack = $mdDialog.confirm()
+                  .title('Would you like to delete the track ' + track.title + '?')
+                  .content(track.title + ' will be removed from ' + groupService.selectedGroup.name + '.')
+                  .ariaLabel('Delete track')
+                  .ok('Delete track')
+                  .cancel('Cancel')
+                  .targetEvent(ev);
+
+                $mdDialog.show(confirmTrack).then(function() {
+                  console.log('You deleted the group.');
+                  groupService.deleteTrack(track);
+                }, function() {
+                  //$scope.alert = 'You did not delete the group';
+                });
+              };
               /* Information Tabs */
 
               $scope.tabData = {
@@ -160,9 +172,7 @@ angular.module('levelsApp')
                 }
 
                 $('#gbox').css('height', height + 'px');
-
                 $('.tabpanel-container').css('height', tpheight + 'px');
-                console.log(height + ' , ' + tpheight);
               };
 
               /* Autocomplete for Adding Users */
