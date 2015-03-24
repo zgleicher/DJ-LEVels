@@ -95,8 +95,40 @@
 				       md-swipe-left="next()"
 				       md-swipe-right="previous()" 
 				       class="groupbox">
-				      View for Item #3<br/>
-				      tabData.selectedIndex = 2
+
+           <div style="min-height: 60px" class="autocomplete" layout="row" layout-margin>
+             <div flex="80" layout="column">
+           	  <md-autocomplete
+           	      ng-disabled="autocompleteUsers.isDisabled"
+           	      md-no-cache="autocompleteUsers.noCache"
+           	      md-selected-item="autocompleteUsers.selectedItem"
+           	      md-search-text="autocompleteUsers.searchText"
+           	      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+           	      md-item-text="item.name"
+           	      placeholder="Select from current DJ-LEVels users">
+           	    <span md-highlight-text="autocompleteUsers.searchText">{{item.name}} ({{item.email}})</span>
+           	  </md-autocomplete>
+             </div>
+           	<!-- <br/> -->
+           	<div  flex="20">
+           		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
+           		Add Contributor
+           		</md-button>
+           		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('followers', autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()">
+           		Add {{autocompleteUsers.selectedItem.name}}
+           		</md-button>
+           	</div>
+           </div>
+         	<h3 ng-show="groupService.selectedGroup.followers.length === 1">There is 1 follower who can see songs in {{groupService.selectedGroup.name}}.</h3>
+         	<h3 ng-show="groupService.selectedGroup.followers.length !== 1">There are {{groupService.selectedGroup.followers.length}} followers who can see songs in {{groupService.selectedGroup.name}}.</h3>
+         	<div layout="row" layout-wrap>
+       			<div class="member-tab-box" ng-repeat="follower in groupService.selectedGroup.followers" flex="5">
+       				<md-button class="md-fab" aria-label="{{follower.user_name}}">
+       					<md-tooltip>{{follower.user_name}}</md-tooltip>
+       				</md-button>
+       			</div>
+       		</div>
+
 				  </div>
 				  <!-- settings tab -->
 				   <div role="tabpanel"

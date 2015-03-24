@@ -39,7 +39,6 @@ angular.module('levelsApp')
                  // console.log('updated duration');
               }, true);
 
-              /* */
               $scope.updateTimer = function() {
                 //console.log('CLICKED UPDATE TIMER');
                 $interval(function(){
@@ -112,7 +111,6 @@ angular.module('levelsApp')
                   .targetEvent(ev);
 
                 $mdDialog.show(confirm).then(function() {
-                  //$scope.alerts = 'You deleted the group.';
                   groupService.deleteSelectedGroup();
                 }, function() {
                   //$scope.alert = 'You did not delete the group';
@@ -137,6 +135,7 @@ angular.module('levelsApp')
                   //$scope.alert = 'You did not delete the group';
                 });
               };
+
               /* Information Tabs */
 
               $scope.tabData = {
@@ -150,6 +149,8 @@ angular.module('levelsApp')
               $scope.previous = function() {
                 $scope.tabData.selectedIndex = Math.max($scope.tabData.selectedIndex - 1, 0);
               };
+
+              /* Adjust height of Tabs for content */
 
               $scope.sizeTab = function(size) {
                 var height, tpheight;
@@ -193,7 +194,6 @@ angular.module('levelsApp')
                     });
 
                   } else {
-                    // return $scope.getAllUsersSummary();
                     return [];
                   }
                 },
