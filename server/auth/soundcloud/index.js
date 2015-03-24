@@ -30,6 +30,7 @@ router.post('/', function(req, res) {
           // Store this username in db if it has not been put in db
         }
       });
+      // Must return the token
       return res.json({token: accessToken});
     }
   });
