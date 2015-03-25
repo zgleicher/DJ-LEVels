@@ -15,15 +15,6 @@ exports.ensureAuthenticated = function(req, res, next) {
   next();
 };
 
-exports.createToken = function (user) {
-  var payload = {
-    sub: user._id,
-    iat: moment().unix(),
-    exp: moment().add(14, 'days').unix()
-  };
-  return jwt.encode(payload, 'SECRET');
-};
-
 exports.me = function(req, res) {
   ScUser.findById(req.user, function(err, user) {
     res.send(user);

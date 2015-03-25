@@ -26,19 +26,20 @@ angular.module('levelsApp')
     $auth.logout();
   };
 
-  $scope.getUser = function() {
-    scAuthService.getUserId().then(function(user) {
-      $scope.user = user;
-    });
+  var getUserId = function() {
+    return $auth.getPayload().sc_id;
   };
 
   $scope.getFavoriteTracks = function() {
-    scAuthService.getUser().then(function(user) {
-      id = user.id;
+      var id = getUserId();
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
         $scope.tracks = tracks;
       });
-    });
+  };
+
+  $scope.test = function() {
+    console.log($auth.getPayload());
+    console.log($auth.getToken());
   };
 
   });

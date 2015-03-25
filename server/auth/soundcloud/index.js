@@ -30,12 +30,14 @@ router.post('/', function(req, res) {
       request.get({url: soundcloudUserUrl, qs: qs, json: true}, function(err, response, user) {
         if (!err) {
           var sc_id = user.id;
+          var username = user.username;
           ScUser.findOne({'sc_id': sc_id}, function (err, existingUser) {
             if (existingUser) {
               return res.send({ token: createToken(existingUser) });
             } else {
               var user = new ScUser();
               user.sc_id = sc_id;
+              user.username = username;
               user.save(function(err) {
                 console.log(user);
                 var token = createToken(user);
@@ -53,6 +55,8 @@ router.post('/', function(req, res) {
 var createToken = function (user) {
   var payload = {
     sub: user._id,
+    sc_id: user.sc_id,
+    username: user.username,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };
