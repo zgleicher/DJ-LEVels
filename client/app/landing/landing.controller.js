@@ -94,9 +94,7 @@ $scope.setIconColor = function(icon, value) {
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider).then(function(response) {
       //Login Success
-      scAuthService.getUser().then(function(user) {
-        $scope.username = user.username;
-      });
+      $scope.username = scAuthService.getUsername();
     })
     .catch(function(response) {
       //Login Fail
