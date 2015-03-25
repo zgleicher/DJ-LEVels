@@ -26,7 +26,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 
 	[ ] Landing / sign in page
 
-	[ ] Users can login with SoundCloud
+	[x] Users can login with SoundCloud
 
 	[x] Home page basic outline
 
@@ -36,7 +36,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 
 	[x] User can create a group
 	
-	[ ] User can be added to a group
+	[x] User can be added to a group
 
 	[ ] Group can be open or closed
 
@@ -49,7 +49,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[x] Songs play continuously 
 	
-	[ ] Song UI
+	[x] Song UI
 
 4) Extras
 
@@ -59,30 +59,6 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[ ] User can find a group (or be invited) 
 
-	[ ] Google Drive style responsive drag and drop
+	[x] Google Drive style responsive drag and drop
 
 	[ ] User can like a track on DJ-LEVels that will like a track for them on SC
-
-
-**Data Model:**
-
-//groups have tracks, followers, and contributers 
-
-Group
-- Followers: [ User ]
-- Contributers: [ User ], will automatically be followers
-- Tracks [ {
-	Track: {type: ObjectID, ref:'Track'},
-	Upvotes: [ User ],
-	Downvotes: [ User ]
-} ]
-
-//1-1 correspondence with SoundCloud users, using SoundCloud API authentication
-
-User
-- Username
-
-//all from SoundCloud, will be a URL or track ID
-
-Track
-

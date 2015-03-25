@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('playerService', function (groupService) {
+  .service('playerService', function (groupService, $rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     
     SC.initialize({
@@ -45,21 +45,21 @@ angular.module('levelsApp')
     		this.isPlaying = false;
     	}  
     	this.currentTrack = track;
+        //reset
+        this.duration = 0;
+        this.currentTime = 0;
     	SC.stream('/tracks/' + track.track_id, {
           whileplaying: function () {
             player.currentTime = this.position;
-            console.log(player.currentTime);
           },
           onload: function () {
             player.duration = this.duration;
+          },
+          whileloading: function() {
+            player.duration = this.durationEstimate;
           }
         }, function(sound) {
           	this.currentSound = sound;
-            console.log(this.currentSound);
-            // this.duration = sound['durationEstimate'];
-            // console.log('duration is ' + this.duration);
-            // this.currentTime = sound.position;
-            // console.log('current time is ' + this.currentTime);
           	return cb(null);
     	}.bind(this));
     }.bind(this);

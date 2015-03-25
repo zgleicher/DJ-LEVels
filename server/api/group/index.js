@@ -16,7 +16,7 @@ router.get('/:id/tracks', controller.track.index);
 //router.get('/:id/tracks/track_id', controller.track.show);
 router.post('/:id/tracks', controller.track.create);
 //router.put('/:id/tracks/:track_id', controller.track.update);
-//router.delete('/:id/tracks/:track_id', controller.track.destroy);
+router.delete('/:id/tracks/:track_id', controller.track.destroy);
 router.put('/:id/tracks/:track_id/vote', controller.track.vote);
 router.put('/:id/contributors', controller.track.putContributor);
 router.delete('/:id/contributors', controller.track.delContributor);

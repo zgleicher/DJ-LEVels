@@ -94,6 +94,14 @@ angular.module('levelsApp')
       });
     }.bind(this);
 
+    this.deleteTrack = function (track) {
+      console.log('deleting track');
+      $http.delete('/api/groups/' + this.selectedGroup._id + '/tracks/' + track._id)
+      .error(function(track, status) {
+        console.log('error in delete track: '+ status);
+      });
+    }.bind(this);
+
     this.voteTrack = function (direction, track) {
       $http.put('/api/groups/' + this.selectedGroup._id + '/tracks/' + track._id + '/vote',
         { 
