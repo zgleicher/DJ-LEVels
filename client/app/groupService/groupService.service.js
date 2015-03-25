@@ -71,6 +71,21 @@ angular.module('levelsApp')
   		return this.selectedGroup.selectedTrack;
   	}.bind(this);
 
+    this.previousTrack = function() {
+      //sort based on votes
+      var sorted = this.selectedGroup.tracks.sort(function (a, b) {
+        return this.getTrackScore(a) - this.getTrackScore(b);
+      }.bind(this));
+      //select first element if nothing is sorted
+      if (!this.selectedGroup.selectedTrack) {
+        this.selectedGroup.selectedTrack = sorted[0];
+      } else {
+        var index = sorted.indexOf(this.selectedGroup.selectedTrack);
+        this.selectedGroup.selectedTrack = index === 0 ? sorted[0] : sorted[index - 1];
+      }
+      return this.selectedGroup.selectedTrack;
+    }.bind(this);
+
   	this.addTrack = function (track) {
       track.artwork_url !== null ?
           track.artwork_url.replace('"', '') : '';

@@ -38,6 +38,10 @@ angular.module('levelsApp')
     	this.playTrack(groupService.nextTrack());
     }.bind(this);
 
+    this.playPrevious = function() {
+        this.playTrack(groupService.previousTrack());
+    }.bind(this);
+
     this.loadTrack = function(track, cb) {
     	if (this.isPlaying) {
     		this.currentSound.stop();

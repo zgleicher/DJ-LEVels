@@ -48,20 +48,6 @@ angular.module('levelsApp')
                 },500);
               };
 
-              $scope.playPrevious = function() {
-                var index;
-                for (var i = 0; i < $scope.group.tracks.length; i++) {
-                  if ($scope.group.tracks[i].track_id === $scope.currentTrack.track_id) {
-                    index = i;
-                    break;
-                  }
-                }
-                if (index !== 0)
-                  $scope.playSong($scope.group.tracks[index - 1]);
-              };
-
-
-
               /* Drag and Drop Functionality + Button Positioning */
               $('#dropzone').dragster({
                   enter: function (dragsterEvent, event) {
@@ -72,6 +58,8 @@ angular.module('levelsApp')
                     /* show overlay box */
                     $('#overlayBox').removeClass('visuallyhidden');
                     $scope.draggingSong = true;
+                    console.log(event);
+                    
                   },
                   leave: function (dragsterEvent, event) {
                     $('#overlayBox').addClass('visuallyhidden');
@@ -129,7 +117,6 @@ angular.module('levelsApp')
                   .targetEvent(ev);
 
                 $mdDialog.show(confirmTrack).then(function() {
-                  console.log('You deleted the group.');
                   groupService.deleteTrack(track);
                 }, function() {
                   //$scope.alert = 'You did not delete the group';
@@ -157,19 +144,15 @@ angular.module('levelsApp')
                 if (size === 'tall') {
                   height = 400;
                   tpheight = 250;
-                  console.log('tall');
                 } else if (size === 'regular') {
                   height = 350;
                   tpheight = 200;
-                  console.log('reg');
                 } else if (size === 'short') {
                   height = 250;
                   tpheight = 100;
-                  console.log('short');
                 } else {
                   height = 200;
                   tpheight = 100;
-                  console.log('catch alll ');
                 }
 
                 $('#gbox').css('height', height + 'px');

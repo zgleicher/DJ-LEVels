@@ -138,11 +138,14 @@
 				        md-swipe-left="next()"
 				        md-swipe-right="previous()" 
 				        class="groupbox">
-				        <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
-				        <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
-				        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon>
-				        <md-button ng-show="isOwner(groupService.selectedGroup)">Hello</md-button>
-				   </div> 
+
+<!-- 		        <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
+		        <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
+		        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon> -->
+		        <md-button class="" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"> Delete {{groupService.selectedGroup.name}} </md-button>
+
+				   </div>
+
 				</ng-switch>
 			</div>
 		</md-card-content>
@@ -179,9 +182,9 @@
 					    <p>Submitted by: {{track.submitted_by_name}}</p>
 					    <p>
 					    	<h2 class="vote" style="display:inline">{{ groupService.getTrackScore(track) }}</h2>
-					    	<md-button ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track"> Upvote </md-button>
-					    	<md-button ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track"> Downvote </md-button>
-					    	<md-button ng-click="showDeleteTrack($event, track)" aria-label="Delete track"> Delete Track </md-button>
+					    	<md-button class="md-primary" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track"> Upvote </md-button>
+					    	<md-button class="md-primary" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track"> Downvote </md-button>
+					    	<md-button class="" ng-click="showDeleteTrack($event, track)" aria-label="Delete track"> Delete Track </md-button>
 					    </p>
 					  </div>
 					  
