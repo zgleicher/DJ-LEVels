@@ -4,9 +4,7 @@ angular.module('levelsApp')
 .controller('LandingCtrl', function ($scope, $auth, scAuthService, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService, $mdSidenav) {
 
 if ($auth.isAuthenticated()) {
-  scAuthService.getUser().then(function(user) {
-    $scope.username = user.username;
-  });
+  $scope.username = scAuthService.getUsername();
 }
 
 $scope.playerService = playerService;
@@ -96,9 +94,7 @@ $scope.setIconColor = function(icon, value) {
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider).then(function(response) {
       //Login Success
-      scAuthService.getUser().then(function(user) {
-        $scope.username = user.username;
-      });
+      $scope.username = scAuthService.getUsername();
     })
     .catch(function(response) {
       //Login Fail

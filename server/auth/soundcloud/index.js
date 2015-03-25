@@ -3,6 +3,9 @@
 var express = require('express');
 var passport = require('passport');
 var request = require('request');
+var jwt = require('jwt-simple');
+var moment = require('moment');
+var ScUser = require('../../api/scUser/scUser.model.js')
 
 var router = express.Router();
 
@@ -26,17 +29,38 @@ router.post('/', function(req, res) {
       //Use access token to get user info
       request.get({url: soundcloudUserUrl, qs: qs, json: true}, function(err, response, user) {
         if (!err) {
-          // TODO(@sam): User is an user json obect returnd by the request to SC api (https://developers.soundcloud.com/docs/api/reference#me)
-          // Store this username in db if it has not been put in db
+          var sc_id = user.id;
+          var username = user.username;
+          ScUser.findOne({'sc_id': sc_id}, function (err, existingUser) {
+            if (existingUser) {
+              return res.send({ token: createToken(existingUser) });
+            } else {
+              var user = new ScUser();
+              user.sc_id = sc_id;
+              user.username = username;
+              user.save(function(err) {
+                console.log(user);
+                var token = createToken(user);
+                res.send({ token: token });
+              });
+            }
+
+          });
         }
       });
-      return res.json({token: accessToken});
     }
   });
-
-
-
 });
 
+var createToken = function (user) {
+  var payload = {
+    sub: user._id,
+    sc_id: user.sc_id,
+    username: user.username,
+    iat: moment().unix(),
+    exp: moment().add(14, 'days').unix()
+  };
+  return jwt.encode(payload, 'SECRET');
+};
 
 module.exports = router;

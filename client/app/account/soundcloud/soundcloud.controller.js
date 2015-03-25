@@ -7,7 +7,7 @@
 *****************/
 
 angular.module('levelsApp')
-  .controller('SoundcloudCtrl', function ($scope, $auth, scAuthService) {
+  .controller('SoundcloudCtrl', function ($scope, $auth, scAuthService, $http) {
    $scope.authenticate = function(provider) {
       $auth.authenticate(provider).then(function(response) {
         //Login Success
@@ -26,19 +26,31 @@ angular.module('levelsApp')
     $auth.logout();
   };
 
-  $scope.getUser = function() {
-    scAuthService.getUserId().then(function(user) {
-      $scope.user = user;
-    });
+  var getUserId = function() {
+    return $auth.getPayload().sc_id;
   };
 
   $scope.getFavoriteTracks = function() {
-    scAuthService.getUser().then(function(user) {
-      id = user.id;
+      var id = getUserId();
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
         $scope.tracks = tracks;
       });
-    });
+  };
+
+  $scope.test = function() {
+    console.log($auth.getPayload());
+    console.log($auth.getToken());
+    $http.get('/api/scUsers/me').
+      success(function(data, status, headers, config) {
+        console.log(data);
+        // this callback will be called asynchronously
+        // when the response is available
+      }).
+      error(function(data, status, headers, config) {
+        console.log('fail');
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
   };
 
   });
