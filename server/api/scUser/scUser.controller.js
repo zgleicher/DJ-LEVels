@@ -1,13 +1,15 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
-var ScUser = require('./user.model');
+var ScUser = require('./scUser.model');
 
 exports.ensureAuthenticated = function(req, res, next) {
+  console.log(req.headers);
+  console.log('*****************');
   if (!req.headers.authorization) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
   }
   var token = req.headers.authorization.split(' ')[1];
-  var payload = jwt.decode(Token, 'SECRET');
+  var payload = jwt.decode(token, 'SECRET');
   if (payload.exp <= moment().unix()) {
     return res.status(401).send({ message: 'Token has expired' });
   }
