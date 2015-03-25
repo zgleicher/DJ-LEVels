@@ -1,10 +1,11 @@
 
 <md-toolbar id="nav-bar" layout="row" layout-align="space-between center">
-    <button ng-click="toggleSidenav('left')" hide-gt-sm class="menuBtn">
+    <md-button ng-click="toggleSidenav('left')" hide-gt-sm><ng-md-icon icon="menu" size="36" style="fill: white;" ></ng-md-icon>
     <span class="visuallyhidden">Menu</span>
-  </button>
+  </md-button>
     <!-- logo -->
-    <h1><span class="pulse">DJ-LEVels</span></h1>
+    <h1><span class="pulse"><md-button onclick="location.href='/'" style="text-transform: none;">
+     DJ-LEVels</md-button></span></h1>
     <span flex></span>
     <!-- now playing song -->
     <span layout="column" layout-align="center center">
@@ -23,7 +24,7 @@
     
     <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1> 
     <span>{{username}}</span>
-    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="cancel" size="36" style="fill: white"></ng-md-icon></md-button>
+    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"></ng-md-icon></md-button>
 </md-toolbar>
 
 
