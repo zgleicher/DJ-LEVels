@@ -2,7 +2,7 @@
 
 var _ = require('lodash');
 var Group = require('./group.model');
-var User = require('../user/user.model');
+var User = require('../scUser/scUser.model');
 var async = require('async');
 
 // Get list of groups

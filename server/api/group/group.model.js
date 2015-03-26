@@ -3,7 +3,7 @@
 
 	var mongoose 	= require('mongoose'),
 	    Schema 		= mongoose.Schema,
-	    User		= require('../user/user.model'),
+	    User		= require('../scUser/scUser.model'),
 	    ObjectId	= Schema.Types.ObjectId;
 
 	var trackSchema = new Schema({

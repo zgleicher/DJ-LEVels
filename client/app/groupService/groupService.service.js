@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, $state, socket, Auth) {
+  .service('groupService', function ($http, $state, socket, Auth, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.groups;
@@ -36,8 +36,8 @@ angular.module('levelsApp')
 
     this.createGroup = function(name) {
     	var user = {
-    		"user_id": Auth.getCurrentUser()._id,
-    		"user_name": Auth.getCurrentUser().name
+    		"user_id": scAuthService.getUserId(),
+    		"user_name": scAuthService.getUsername()
     	};
     	$http.post('/api/groups', {
         name: name,
@@ -97,10 +97,12 @@ angular.module('levelsApp')
         track_url: track.permalink_url,
         title: track.title,
         artist: track.user.username,
-        submitted_by: Auth.getCurrentUser()._id,
-        submitted_by_name: Auth.getCurrentUser().name,
+        submitted_by: scAuthService.getUserId(),
+        submitted_by_name: scAuthService.getUsername(),
         image_url: artURL
       };
+
+      console.log(newTrack);
 
       // Update group object in db
       $http.post('/api/groups/' + this.selectedGroup._id + '/tracks', newTrack)
@@ -121,7 +123,7 @@ angular.module('levelsApp')
       $http.put('/api/groups/' + this.selectedGroup._id + '/tracks/' + track._id + '/vote',
         { 
           "direction": direction,
-          "user_id": Auth.getCurrentUser()._id
+          "user_id": scAuthService.getUserId()
         }
       );
     }.bind(this);

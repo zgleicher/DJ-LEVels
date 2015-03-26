@@ -3,8 +3,6 @@ var moment = require('moment');
 var ScUser = require('./scUser.model');
 
 exports.ensureAuthenticated = function(req, res, next) {
-  console.log(req.headers);
-  console.log('*****************');
   if (!req.headers.authorization) {
     return res.status(401).send({ message: 'Please make sure your request has an Authorization header' });
   }

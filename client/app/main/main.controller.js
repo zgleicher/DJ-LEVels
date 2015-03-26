@@ -1,9 +1,17 @@
 'use strict';
 
 angular.module('levelsApp')
-  .controller('MainCtrl', function ($scope, $http, socket, Auth) {
+  .controller('MainCtrl', function ($scope, $http, socket, Auth, scAuthService) {
     $scope.awesomeThings = [];
     $scope.levelsGroups = [];
+
+    $scope.login = function(provider) {
+      scAuthService.login(provider).then(function(response) {
+        // Login success
+      }, function(reason) {
+        //Failed
+      });
+    }
 
     $http.get('/api/things').success(function(awesomeThings) {
       $scope.awesomeThings = awesomeThings;

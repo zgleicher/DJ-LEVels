@@ -91,28 +91,12 @@ $scope.setIconColor = function(icon, value) {
     });
   };
 
-  $scope.authenticate = function(provider) {
-    $auth.authenticate(provider).then(function(response) {
-      //Login Success
-      $scope.username = scAuthService.getUsername();
-    })
-    .catch(function(response) {
-      //Login Fail
-    });
-  };
-
   $scope.isAuthenticated = function() {
-    return $auth.isAuthenticated();
+    return scAuthService.isAuthenticated();
   };
 
   $scope.logout = function() {
     $auth.logout();
-  };
-
-  $scope.getUser = function() {
-    scAuthService.getUserId().then(function(user) {
-      $scope
-    });
   };
 
   function AddGroupController($scope, $mdDialog, groupService) {
