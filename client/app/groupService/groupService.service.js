@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, $state, socket, Auth, scAuthService) {
+  .service('groupService', function ($http, $state, socket, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.groups;
@@ -101,8 +101,6 @@ angular.module('levelsApp')
         submitted_by_name: scAuthService.getUsername(),
         image_url: artURL
       };
-
-      console.log(newTrack);
 
       // Update group object in db
       $http.post('/api/groups/' + this.selectedGroup._id + '/tracks', newTrack)

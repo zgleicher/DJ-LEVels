@@ -14,6 +14,7 @@ module.exports = function(app) {
   //app.use('/api/users', require('./api/user'));
   app.use('/api/scUsers', require('./api/scUser'));
 
+  //Soundcloud auth
   app.use('/auth', require('./auth'));
   
   // All undefined asset or api routes should return a 404

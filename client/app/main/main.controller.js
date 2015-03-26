@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .controller('MainCtrl', function ($scope, $http, socket, Auth, scAuthService) {
+  .controller('MainCtrl', function ($scope, $http, socket, scAuthService) {
     $scope.awesomeThings = [];
     $scope.levelsGroups = [];
 
@@ -23,7 +23,7 @@ angular.module('levelsApp')
     });
 
     $scope.getCurrentUserId = function() {
-      return Auth.getCurrentUser()._id;
+      return scAuthService.getCurrentUserId();
     };
 
     $scope.addThing = function() {

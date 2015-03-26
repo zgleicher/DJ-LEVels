@@ -20,7 +20,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, Auth, $state, $rootScope, $mdDialog, playerService, groupService, $interval){
+            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval){
 
 
               $scope.playerService = playerService;

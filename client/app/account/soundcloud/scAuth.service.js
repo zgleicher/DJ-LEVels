@@ -28,14 +28,17 @@ angular.module('levelsApp')
       return $auth.isAuthenticated();
     };
 
+    //Soundcloud User Id
     this.getScId = function() {
       return $auth.getPayload().sc_id;
     }; 
 
+    //Soundcloud username
     this.getUsername = function() {
       return $auth.getPayload().username;
     };
 
+    //Mongo User Id
     this.getUserId = function() {
       return $auth.getPayload().sub;
     };
