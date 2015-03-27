@@ -9,6 +9,7 @@ angular.module('levelsApp', [
   'ui.router',
   'ui.bootstrap',
   'ngMaterial',
+  'material.components.autocomplete',
   'ngAria',
   'ngMdIcons',
   'satellizer'

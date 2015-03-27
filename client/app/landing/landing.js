@@ -28,6 +28,10 @@ angular.module('levelsApp')
               $scope.duration = playerService.duration;
               $scope.progressValue = 0;
 
+              // $scope.clear = function () {
+              //   $mdAutocompleteCtrl.clear();
+              // };
+
               $rootScope.$centerCtrlScope = $scope;
 
               /* Watch Player Values */
