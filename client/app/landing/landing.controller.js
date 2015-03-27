@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', function ($scope, $auth, scAuthService, $http, socket, Auth, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService, $mdSidenav) {
+.controller('LandingCtrl', function ($scope, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService, $mdSidenav) {
 
-if ($auth.isAuthenticated()) {
+if (scAuthService.isAuthenticated()) {
   $scope.username = scAuthService.getUsername();
 }
 
 $scope.playerService = playerService;
 $scope.groupService = groupService;
-$scope.Auth = Auth;
+//$scope.Auth = Auth;
 
 $scope.addIconColor = 'white';
 $scope.playIconColor = 'white';
@@ -47,11 +47,11 @@ $scope.setIconColor = function(icon, value) {
   // Internal methods
   // *********************************
   $scope.getCurrentUserId = function() {
-    return Auth.getCurrentUser()._id;
+    return scAuthService.getUserId();
   };
 
   $scope.getCurrentUserName = function() {
-    return Auth.getCurrentUser().name;
+    return scAuthService.getUsername();
   };
 
 
@@ -91,28 +91,12 @@ $scope.setIconColor = function(icon, value) {
     });
   };
 
-  $scope.authenticate = function(provider) {
-    $auth.authenticate(provider).then(function(response) {
-      //Login Success
-      $scope.username = scAuthService.getUsername();
-    })
-    .catch(function(response) {
-      //Login Fail
-    });
-  };
-
   $scope.isAuthenticated = function() {
-    return $auth.isAuthenticated();
+    return scAuthService.isAuthenticated();
   };
 
   $scope.logout = function() {
-    $auth.logout();
-  };
-
-  $scope.getUser = function() {
-    scAuthService.getUserId().then(function(user) {
-      $scope
-    });
+    scAuthService.logout();
   };
 
   function AddGroupController($scope, $mdDialog, groupService) {

@@ -8,13 +8,40 @@ Methods implemented to get the user id of the user logged in and the favorite tr
 angular.module('levelsApp')
   .service('scAuthService', function ($auth, $http, $q) {
 
-    this.getUserId = function() {
+    this.login = function(provider) {
+      var deferred = $q.defer();
+      $auth.authenticate(provider).then(function(response) {
+        deferred.resolve(response);
+      })
+      .catch(function(response) {
+        deferred.reject(response);
+      });
+
+      return deferred.promise;
+    };
+
+    this.logout = function() {
+      $auth.logout();
+    };
+
+    this.isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
+
+    //Soundcloud User Id
+    this.getScId = function() {
       return $auth.getPayload().sc_id;
     }; 
 
+    //Soundcloud username
     this.getUsername = function() {
       return $auth.getPayload().username;
-    }
+    };
+
+    //Mongo User Id
+    this.getUserId = function() {
+      return $auth.getPayload().sub;
+    };
 
     // Gets the favorite tracks of a user given a user Id
     this.getFavoriteTracks = function(userId) {
@@ -29,6 +56,6 @@ angular.module('levelsApp')
           });
 
           return deferred.promise;
-    }
+    };
 
 });

@@ -36,7 +36,7 @@ angular.module('levelsApp', [
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          $location.path('/login');
+          $location.path('/');
           // remove any stale tokens
           $cookieStore.remove('token');
           return $q.reject(response);
@@ -52,13 +52,16 @@ angular.module('levelsApp', [
     return $window.SC;
   })
 
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, scAuthService) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
-      Auth.isLoggedInAsync(function(loggedIn) {
-        if (next.authenticate && !loggedIn) {
-          $location.path('/login');
-        }
-      });
+      if(!scAuthService.isAuthenticated()) {
+        $location.path('/');
+      }
+      // Auth.isLoggedInAsync(function(loggedIn) {
+      //   if (next.authenticate && !loggedIn) {
+      //     $location.path('/');
+      //   }
+      // });
     });
   });
