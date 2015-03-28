@@ -62,6 +62,8 @@ var createToken = function (user) {
     sub: user._id,
     sc_id: user.sc_id,
     username: user.username,
+    full_name: user.full_name,
+    avatar_url: user.avatar_url,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };
