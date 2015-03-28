@@ -31,6 +31,8 @@ router.post('/', function(req, res) {
         if (!err) {
           var sc_id = user.id;
           var username = user.username;
+          var full_name = user.full_name;
+          var avatar_url = user.avatar_url;
           ScUser.findOne({'sc_id': sc_id}, function (err, existingUser) {
             if (existingUser) {
               return res.send({ token: createToken(existingUser) });
@@ -38,6 +40,9 @@ router.post('/', function(req, res) {
               var user = new ScUser();
               user.sc_id = sc_id;
               user.username = username;
+              user.full_name = full_name;
+              user.avatar_url = avatar_url;
+
               user.save(function(err) {
                 console.log(user);
                 var token = createToken(user);
