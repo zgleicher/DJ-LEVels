@@ -15,8 +15,16 @@ exports.ensureAuthenticated = function(req, res, next) {
   next();
 };
 
+exports.index = function(req, res) {
+  ScUser.find(function (err, users) {
+    if (err) { return handleError(res, err); }
+    res.json(200, users);
+  });
+};
+
 exports.me = function(req, res) {
   ScUser.findById(req.user, function(err, user) {
     res.send(user);
-  })
+  });
+
 };

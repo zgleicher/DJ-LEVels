@@ -5,7 +5,9 @@ var Schema = mongoose.Schema;
 
 var scUserSchema = new mongoose.Schema({
   sc_id: Number,
-  username: String
+  username: String,
+  full_name: String,
+  avatar_url: String
 });
 
 module.exports = mongoose.model('ScUser', scUserSchema);

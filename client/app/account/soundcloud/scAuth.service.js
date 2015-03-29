@@ -43,6 +43,43 @@ angular.module('levelsApp')
       return $auth.getPayload().sub;
     };
 
+    //Gets the full name of the logged in user
+    this.getFullName = function() {
+      return $auth.getPayload().full_name;
+    };
+
+    //Gets the avatar Url for the logged in user
+    this.getAvatarUrl = function() {
+      return $auth.getPayload().avatar_url;
+    };
+
+    //Promise that gets the current logged in User
+    this.getCurrentUser = function() {
+      var deferred = $q.defer();
+      $http.get('/api/scusers/me').
+        success(function(data, status, headers, config) {
+          deferred.resolve(data);
+        }).
+        error(function(data, status, headers, config) {
+          deferred.reject(data);
+        });
+
+      return deferred.promise;
+    };
+
+    this.getAllUsers = function() {
+      var deferred = $q.defer();
+      $http.get('/api/scusers/').
+        success(function(data, status, headers, config) {
+          deferred.resolve(data);
+        }).
+        error(function(data, status, headers, config) {
+          deferred.reject(data);
+        });
+
+      return deferred.promise;
+    };
+
     // Gets the favorite tracks of a user given a user Id
     this.getFavoriteTracks = function(userId) {
        var deferred = $q.defer();

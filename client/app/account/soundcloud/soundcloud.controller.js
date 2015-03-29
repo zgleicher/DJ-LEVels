@@ -38,10 +38,10 @@ angular.module('levelsApp')
   };
 
   $scope.test = function() {
-    scAuthService.getUserId();
+    // scAuthService.getUserId();
     // console.log($auth.getPayload());
     // console.log($auth.getToken());
-    // $http.get('/api/scUsers/me').
+    // $http.get('/api/scUsers/').
     //   success(function(data, status, headers, config) {
     //     console.log(data);
     //     // this callback will be called asynchronously
@@ -52,6 +52,16 @@ angular.module('levelsApp')
     //     // called asynchronously if an error occurs
     //     // or server returns response with an error status.
     //   });
+
+    scAuthService.getAllUsers().
+      then(function(user) {
+        console.log(user);
+      }, function(reason) {
+        console.log(reason);
+      });
+
+    console.log(scAuthService.getAvatarUrl());
+    console.log(scAuthService.getFullName());
   };
 
   }]);
