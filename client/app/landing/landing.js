@@ -20,7 +20,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval){
+            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval, scAuthService){
 
 
               $scope.playerService = playerService;
@@ -34,6 +34,20 @@ angular.module('levelsApp')
 
               $rootScope.$centerCtrlScope = $scope;
 
+              /* Watch Contributors and Followers for Selected Group */
+
+              $scope.$watch(function() { 
+                return groupService.selectedGroup.contributors; 
+              }, function () {
+                //console.log('contributors changed');
+              }, true);
+
+              $scope.$watch(function() { 
+                return groupService.selectedGroup.followers; 
+              }, function () {
+                //console.log('followers changed');
+              }, true);
+
               /* Watch Player Values */
 
               $scope.$watch(function() {
@@ -44,7 +58,6 @@ angular.module('levelsApp')
               }, true);
 
               $scope.updateTimer = function() {
-                //console.log('CLICKED UPDATE TIMER');
                 $interval(function(){
                   $scope.currentTime = playerService.currentTime;
                   $scope.progressValue = playerService.currentTime / playerService.duration * 100;
@@ -172,19 +185,24 @@ angular.module('levelsApp')
                 'searchText': null,
                 'querySearch': function (query) {
                   if (query) {
-                    var members = Auth.getAllUsersSummary();
-                    console.log(members);
-                    return members.filter(function (user) {
-                      var userName = angular.lowercase(user.name);
-                      var lowercaseQuery = angular.lowercase(query);
-                      return (userName.indexOf(lowercaseQuery) > -1);
+                    return scAuthService.getAllUsers().then(function(members){
+                      //console.log(members);
+                      return members.filter(function (user) {
+                        var userName = angular.lowercase(user.username);
+                        var lowercaseQuery = angular.lowercase(query);
+                        return (userName.indexOf(lowercaseQuery) > -1);
+                      });
                     });
+                    
 
                   } else {
                     return [];
                   }
                 },
                 'simulateQuery': true,
+                'selectedItemChange': function() {
+                  console.log('changed');
+                }
               };
 
               /* Voting Colors */

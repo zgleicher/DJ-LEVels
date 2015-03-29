@@ -37,7 +37,8 @@ angular.module('levelsApp')
     this.createGroup = function(name) {
     	var user = {
     		"user_id": scAuthService.getUserId(),
-    		"user_name": scAuthService.getUsername()
+    		"user_name": scAuthService.getUsername(),
+        "avatar_url": scAuthService.getAvatarUrl()
     	};
     	$http.post('/api/groups', {
         name: name,
@@ -131,7 +132,8 @@ angular.module('levelsApp')
     this.addUser = function(category, user) {
       $http.put('/api/groups/' + this.selectedGroup._id + '/' + category, {
         "user_id": user._id,
-        "user_name": user.name
+        "user_name": user.username,
+        "avatar_url": user.avatar_url
       }).error(function(err) {
         console.log(err);
       });
