@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, $state, socket, scAuthService) {
+  .service('groupService', ['$http', '$state', 'socket', 'scAuthService', function ($http, $state, socket, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.groups;
@@ -143,4 +143,4 @@ angular.module('levelsApp')
       });
     }.bind(this);
 
-  });
+  }]);

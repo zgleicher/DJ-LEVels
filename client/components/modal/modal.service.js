@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .factory('Modal', function ($rootScope, $modal) {
+  .factory('Modal', ['$rootScope', '$modal', function ($rootScope, $modal) {
     /**
      * Opens a modal
      * @param  {Object} scope      - an object to be merged with modal's scope
@@ -74,4 +74,4 @@ angular.module('levelsApp')
         }
       }
     };
-  });
+  }]);

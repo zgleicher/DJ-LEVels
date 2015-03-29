@@ -2,7 +2,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .factory('socket', function(socketFactory) {
+  .factory('socket', ['socketFactory', function(socketFactory) {
 
     // socket.io now auto-configures its connection when we ommit a connection url
     var ioSocket = io('', {
@@ -72,4 +72,4 @@ angular.module('levelsApp')
       },
 
     };
-  });
+  }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('playerService', function (groupService, $rootScope) {
+  .service('playerService', ['groupService', '$rootScope', function (groupService, $rootScope) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     
     SC.initialize({
@@ -86,4 +86,4 @@ angular.module('levelsApp')
     this.isCurrentTrack = function(track) {
         return this.currentTrack === track;
     }.bind(this);
-  });
+  }]);

@@ -7,7 +7,7 @@
 *****************/
 
 angular.module('levelsApp')
-  .controller('SoundcloudCtrl', function ($scope, $auth, scAuthService, $http) {
+  .controller('SoundcloudCtrl', ['$scope', '$auth', 'scAuthService', '$http', function ($scope, $auth, scAuthService, $http) {
    $scope.authenticate = function(provider) {
       $auth.authenticate(provider).then(function(response) {
         //Login Success
@@ -54,4 +54,4 @@ angular.module('levelsApp')
     //   });
   };
 
-  });
+  }]);

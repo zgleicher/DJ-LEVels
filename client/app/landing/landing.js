@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .config(function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('landing', {
         url: '/landing',
@@ -212,6 +212,6 @@ angular.module('levelsApp')
         }
       })
   ;
-  });
+  }]);
 
 

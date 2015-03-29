@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .config(function ($stateProvider, $authProvider) {
+  .config(['$stateProvider', '$authProvider', function ($stateProvider, $authProvider) {
     $stateProvider
       // .state('login', {
       //   url: '/login',
@@ -38,4 +38,4 @@ angular.module('levelsApp')
     });
     
     $authProvider.loginRedirect = '/landing';
-  });
+  }]);
