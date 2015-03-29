@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', ['$scope', 'scAuthService', '$http', 'socket', '$mdDialog', '$mdToast', '$animate', '$state', '$rootScope', 'playerService', 'groupService', '$mdSidenav', 
-  function ($scope, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService, $mdSidenav) {
+.controller('LandingCtrl', ['$scope', 'scAuthService', '$http', 'socket', '$mdDialog', '$mdToast', '$animate', '$state', '$rootScope', 'playerService', 'groupService', 
+  function ($scope, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
 
 if (scAuthService.isAuthenticated()) {
   $scope.username = scAuthService.getUsername();
@@ -19,11 +19,11 @@ $scope.nextIconColor = 'white';
 
 /* Watch Song Player */
 
-$scope.$watch('playerService.currentTime', function(newValue, oldValue) {
+$scope.$watch('playerService.currentTime', function() {
     
 }, true);
 
-$scope.$watch('playerService.duration', function(newValue, oldValue) {
+$scope.$watch('playerService.duration', function() {
     
 }, true);
 
@@ -41,7 +41,7 @@ $scope.setIconColor = function(icon, value) {
     case 'next':
       $scope.nextIconColor = value;
       break;
-  };
+  }
 };
 
   // *********************************
@@ -118,5 +118,6 @@ $scope.setIconColor = function(icon, value) {
       groupService.createGroup($scope.newGroup);
     };
   }
+  AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
 
-});
+}]);

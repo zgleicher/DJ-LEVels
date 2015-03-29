@@ -89,7 +89,7 @@ angular.module('levelsApp')
                 console.log(Auth.getCurrentUser());
 
                 return group.owner.user_id === Auth.getCurrentUser()._id;
-              }
+              };
 
               /* Delete Group Confirmation */
 
@@ -190,17 +190,21 @@ angular.module('levelsApp')
               /* Voting Colors */
 
               $scope.upColor = function(track) {
-                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
+                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                  return 'orange';
+                }
+                else {
+                  return 'black';
+                }
               };
 
               $scope.downColor = function(track) {
-                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
+                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                  return 'orange';
+                }
+                else {
+                  return 'black';
+                }
               };
 
               // $('.song-detail').on('timeupdate', function() {
