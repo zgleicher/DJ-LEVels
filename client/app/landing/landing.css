@@ -129,6 +129,14 @@ section li {
 }
 
 
+.navbar-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
 
 .groupTabs .tabpanel-container {
   display: block;
@@ -364,6 +372,9 @@ section li {
   position:relative;
 }
 
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.02); }
 
 
 /* Animations for ng-animate */

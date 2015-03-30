@@ -6,11 +6,12 @@ angular.module('levelsApp')
 
 if (scAuthService.isAuthenticated()) {
   $scope.username = scAuthService.getUsername();
+  $scope.avatar_url = scAuthService.getAvatarUrl();
 }
 
 $scope.playerService = playerService;
 $scope.groupService = groupService;
-//$scope.Auth = Auth;
+
 
 $scope.addIconColor = 'white';
 $scope.playIconColor = 'white';
@@ -120,4 +121,7 @@ $scope.setIconColor = function(icon, value) {
   }
   AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
 
+  $scope.isGroupVisible = function(group) {
+    return groupService.isFollower(scAuthService.getUserId(), group) || groupService.isContributor(scAuthService.getUserId(), group);
+  };
 }]);

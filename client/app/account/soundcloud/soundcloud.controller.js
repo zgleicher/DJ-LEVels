@@ -53,7 +53,7 @@ angular.module('levelsApp')
     //     // or server returns response with an error status.
     //   });
 
-    scAuthService.getAllUsers().
+    scAuthService.getCurrentUser().
       then(function(user) {
         console.log(user);
       }, function(reason) {
@@ -62,6 +62,7 @@ angular.module('levelsApp')
 
     console.log(scAuthService.getAvatarUrl());
     console.log(scAuthService.getFullName());
+    console.log(scAuthService.getUsername());
   };
 
   }]);

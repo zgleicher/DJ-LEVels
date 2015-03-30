@@ -27,10 +27,7 @@ angular.module('levelsApp')
               $scope.currentTime = playerService.currentTime;
               $scope.duration = playerService.duration;
               $scope.progressValue = 0;
-
-              // $scope.clear = function () {
-              //   $mdAutocompleteCtrl.clear();
-              // };
+              $scope.expanded = {}; //table to hold expanded status of each track
 
               $rootScope.$centerCtrlScope = $scope;
 
@@ -225,10 +222,26 @@ angular.module('levelsApp')
                 }
               };
 
-              // $('.song-detail').on('timeupdate', function() {
-              //   player.currentTime = audio.currentTime;
-              //   player.duration = audio.duration;
-              // }, false);
+
+              /* Toggling Expansion of Track Cards */
+
+              $scope.toggleExpansion = function(track) {
+                //if does not exist, add to expansion hashmap w/ value false
+                if (!$scope.expanded.hasOwnProperty(track.track_id.toString())) {
+                  $scope.expanded[track.track_id.toString()] = true;
+                } else {
+                  $scope.expanded[track.track_id.toString()] = !$scope.expanded[track.track_id.toString()];
+                }
+              };
+
+              $scope.isExpanded = function(track) {
+                return $scope.expanded[track.track_id.toString()] || (playerService.currentTrack === track);
+              };
+
+              $scope.setExpanded = function(track, bool) {
+                $scope.expanded[track.track_id.toString()] = bool;
+              };
+
             }
           }
         }
