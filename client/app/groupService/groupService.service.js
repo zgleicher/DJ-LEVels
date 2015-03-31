@@ -1,29 +1,40 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, $state, socket, scAuthService) {
+  .service('groupService', ['$http', '$state', 'socket', 'scAuthService', function ($http, $state, socket, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
+    var gs = this;
     this.groups;
     this.selectedGroup;
 
-    $http.get('/api/groups').success(function(groups) {
-      this.groups = groups;
-      if (this.groups.length !== 0)
+    $http.get('/api/groups').success(function(allGroups) {
+      this.groups = allGroups.filter(function (g) {
+        if(gs.isGroupVisible(g)){
+          return true;
+        } else {
+          return false;
+        }
+      });
+      if (this.groups.length !== 0) {
         this.selectGroup(this.groups[0]);
-      else 
+      } else {
       	$state.go('landing.no-groups');
+        console.log('no groups');
+      }
       socket.syncUpdates('group', this.groups, this.updateGroupState);
     }.bind(this));
 
     /* Core group functions */
 
     this.updateGroupState = function(event, item, array) {
-    	if (event === 'updated' && item._id === this.selectedGroup._id)
+    	if (event === 'updated' && item._id === this.selectedGroup._id) {
     		this.selectedGroup = item;
-    	else if (event === 'deleted' && this.groups.length > 0)
+      } else if (event === 'deleted' && this.groups.length > 0) {
     		this.selectGroup(this.groups[0]);
-    	else {
+      } else if (this.groups.length > 0) {
+        this.selectGroup(this.groups[0]);
+      } else {
         console.log('going to no groups');
         $state.go('landing.no-groups');
       } 
@@ -37,7 +48,8 @@ angular.module('levelsApp')
     this.createGroup = function(name) {
     	var user = {
     		"user_id": scAuthService.getUserId(),
-    		"user_name": scAuthService.getUsername()
+    		"user_name": scAuthService.getUsername(),
+        "avatar_url": scAuthService.getAvatarUrl()
     	};
     	$http.post('/api/groups', {
         name: name,
@@ -131,7 +143,8 @@ angular.module('levelsApp')
     this.addUser = function(category, user) {
       $http.put('/api/groups/' + this.selectedGroup._id + '/' + category, {
         "user_id": user._id,
-        "user_name": user.name
+        "user_name": user.username,
+        "avatar_url": user.avatar_url
       }).error(function(err) {
         console.log(err);
       });
@@ -143,4 +156,27 @@ angular.module('levelsApp')
       });
     }.bind(this);
 
-  });
+
+    this.isFollower = function(user_id, group) {
+      for (var i = 0; i < group.followers.length; i++) {
+        if (group.followers[i].user_id === user_id) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    this.isContributor = function(user_id, group) {
+      for (var i = 0; i < group.contributors.length; i++) {
+        if (group.contributors[i].user_id === user_id) {
+          return true;
+        }
+      }
+      return false;
+    };
+
+    this.isGroupVisible = function(group) {
+      return this.isFollower(scAuthService.getUserId(), group) || this.isContributor(scAuthService.getUserId(), group);
+    }.bind(this);
+
+  }]);

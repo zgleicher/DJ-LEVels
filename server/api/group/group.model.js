@@ -52,11 +52,13 @@
 		tracks				: [trackSchema],
 		contributors	: [{
 			"user_id": { type: ObjectId, ref: 'User' },
-			"user_name": String
+			"user_name": String,
+			"avatar_url": String
 		}],
 		followers			: [{
 			"user_id": { type: ObjectId, ref: 'User' },
-			"user_name": String
+			"user_name": String,
+			"avatar_url": String
 		}],
 		public				: { type: Boolean, default: 'True' },
 		created_at 		: { type: Date, default: Date.now },

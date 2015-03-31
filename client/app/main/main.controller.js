@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .controller('MainCtrl', function ($scope, $http, socket, scAuthService) {
+  .controller('MainCtrl', ['$scope', '$http', 'socket', 'scAuthService', function ($scope, $http, socket, scAuthService) {
     $scope.awesomeThings = [];
     $scope.levelsGroups = [];
 
@@ -13,10 +13,10 @@ angular.module('levelsApp')
       });
     }
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
-    });
+    // $http.get('/api/things').success(function(awesomeThings) {
+    //   $scope.awesomeThings = awesomeThings;
+    //   socket.syncUpdates('thing', $scope.awesomeThings);
+    // });
     $http.get('/api/groups').success(function(levelsGroups) {
       $scope.levelsGroups = levelsGroups;
       socket.syncUpdates('group', $scope.levelsGroups);
@@ -26,13 +26,13 @@ angular.module('levelsApp')
       return scAuthService.getCurrentUserId();
     };
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
-        return;
-      }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
-    };
+    // $scope.addThing = function() {
+    //   if($scope.newThing === '') {
+    //     return;
+    //   }
+    //   $http.post('/api/things', { name: $scope.newThing });
+    //   $scope.newThing = '';
+    // };
     $scope.addGroup = function() {
       if($scope.newGroup === '') {
         return;
@@ -44,9 +44,9 @@ angular.module('levelsApp')
       $scope.newGroup = '';
     };
 
-    $scope.deleteThing = function(thing) {
-      $http.delete('/api/things/' + thing._id);
-    };
+    // $scope.deleteThing = function(thing) {
+    //   $http.delete('/api/things/' + thing._id);
+    // };
     $scope.deleteGroup = function(group) {
       $http.delete('/api/groups/' + group._id);
     };
@@ -55,4 +55,4 @@ angular.module('levelsApp')
       socket.unsyncUpdates('thing');
       socket.unsyncUpdates('group');
     });
-  });
+  }]);

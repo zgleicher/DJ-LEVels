@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .config(function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('landing', {
         url: '/landing',
@@ -10,9 +10,17 @@ angular.module('levelsApp')
       })
       .state('landing.no-groups', {
         url: '/landing/no-groups',
-        templateUrl: 'app/landing/landing.noGroups.html',
-        controller: function() {
-          console.log('test');
+        views: {
+          'center-content': {
+            templateUrl: 'app/landing/landing.noGroups.html',
+            controller: function($scope, scAuthService) {
+              $scope.username = scAuthService.getUsername();
+            },
+            onEnter: function() {
+              console.log('entered no groups');
+            }
+          }
+
         }
       })
       .state('landing.center', {
@@ -20,19 +28,38 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval){
+            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval, scAuthService, $q){
 
 
               $scope.playerService = playerService;
               $scope.currentTime = playerService.currentTime;
               $scope.duration = playerService.duration;
               $scope.progressValue = 0;
-
-              // $scope.clear = function () {
-              //   $mdAutocompleteCtrl.clear();
-              // };
+              $scope.expanded = {}; //table to hold expanded status of each track
 
               $rootScope.$centerCtrlScope = $scope;
+
+              /* Watch Contributors and Followers for Selected Group */
+
+              $scope.$watch(function() {
+                if (groupService.selectedGroup) {
+                  return groupService.selectedGroup.contributors;
+                } else {
+                  return [];
+                }
+              }, function () {
+                // console.log('contributors changed');
+              }, true);
+
+              $scope.$watch(function() { 
+                if (groupService.selectedGroup) {
+                  return groupService.selectedGroup.followers;
+                } else {
+                  return [];
+                }
+              }, function () {
+                // console.log('followers changed');
+              }, true);
 
               /* Watch Player Values */
 
@@ -40,15 +67,12 @@ angular.module('levelsApp')
                   return playerService.duration;
                 }, function(newValue, oldValue) {
                   $scope.duration = newValue;
-                 // console.log('updated duration');
               }, true);
 
               $scope.updateTimer = function() {
-                //console.log('CLICKED UPDATE TIMER');
                 $interval(function(){
                   $scope.currentTime = playerService.currentTime;
                   $scope.progressValue = playerService.currentTime / playerService.duration * 100;
-                 // console.log('updating timer');
                 },500);
               };
 
@@ -89,7 +113,7 @@ angular.module('levelsApp')
                 console.log(Auth.getCurrentUser());
 
                 return group.owner.user_id === Auth.getCurrentUser()._id;
-              }
+              };
 
               /* Delete Group Confirmation */
 
@@ -164,7 +188,7 @@ angular.module('levelsApp')
               };
 
               /* Autocomplete for Adding Users */
-
+              
               $scope.autocompleteUsers = {
                 'isDisabled': false,
                 'noCache': false,
@@ -172,46 +196,72 @@ angular.module('levelsApp')
                 'searchText': null,
                 'querySearch': function (query) {
                   if (query) {
-                    var members = Auth.getAllUsersSummary();
-                    console.log(members);
-                    return members.filter(function (user) {
-                      var userName = angular.lowercase(user.name);
-                      var lowercaseQuery = angular.lowercase(query);
-                      return (userName.indexOf(lowercaseQuery) > -1);
+                    var deferred = $q.defer();
+                    scAuthService.getAllUsers().then(function(members) {
+                      deferred.resolve( members.filter(function (user) {
+                        var userName = angular.lowercase(user.username);
+                        var lowercaseQuery = angular.lowercase(query);
+                        return (userName.indexOf(lowercaseQuery) > -1);
+                      }));
+                    }, function(reason) {
+                      console.log(reason);
                     });
-
+                    return deferred.promise;
                   } else {
                     return [];
                   }
                 },
                 'simulateQuery': true,
+                'selectedItemChange': function() {
+                  console.log('changed');
+                }
               };
 
               /* Voting Colors */
 
               $scope.upColor = function(track) {
-                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
+                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                  return 'orange';
+                }
+                else {
+                  return 'black';
+                }
               };
 
               $scope.downColor = function(track) {
-                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1)
-                  return 'orange'
-                else
-                  return 'black'
+                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                  return 'orange';
+                }
+                else {
+                  return 'black';
+                }
               };
 
-              // $('.song-detail').on('timeupdate', function() {
-              //   player.currentTime = audio.currentTime;
-              //   player.duration = audio.duration;
-              // }, false);
+
+              /* Toggling Expansion of Track Cards */
+
+              $scope.toggleExpansion = function(track) {
+                //if does not exist, add to expansion hashmap w/ value false
+                if (!$scope.expanded.hasOwnProperty(track.track_id.toString())) {
+                  $scope.expanded[track.track_id.toString()] = true;
+                } else {
+                  $scope.expanded[track.track_id.toString()] = !$scope.expanded[track.track_id.toString()];
+                }
+              };
+
+              $scope.isExpanded = function(track) {
+                return $scope.expanded[track.track_id.toString()] || (playerService.currentTrack === track);
+              };
+
+              $scope.setExpanded = function(track, bool) {
+                $scope.expanded[track.track_id.toString()] = bool;
+              };
+
             }
           }
         }
       })
   ;
-  });
+  }]);
 
 

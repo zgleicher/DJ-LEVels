@@ -24,7 +24,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 
 1) User functionality
 
-	[ ] Landing / sign in page
+	[x] Landing / sign in page
 
 	[x] Users can login with SoundCloud
 
@@ -38,7 +38,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[x] User can be added to a group
 
-	[ ] Group can be open or closed
+	[ ] Only contributers can add songs to group
 
 
 3) Song functionality

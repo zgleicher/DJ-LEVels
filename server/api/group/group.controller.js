@@ -147,7 +147,8 @@ exports.track = {
             }).indexOf(req.body.user_id) === -1) {
           group.contributors.push({
             "user_name": req.body.user_name,
-            "user_id": req.body.user_id
+            "user_id": req.body.user_id,
+            "avatar_url": req.body.avatar_url
           });
           group.save(function (err) {
             if (err) { return handleError(res, err); }
@@ -189,7 +190,8 @@ exports.track = {
             }).indexOf(req.body.user_id) === -1) {
           group.followers.push({
             "user_name": req.body.user_name,
-            "user_id": req.body.user_id
+            "user_id": req.body.user_id,
+            "avatar_url": req.body.avatar_url
           });
           group.save(function (err) {
             if (err) { return handleError(res, err); }

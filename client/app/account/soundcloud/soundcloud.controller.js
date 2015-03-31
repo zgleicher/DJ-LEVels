@@ -7,7 +7,7 @@
 *****************/
 
 angular.module('levelsApp')
-  .controller('SoundcloudCtrl', function ($scope, $auth, scAuthService, $http) {
+  .controller('SoundcloudCtrl', ['$scope', '$auth', 'scAuthService', '$http', function ($scope, $auth, scAuthService, $http) {
    $scope.authenticate = function(provider) {
       $auth.authenticate(provider).then(function(response) {
         //Login Success
@@ -53,17 +53,16 @@ angular.module('levelsApp')
     //     // or server returns response with an error status.
     //   });
 
-    $scope.allUsers = [];
-
-    scAuthService.getAllUsers().
-      then(function(users) {
-        $scope.allUsers = users;
+    scAuthService.getCurrentUser().
+      then(function(user) {
+        console.log(user);
       }, function(reason) {
         console.log(reason);
       });
 
     console.log(scAuthService.getAvatarUrl());
     console.log(scAuthService.getFullName());
+    console.log(scAuthService.getUsername());
   };
 
-  });
+  }]);
