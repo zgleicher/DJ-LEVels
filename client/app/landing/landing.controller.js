@@ -121,7 +121,5 @@ $scope.setIconColor = function(icon, value) {
   }
   AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
 
-  $scope.isGroupVisible = function(group) {
-    return groupService.isFollower(scAuthService.getUserId(), group) || groupService.isContributor(scAuthService.getUserId(), group);
-  };
+
 }]);

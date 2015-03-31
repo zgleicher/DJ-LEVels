@@ -45,13 +45,13 @@
         </md-toolbar>
 
     <md-list>
-      <md-item ng-show="groups.length === 0">
-        <md-item-content class="no-groups">
-          
-            Add a group by clicking the + button above!
-          
-        </md-item-content>
-      </md-item>
+    <md-item ng-show="groupService.groups.length === 0">
+      <md-item-content class="no-groups">
+        
+          Add a group by clicking the + button above!
+        
+      </md-item-content>
+    </md-item>
       <!-- <md-item ng-repeat="g in groupService.getVisibleGroups()"> -->
       <md-item ng-repeat="g in groupService.groups | visibleGroups">
           <md-item-content>

@@ -4,11 +4,18 @@ angular.module('levelsApp')
   .service('groupService', ['$http', '$state', 'socket', 'scAuthService', function ($http, $state, socket, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
+    var gs = this;
     this.groups;
     this.selectedGroup;
 
-    $http.get('/api/groups').success(function(groups) {
-      this.groups = groups;
+    $http.get('/api/groups').success(function(allGroups) {
+      this.groups = allGroups.filter(function (g) {
+        if(gs.isGroupVisible(g)){
+          return true;
+        } else {
+          return false;
+        }
+      });
       if (this.groups.length !== 0) {
         this.selectGroup(this.groups[0]);
       } else {
@@ -21,11 +28,13 @@ angular.module('levelsApp')
     /* Core group functions */
 
     this.updateGroupState = function(event, item, array) {
-    	if (event === 'updated' && item._id === this.selectedGroup._id)
+    	if (event === 'updated' && item._id === this.selectedGroup._id) {
     		this.selectedGroup = item;
-    	else if (event === 'deleted' && this.groups.length > 0)
+      } else if (event === 'deleted' && this.groups.length > 0) {
     		this.selectGroup(this.groups[0]);
-    	else {
+      } else if (this.groups.length > 0) {
+        this.selectGroup(this.groups[0]);
+      } else {
         console.log('going to no groups');
         $state.go('landing.no-groups');
       } 
@@ -166,19 +175,8 @@ angular.module('levelsApp')
       return false;
     };
 
-    //get visible groups for a person
-    this.getVisibleGroups = function() {
-      var user = scAuthService.getUserId(),
-        visibleGroups = [];
-      console.log('user is' + scAuthService.getUserId());
-      console.log(this.groups);
-      for (g in this.groups) {
-        if (this.isContributor(user, g) || this.isFollower(user, g)) {
-          visibleGroups.push(g);
-        }
-      }
-      console.log(visibleGroups);
-      return visibleGroups;
-    };
+    this.isGroupVisible = function(group) {
+      return this.isFollower(scAuthService.getUserId(), group) || this.isContributor(scAuthService.getUserId(), group);
+    }.bind(this);
 
   }]);

@@ -10,9 +10,17 @@ angular.module('levelsApp')
       })
       .state('landing.no-groups', {
         url: '/landing/no-groups',
-        templateUrl: 'app/landing/landing.noGroups.html',
-        controller: function() {
-          console.log('test');
+        views: {
+          'center-content': {
+            templateUrl: 'app/landing/landing.noGroups.html',
+            controller: function($scope, scAuthService) {
+              $scope.username = scAuthService.getUsername();
+            },
+            onEnter: function() {
+              console.log('entered no groups');
+            }
+          }
+
         }
       })
       .state('landing.center', {
