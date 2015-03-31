@@ -14,15 +14,15 @@ angular.module('levelsApp', [
   'ngMdIcons',
   'satellizer'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
-  })
+  }])
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor', ['$rootScope', '$q', '$cookieStore', '$location', function ($rootScope, $q, $cookieStore, $location) {
     return {
       // Add authorization token to headers
       request: function (config) {
@@ -46,13 +46,13 @@ angular.module('levelsApp', [
         }
       }
     };
-  })
+  }])
 
-  .factory('SC', function ($window) {
+  .factory('SC', ['$window', function ($window) {
     return $window.SC;
-  })
+  }])
 
-  .run(function ($rootScope, $location, scAuthService) {
+  .run(['$rootScope', '$location', 'scAuthService', function ($rootScope, $location, scAuthService) {
     // Redirect to login if route requires auth and you're not logged in
     $rootScope.$on('$stateChangeStart', function (event, next) {
       if(!scAuthService.isAuthenticated()) {
@@ -64,4 +64,4 @@ angular.module('levelsApp', [
       //   }
       // });
     });
-  });
+  }]);

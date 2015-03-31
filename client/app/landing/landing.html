@@ -21,8 +21,11 @@
 
     <!-- user info -->
     
-    <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1> 
-    <span>{{username}}</span>
+    <!-- <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1>  -->
+    <span layout="column" layout-align="space-between center">
+      <img src="{{avatar_url}}" class="navbar-avatar">
+      <span>{{username}}</span>
+    </span>
     <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"></ng-md-icon></md-button>
 </md-toolbar>
 
@@ -49,6 +52,7 @@
           
         </md-item-content>
       </md-item>
+      <!-- <md-item ng-repeat="g in groupService.getVisibleGroups()"> -->
       <md-item ng-repeat="g in groupService.groups">
           <md-item-content>
             <md-button ng-click="groupService.selectGroup(g)" ng-class="{'selected' : g._id === groupService.selectedGroup._id }" aria-label="{{groupService.selectedGroup}}">

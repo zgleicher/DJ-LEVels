@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .controller('MainCtrl', function ($scope, $http, socket, scAuthService) {
+  .controller('MainCtrl', ['$scope', '$http', 'socket', 'scAuthService', function ($scope, $http, socket, scAuthService) {
     $scope.awesomeThings = [];
     $scope.levelsGroups = [];
 
@@ -55,4 +55,4 @@ angular.module('levelsApp')
       socket.unsyncUpdates('thing');
       socket.unsyncUpdates('group');
     });
-  });
+  }]);

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('levelsApp')
-  .service('groupService', function ($http, $state, socket, scAuthService) {
+  .service('groupService', ['$http', '$state', 'socket', 'scAuthService', function ($http, $state, socket, scAuthService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
 
     this.groups;
@@ -9,10 +9,12 @@ angular.module('levelsApp')
 
     $http.get('/api/groups').success(function(groups) {
       this.groups = groups;
-      if (this.groups.length !== 0)
+      if (this.groups.length !== 0) {
         this.selectGroup(this.groups[0]);
-      else 
+      } else {
       	$state.go('landing.no-groups');
+        console.log('no groups');
+      }
       socket.syncUpdates('group', this.groups, this.updateGroupState);
     }.bind(this));
 
@@ -37,7 +39,8 @@ angular.module('levelsApp')
     this.createGroup = function(name) {
     	var user = {
     		"user_id": scAuthService.getUserId(),
-    		"user_name": scAuthService.getUsername()
+    		"user_name": scAuthService.getUsername(),
+        "avatar_url": scAuthService.getAvatarUrl()
     	};
     	$http.post('/api/groups', {
         name: name,
@@ -131,7 +134,8 @@ angular.module('levelsApp')
     this.addUser = function(category, user) {
       $http.put('/api/groups/' + this.selectedGroup._id + '/' + category, {
         "user_id": user._id,
-        "user_name": user.name
+        "user_name": user.username,
+        "avatar_url": user.avatar_url
       }).error(function(err) {
         console.log(err);
       });
@@ -143,4 +147,42 @@ angular.module('levelsApp')
       });
     }.bind(this);
 
-  });
+
+    this.isFollower = function(user_id, group) {
+      for (follower in group.followers) {
+        if (follower.user_id === user_id) {
+          return true;
+        }
+      }
+      // return false;
+      return true;
+    };
+
+    this.isContributor = function(user_id, group) {
+      console.log(user_id);
+      console.log(group);
+      for (contributor in group.contributors) {
+        if (contributor.user_id === user_id) {
+          return true;
+        }
+      }
+      // return false;
+      return true;
+    };
+
+    //get visible groups for a person
+    this.getVisibleGroups = function() {
+      var user = scAuthService.getUserId(),
+        visibleGroups = [];
+      console.log('user is' + scAuthService.getUserId());
+      console.log(this.groups);
+      for (g in this.groups) {
+        if (this.isContributor(user, g) || this.isFollower(user, g)) {
+          visibleGroups.push(g);
+        }
+      }
+      console.log(visibleGroups);
+      return visibleGroups;
+    };
+
+  }]);

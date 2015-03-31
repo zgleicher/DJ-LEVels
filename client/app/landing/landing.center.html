@@ -58,11 +58,12 @@
 				    	      ng-disabled="autocompleteUsers.isDisabled"
 				    	      md-no-cache="autocompleteUsers.noCache"
 				    	      md-selected-item="autocompleteUsers.selectedItem"
+				    	      md-selected-item-change="autocompleteUsers.selectedItemChange()"
 				    	      md-search-text="autocompleteUsers.searchText"
 				    	      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
-				    	      md-item-text="item.name"
+				    	      md-item-text="item.username"
 				    	      placeholder="Select from current DJ-LEVels users">
-				    	    <span md-highlight-text="autocompleteUsers.searchText">{{item.name}} ({{item.email}})</span>
+				    	    <span md-highlight-text="autocompleteUsers.searchText">{{item.username}}</span>
 				    	  </md-autocomplete>
 				      </div>
 				    	<!-- <br/> -->
@@ -71,15 +72,20 @@
 				    		Add Contributor
 				    		</md-button>
 				    		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('contributors', autocompleteUsers.selectedItem); clear()">
-				    		Add {{autocompleteUsers.selectedItem.name}}
+				    		Add {{autocompleteUsers.selectedItem.username}}
 				    		</md-button>
 				    	</div>
 				    </div>
 				  	<h3 ng-show="groupService.selectedGroup.contributors.length === 1">There is 1 contributor who can add and remove songs from {{groupService.selectedGroup.name}}.</h3>
 				  	<h3 ng-show="groupService.selectedGroup.contributors.length !== 1">There are {{groupService.selectedGroup.contributors.length}} contributors who can add and remove songs from {{groupService.selectedGroup.name}}.</h3>
 				  	<div layout="row" layout-wrap>
-							<div class="member-tab-box" ng-repeat="contributor in groupService.selectedGroup.contributors" flex="5">
-								<md-button class="md-fab" aria-label="{{contributor.user_name}}">
+							<div class="member-tab-box" ng-repeat="contributor in groupService.selectedGroup.contributors" >
+								<div ng-show="'{{contributor.avatar_url}}'">
+									<img src="{{contributor.avatar_url}}" class="user-avatar">
+									<md-tooltip md-direction="bottom">{{contributor.user_name}}</md-tooltip>
+								</div>
+								<md-button ng-hide="'{{contributor.avatar_url}}'" class="md-fab" aria-label="{{contributor.user_name}}">
+									<ng-md-icon icon="person" style="fill:white" size="36"></ng-md-icon>
 									<md-tooltip>{{contributor.user_name}}</md-tooltip>
 								</md-button>
 							</div>
@@ -99,34 +105,41 @@
            <div style="min-height: 60px" class="autocomplete" layout="row" layout-margin>
              <div flex="80" layout="column">
            	  <md-autocomplete
-           	      ng-disabled="autocompleteUsers.isDisabled"
-           	      md-no-cache="autocompleteUsers.noCache"
-           	      md-selected-item="autocompleteUsers.selectedItem"
-           	      md-search-text="autocompleteUsers.searchText"
-           	      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
-           	      md-item-text="item.name"
-           	      placeholder="Select from current DJ-LEVels users">
-           	    <span md-highlight-text="autocompleteUsers.searchText">{{item.name}} ({{item.email}})</span>
-           	  </md-autocomplete>
-             </div>
-           	<!-- <br/> -->
-           	<div  flex="20">
-           		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
-           		Add Contributor
-           		</md-button>
-           		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('followers', autocompleteUsers.selectedItem); $mdAutocompleteCtrl.clear()">
-           		Add {{autocompleteUsers.selectedItem.name}}
-           		</md-button>
+				    	      ng-disabled="autocompleteUsers.isDisabled"
+				    	      md-no-cache="autocompleteUsers.noCache"
+				    	      md-selected-item="autocompleteUsers.selectedItem"
+				    	      md-selected-item-change="autocompleteUsers.selectedItemChange()"
+				    	      md-search-text="autocompleteUsers.searchText"
+				    	      md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+				    	      md-item-text="item.username"
+				    	      placeholder="Select from current DJ-LEVels users">
+				    	    <span md-highlight-text="autocompleteUsers.searchText">{{item.username}}</span>
+				    	  </md-autocomplete>
+				      </div>
+				    	<!-- <br/> -->
+				    	<div  flex="20">
+				    		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
+				    		Add Follower
+				    		</md-button>
+				    		<md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('followers', autocompleteUsers.selectedItem); clear()">
+				    		Add {{autocompleteUsers.selectedItem.username}}
+				    		</md-button>
+				    	</div>
            	</div>
-           </div>
+     
          	<h3 ng-show="groupService.selectedGroup.followers.length === 1">There is 1 follower who can see songs in {{groupService.selectedGroup.name}}.</h3>
          	<h3 ng-show="groupService.selectedGroup.followers.length !== 1">There are {{groupService.selectedGroup.followers.length}} followers who can see songs in {{groupService.selectedGroup.name}}.</h3>
          	<div layout="row" layout-wrap>
-       			<div class="member-tab-box" ng-repeat="follower in groupService.selectedGroup.followers" flex="5">
-       				<md-button class="md-fab" aria-label="{{follower.user_name}}">
-       					<md-tooltip>{{follower.user_name}}</md-tooltip>
-       				</md-button>
-       			</div>
+       			<div class="member-tab-box" ng-repeat="follower in groupService.selectedGroup.followers" >
+								<div ng-show="'{{follower.avatar_url}}'">
+									<img src="{{follower.avatar_url}}" class="user-avatar">
+									<md-tooltip md-direction="bottom">{{follower.user_name}}</md-tooltip>
+								</div>
+								<md-button ng-hide="'{{follower.avatar_url}}'" class="md-fab" aria-label="{{follower.user_name}}">
+									<ng-md-icon icon="person" style="fill:white" size="36"></ng-md-icon>
+									<md-tooltip>{{follower.user_name}}</md-tooltip>
+								</md-button>
+							</div>
        		</div>
 
 				  </div>
@@ -151,12 +164,12 @@
 		</md-card-content>
 	</md-card>
 <!-- group cards -->
-	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true">
-		<md-card ng-show="!playerService.isCurrentTrack(track)">
+	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true ">
+		<md-card ng-show="!isExpanded(track)" ng-click="toggleExpansion(track)" class="grow">
 		  <md-card-content>
 				<div layout="row" layout-align="space-between center">
 				  <span flex="10">
-				    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+				    <img draggable="false" src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
 				  </span>
 				  <div style="padding-right: 16px; padding-left: 16px;">
 				    <h3 style="display:inline">{{track.title}}</h3> 
@@ -165,16 +178,16 @@
 				  <span flex></span>
 				  <div flex="10">
 				  	  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track); updateTimer()" aria-label="Play {{ track.title }}"></ng-md-icon>
-<!-- 			  		  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon> -->
+			  		  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
 				  </div>
 				</div>
 		  </md-card-content>
 		</md-card>
-		<md-card class="song-detail" ng-show="playerService.isCurrentTrack(track)">
+		<md-card class="song-detail grow" ng-show="isExpanded(track)" ng-click="toggleExpansion(track)">
 		  <md-card-content>
 					<div layout="row" layout-align="space-between center">
 					  <div flex="20">
-					    <img src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
+					    <img  draggable="false" src="{{track.image_url}}" alt="{{track.title}}" style="width:100%; height:100%; border-radius: 50%">
 						</div>
 					  <div style="padding-right: 16px; padding-left: 16px;" flex>
 					    <h2>{{track.title}}</h2>
@@ -182,8 +195,8 @@
 					    <p>Submitted by: {{track.submitted_by_name}}</p>
 					    <p>
 					    	<h2 class="vote" style="display:inline">{{ groupService.getTrackScore(track) }}</h2>
-					    	<md-button class="md-primary" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track"> Upvote </md-button>
-					    	<md-button class="md-primary" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track"> Downvote </md-button>
+					    	<md-button class="md-primary" ng-click="groupService.voteTrack('up', track); setExpanded(track, true)" aria-label="Upvote track"> Upvote </md-button>
+					    	<md-button class="md-primary" ng-click="groupService.voteTrack('down', track); setExpanded(track, true)" aria-label="Downvote track"> Downvote </md-button>
 					    	<md-button class="" ng-click="showDeleteTrack($event, track)" aria-label="Delete track"> Delete Track </md-button>
 					    </p>
 					  </div>
