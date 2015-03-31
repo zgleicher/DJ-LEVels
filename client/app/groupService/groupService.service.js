@@ -72,8 +72,9 @@ angular.module('levelsApp')
 
   	this.nextTrack = function() {
   		var sorted = this.selectedGroup.tracks.sort(function (a, b) {
-  			return this.getTrackScore(a) - this.getTrackScore(b);
+  			return this.getTrackScore(b) - this.getTrackScore(a);
   		}.bind(this));
+      console.log(sorted);
   		if (!this.selectedGroup.selectedTrack) {
   			this.selectedGroup.selectedTrack = sorted[0];
   		} else {
@@ -86,8 +87,9 @@ angular.module('levelsApp')
     this.previousTrack = function() {
       //sort based on votes
       var sorted = this.selectedGroup.tracks.sort(function (a, b) {
-        return this.getTrackScore(a) - this.getTrackScore(b);
+        return this.getTrackScore(b) - this.getTrackScore(a);
       }.bind(this));
+
       //select first element if nothing is sorted
       if (!this.selectedGroup.selectedTrack) {
         this.selectedGroup.selectedTrack = sorted[0];

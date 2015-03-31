@@ -117,6 +117,7 @@ $scope.setIconColor = function(icon, value) {
     $scope.addGroup = function() {
       if($scope.newGroup === '') { return; }
       groupService.createGroup($scope.newGroup);
+      
     };
   }
   AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
