@@ -31,9 +31,15 @@ angular.module('levelsApp')
   };
 
   $scope.getFavoriteTracks = function() {
-      var id = getUserId();
+      var id = scAuthService.getScId();
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
-        $scope.tracks = tracks;
+        $scope.tracks = tracks.map(function(curVal, idx, arr) {
+          return {
+            title: curVal.title,
+            track_url: curVal.permalink_url,
+            artwork_url: curVal.artwork_url 
+          }
+        });
       });
   };
 
