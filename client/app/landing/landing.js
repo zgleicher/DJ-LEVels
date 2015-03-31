@@ -198,10 +198,17 @@ angular.module('levelsApp')
                   if (query) {
                     var deferred = $q.defer();
                     scAuthService.getAllUsers().then(function(members) {
+                      // console.log(members);
                       deferred.resolve( members.filter(function (user) {
-                        var userName = angular.lowercase(user.username);
-                        var lowercaseQuery = angular.lowercase(query);
-                        return (userName.indexOf(lowercaseQuery) > -1);
+                        //console.log(user);
+                        if (user.username) {
+                          var userName = user.username.toLowerCase();
+                          var lowercaseQuery = angular.lowercase(query);
+                          // console.log('userName is '+ userName);
+                          return (userName.indexOf(lowercaseQuery) > -1);
+                        } else {
+                          return false;
+                        }
                       }));
                     }, function(reason) {
                       console.log(reason);
@@ -213,7 +220,7 @@ angular.module('levelsApp')
                 },
                 'simulateQuery': true,
                 'selectedItemChange': function() {
-                  console.log('changed');
+                  // console.log('changed');
                 }
               };
 

@@ -6,6 +6,7 @@ angular.module('levelsApp')
     
     SC.initialize({
     	client_id: '8404d653618adb5d684fa8b257d4f924'
+        // client_id: '66fd2fb89c48bdcf4d67c15d99baf2a8'
     });
 
     var player = this;
