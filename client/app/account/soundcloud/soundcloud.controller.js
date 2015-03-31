@@ -53,9 +53,11 @@ angular.module('levelsApp')
     //     // or server returns response with an error status.
     //   });
 
+    $scope.allUsers = [];
+
     scAuthService.getAllUsers().
-      then(function(user) {
-        console.log(user);
+      then(function(users) {
+        $scope.allUsers = users;
       }, function(reason) {
         console.log(reason);
       });
