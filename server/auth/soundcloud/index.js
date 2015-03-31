@@ -15,11 +15,11 @@ router.post('/', function(req, res) {
   var params = {
     code: req.body.code,
     //local
-    //client_id: req.body.clientId,
-    // client_secret: 'e7871749b858f8d54e34a1f8f1984eba', //Should be hidden in config
+    client_id: req.body.clientId,
+    client_secret: 'e7871749b858f8d54e34a1f8f1984eba', //Should be hidden in config
     //production
-    client_id: '8404d653618adb5d684fa8b257d4f924',
-    client_secret: '856bdb4e4537ce97b5de9b95bc90ed26',
+    // client_id: '8404d653618adb5d684fa8b257d4f924',
+    // client_secret: '856bdb4e4537ce97b5de9b95bc90ed26',
     grant_type: 'authorization_code',
     redirect_uri: req.body.redirectUri
   };

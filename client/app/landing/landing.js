@@ -20,7 +20,7 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.center.html',
-            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval, scAuthService){
+            controller: function($scope, $stateParams, $http, $state, $rootScope, $mdDialog, playerService, groupService, $interval, scAuthService, $q){
 
 
               $scope.playerService = playerService;
@@ -33,16 +33,24 @@ angular.module('levelsApp')
 
               /* Watch Contributors and Followers for Selected Group */
 
-              $scope.$watch(function() { 
-                return groupService.selectedGroup.contributors; 
+              $scope.$watch(function() {
+                if (groupService.selectedGroup) {
+                  return groupService.selectedGroup.contributors;
+                } else {
+                  return [];
+                }
               }, function () {
-                //console.log('contributors changed');
+                // console.log('contributors changed');
               }, true);
 
               $scope.$watch(function() { 
-                return groupService.selectedGroup.followers; 
+                if (groupService.selectedGroup) {
+                  return groupService.selectedGroup.followers;
+                } else {
+                  return [];
+                }
               }, function () {
-                //console.log('followers changed');
+                // console.log('followers changed');
               }, true);
 
               /* Watch Player Values */
@@ -174,6 +182,8 @@ angular.module('levelsApp')
               };
 
               /* Autocomplete for Adding Users */
+              
+              //$scope.allUsers = [];
 
               $scope.autocompleteUsers = {
                 'isDisabled': false,
@@ -182,16 +192,19 @@ angular.module('levelsApp')
                 'searchText': null,
                 'querySearch': function (query) {
                   if (query) {
-                    return scAuthService.getAllUsers().then(function(members){
-                      //console.log(members);
-                      return members.filter(function (user) {
+                    var deferred = $q.defer();
+                    scAuthService.getAllUsers().then(function(members) {
+                      //var members = scAuthService.returnAllUsersArray();
+                      //return
+                      deferred.resolve( members.filter(function (user) {
                         var userName = angular.lowercase(user.username);
                         var lowercaseQuery = angular.lowercase(query);
                         return (userName.indexOf(lowercaseQuery) > -1);
-                      });
+                      }));
+                    }, function(reason) {
+                      console.log(reason);
                     });
-                    
-
+                    return deferred.promise;
                   } else {
                     return [];
                   }

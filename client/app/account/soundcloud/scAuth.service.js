@@ -8,6 +8,15 @@ Methods implemented to get the user id of the user logged in and the favorite tr
 angular.module('levelsApp')
   .service('scAuthService', ['$auth', '$http', '$q', function ($auth, $http, $q) {
 
+    this.allUsers = [];
+    //populate allUsers
+    //this.getAllUsers();
+
+    this.returnAllUsersArray = function() {
+      this.getAllUsers();
+      return this.allUsers;
+    };
+
     this.login = function(provider) {
       var deferred = $q.defer();
       $auth.authenticate(provider).then(function(response) {
@@ -71,6 +80,7 @@ angular.module('levelsApp')
       var deferred = $q.defer();
       $http.get('/api/scusers/').
         success(function(data, status, headers, config) {
+          //this.allUsers = data;
           deferred.resolve(data);
         }).
         error(function(data, status, headers, config) {
@@ -94,5 +104,7 @@ angular.module('levelsApp')
 
           return deferred.promise;
     };
+
+
 
 }]);
