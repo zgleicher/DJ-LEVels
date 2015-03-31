@@ -374,7 +374,7 @@ section li {
 
 
 .grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.02); }
+.grow:hover { transform: scale(1.01); }
 
 
 /* Animations for ng-animate */

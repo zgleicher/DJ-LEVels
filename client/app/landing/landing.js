@@ -59,14 +59,12 @@ angular.module('levelsApp')
                   return playerService.duration;
                 }, function(newValue, oldValue) {
                   $scope.duration = newValue;
-                 // console.log('updated duration');
               }, true);
 
               $scope.updateTimer = function() {
                 $interval(function(){
                   $scope.currentTime = playerService.currentTime;
                   $scope.progressValue = playerService.currentTime / playerService.duration * 100;
-                 // console.log('updating timer');
                 },500);
               };
 
@@ -183,8 +181,6 @@ angular.module('levelsApp')
 
               /* Autocomplete for Adding Users */
               
-              //$scope.allUsers = [];
-
               $scope.autocompleteUsers = {
                 'isDisabled': false,
                 'noCache': false,
@@ -194,8 +190,6 @@ angular.module('levelsApp')
                   if (query) {
                     var deferred = $q.defer();
                     scAuthService.getAllUsers().then(function(members) {
-                      //var members = scAuthService.returnAllUsersArray();
-                      //return
                       deferred.resolve( members.filter(function (user) {
                         var userName = angular.lowercase(user.username);
                         var lowercaseQuery = angular.lowercase(query);

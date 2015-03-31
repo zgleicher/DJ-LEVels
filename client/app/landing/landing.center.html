@@ -4,8 +4,6 @@
 			<div layout="row" layout-align="spread-apart center">
 				<h1>{{groupService.selectedGroup.name}}</h1>
 				<span flex></span>
-				<!-- edit delete mode -->
-				<!-- ADD BACK IN ng-hide="!isOwner()"  -->
         
       </div>
 		</md-toolbar>
@@ -151,12 +149,7 @@
 				        md-swipe-left="next()"
 				        md-swipe-right="previous()" 
 				        class="groupbox">
-
-<!-- 		        <ng-md-icon icon="mode_edit" class="delete-group" size="18" ng-show="!editMode" ng-click="editMode = !editMode"></ng-md-icon>
-		        <ng-md-icon icon="done" class="delete-group" size="18" ng-show="editMode" ng-click="editMode = !editMode"></ng-md-icon>
-		        <ng-md-icon icon="delete" size="18" class="delete-group" ng-show="editMode" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"></ng-md-icon> -->
 		        <md-button class="" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"> Delete {{groupService.selectedGroup.name}} </md-button>
-
 				   </div>
 
 				</ng-switch>
@@ -165,7 +158,7 @@
 	</md-card>
 <!-- group cards -->
 	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true ">
-		<md-card ng-show="!isExpanded(track)" ng-click="toggleExpansion(track)" class="grow">
+	<!-- 	<md-card ng-show="!isExpanded(track)" ng-click="toggleExpansion(track)" class="grow">
 		  <md-card-content>
 				<div layout="row" layout-align="space-between center">
 				  <span flex="10">
@@ -182,8 +175,9 @@
 				  </div>
 				</div>
 		  </md-card-content>
-		</md-card>
-		<md-card class="song-detail grow" ng-show="isExpanded(track)" ng-click="toggleExpansion(track)">
+		</md-card> -->
+		<!-- <md-card class="song-detail grow" ng-show="isExpanded(track)" ng-click="toggleExpansion(track)"> -->
+		<md-card class="song-detail grow">
 		  <md-card-content>
 					<div layout="row" layout-align="space-between center">
 					  <div flex="20">
@@ -200,29 +194,12 @@
 					    	<md-button class="" ng-click="showDeleteTrack($event, track)" aria-label="Delete track"> Delete Track </md-button>
 					    </p>
 					  </div>
-					  
-					  <!-- <div flex="10">
-					    <div layout="column" layout-align="center center">
-					    	<ng-md-icon icon="arrow_drop_up" class="vote" size="36" ng-click="groupService.voteTrack('up', track)" aria-label="Upvote track" style="fill: {{upColor(track)}}"></ng-md-icon>
-					    	<h2 class="vote">{{ groupService.getTrackScore(track) }}</h2>
-					    	<ng-md-icon icon="arrow_drop_down" class="vote" size="36" ng-click="groupService.voteTrack('down', track)" aria-label="Downvote track" style="fill: {{downColor(track)}}"></ng-md-icon>
-					    </div>
-					  </div> -->
-<!-- 					  <div>
-					  <md-button>upvote</md-button>
-					  </div>
-					  <div>
-					  <md-button>downvote</md-button>
-						</div> -->
 					  <div layout="column" flex="10">
 						  <ng-md-icon ng-hide="playerService.isCurrentTrackPlaying(track)" icon="play_arrow" size="36" ng-click="playerService.playTrack(track); updateTimer()" aria-label="Play {{ track.title }}"></ng-md-icon>
 						  <ng-md-icon ng-show="playerService.isCurrentTrackPlaying(track)" icon="pause" size="36" ng-click="playerService.togglePlay()" aria-label="Pause {{ track.title }}"></ng-md-icon>
 						  <small ng-show="playerService.isCurrentTrack(track)">{{ currentTime || 0 | prettyTime }} - {{ duration | prettyTime}}</small>
 					  </div>
 			  </div>
-<!-- 			  <div ng-show="shouldShowStats(track)">
-			  	HELLLo hovering
-			  </div> -->
 			  <div>
 			  	<span id="progressBar" ng-show="playerService.isCurrentTrack(track)" flex><md-progress-linear md-mode="determinate" value="{{progressValue|| 0 }}"></md-progress-linear></span>
 			  </div>

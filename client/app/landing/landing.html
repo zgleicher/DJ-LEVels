@@ -53,7 +53,7 @@
         </md-item-content>
       </md-item>
       <!-- <md-item ng-repeat="g in groupService.getVisibleGroups()"> -->
-      <md-item ng-repeat="g in groupService.groups">
+      <md-item ng-repeat="g in groupService.groups | visibleGroups">
           <md-item-content>
             <md-button ng-click="groupService.selectGroup(g)" ng-class="{'selected' : g._id === groupService.selectedGroup._id }" aria-label="{{groupService.selectedGroup}}">
               <span class="avatar"><img src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>

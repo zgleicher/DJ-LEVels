@@ -149,25 +149,21 @@ angular.module('levelsApp')
 
 
     this.isFollower = function(user_id, group) {
-      for (follower in group.followers) {
-        if (follower.user_id === user_id) {
+      for (var i = 0; i < group.followers.length; i++) {
+        if (group.followers[i].user_id === user_id) {
           return true;
         }
       }
-      // return false;
-      return true;
+      return false;
     };
 
     this.isContributor = function(user_id, group) {
-      console.log(user_id);
-      console.log(group);
-      for (contributor in group.contributors) {
-        if (contributor.user_id === user_id) {
+      for (var i = 0; i < group.contributors.length; i++) {
+        if (group.contributors[i].user_id === user_id) {
           return true;
         }
       }
-      // return false;
-      return true;
+      return false;
     };
 
     //get visible groups for a person
