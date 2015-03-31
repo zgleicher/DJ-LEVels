@@ -88,7 +88,6 @@
 								</md-button>
 							</div>
 						</div>
-
 				  </div>
 
 					<!-- followers tab -->
@@ -115,7 +114,7 @@
 				    	  </md-autocomplete>
 				      </div>
 				    	<!-- <br/> -->
-				    	<div  flex="20">
+				    	<div flex="20">
 				    		<md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
 				    		Add Follower
 				    		</md-button>
@@ -157,6 +156,17 @@
 		</md-card-content>
 	</md-card>
 <!-- group cards -->
+	<md-card ng-show="groupService.selectedGroup.tracks.length === 0">
+		<md-card-content>
+			<div layout="column">
+				<h2>Add some tracks to your group to get started!</h2>
+				<p>Go to <a href="https://soundcloud.com/stream" target="_blank">SoundCloud</a> in a separate window, and drag the image by each song (as shown below) to this section to add it to this group!</p>
+				<div>
+				  <img draggable="false" style="height: 400px; width: auto" class="img-responsive center-block" src="assets/images/drag-drop-demo.gif">
+				</div>
+			</div>
+		</md-card-content>
+	</md-card>
 	<div ng-repeat="track in groupService.selectedGroup.tracks | orderBy : groupService.getTrackScore : true ">
 	<!-- 	<md-card ng-show="!isExpanded(track)" ng-click="toggleExpansion(track)" class="grow">
 		  <md-card-content>

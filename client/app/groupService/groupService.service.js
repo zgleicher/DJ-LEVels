@@ -28,14 +28,15 @@ angular.module('levelsApp')
     /* Core group functions */
 
     this.updateGroupState = function(event, item, array) {
-    	if (event === 'updated' && item._id === this.selectedGroup._id) {
+    	if ((event === 'updated' || event === 'created') && item._id === this.selectedGroup._id) {
     		this.selectedGroup = item;
       } else if (event === 'deleted' && this.groups.length > 0) {
     		this.selectGroup(this.groups[0]);
       } else if (this.groups.length > 0) {
+        console.log(event)
+        console.log(item)
         this.selectGroup(this.groups[0]);
       } else {
-        console.log('going to no groups');
         $state.go('landing.no-groups');
       } 
     }.bind(this);
