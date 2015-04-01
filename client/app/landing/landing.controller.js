@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('levelsApp')
-.controller('LandingCtrl', ['$scope', 'scAuthService', '$http', 'socket', '$mdDialog', '$mdToast', '$animate', '$state', '$rootScope', 'playerService', 'groupService', 
-  function ($scope, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
+.controller('LandingCtrl', ['$scope', '$mdSidenav', 'scAuthService', '$http', 'socket', '$mdDialog', '$mdToast', '$animate', '$state', '$rootScope', 'playerService', 'groupService', 
+  function ($scope, $mdSidenav, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
+
+$scope.favoriteTracks = []
 
 if (scAuthService.isAuthenticated()) {
   $scope.username = scAuthService.getUsername();
@@ -56,10 +58,10 @@ $scope.setIconColor = function(icon, value) {
     return scAuthService.getUsername();
   };
 
-  $scope.getFavoriteTracks = function() {
+  var getFavoriteTracks = function() {
       var id = scAuthService.getScId();
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
-        $scope.tracks = tracks.map(function(curVal, idx, arr) {
+        $scope.favoriteTracks = tracks.map(function(curVal, idx, arr) {
           return {
             title: curVal.title,
             track_url: curVal.permalink_url,
@@ -68,6 +70,9 @@ $scope.setIconColor = function(icon, value) {
         });
       });
   };
+
+  // TODO: Janky function call!!! This function should probably not be like this
+  getFavoriteTracks();
 
 
   /* toast logic */
@@ -104,6 +109,10 @@ $scope.setIconColor = function(icon, value) {
     }, function() {
       //$scope.groupAction = 'You cancelled the create group dialog.';
     });
+  };
+
+  $scope.openRightMenu = function() {
+    $mdSidenav('right').toggle();
   };
 
   $scope.isAuthenticated = function() {

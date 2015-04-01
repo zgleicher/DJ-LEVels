@@ -69,5 +69,33 @@
         <div ui-view="center-content"></div>
     </md-content>
   </div>
+
+
+<!-- Favorited Songs on Soundcloud -->
+<div layout="column"> 
+  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="favorites" md-component-id="right" md-is-locked-open="$mdMedia('gt-sm')">
+      <md-toolbar>
+          <div class="md-toolbar-tools">
+            <span>My Favorites</span>
+            <!-- fill up the space between left and right area -->
+            <span flex></span>
+          </div>
+        </md-toolbar>
+
+    <md-list>
+      <md-item ng-repeat="track in favoriteTracks">
+          <md-item-content>
+              <span class="avatar"><img src="{{track.artwork_url}}"></span>
+              <a href="{{track.track_url}}">{{track.title}}</a>
+            </md-button>
+        </md-item-content>
+      </md-item>
+    </md-list>
+  </md-sidenav>
+</div>
+
+
+
+  <!-- </md-content> -->
 </div>
  
