@@ -94,7 +94,7 @@ section li {
   -moz-transform:scale(0.70);
 }
 
-
+/*#groups {*/
 .md-sidenav-left {
   min-height: calc(100vh - 103px) !important;
   min-height: -o-calc(100vh - 103px);
@@ -104,15 +104,20 @@ section li {
   max-height: -o-calc(100vh - 103px);
   max-height: -webkit-calc(100vh - 103px);
   max-height: -moz-calc(100vh - 103px); 
+  height: calc(100vh - 103px) !important;
+  height: -o-calc(100vh - 103px);
+  height: -webkit-calc(100vh - 103px);
+  height: -moz-calc(100vh - 103px); 
   overflow-y: auto;
 }
 
 #content {
   max-height: calc(100vh - 103px) !important;
-  max-height: -o-calc(100vh - 103px);
-  max-height: -webkit-calc(100vh - 103px);
-  max-height: -moz-calc(100vh - 103px); 
+  max-height: -o-calc(100vh - 103px) !important;
+  max-height: -webkit-calc(100vh - 103px) !important;
+  max-height: -moz-calc(100vh - 103px) !important; 
   overflow-y: auto;
+
 }
 
 .members-box {

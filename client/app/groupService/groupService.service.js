@@ -20,7 +20,6 @@ angular.module('levelsApp')
         this.selectGroup(this.groups[0]);
       } else {
       	$state.go('landing.no-groups');
-        console.log('no groups');
       }
       socket.syncUpdates('group', this.groups, this.updateGroupState);
     }.bind(this));

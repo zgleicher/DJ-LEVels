@@ -9,7 +9,6 @@ angular.module('levelsApp')
         controller: 'SoundcloudCtrl'
       });
     var host = location.protocol + '//' + location.host;
-    console.log('host is ' + host);
     $authProvider.oauth2({
       name: 'soundcloud',
       url: '/auth/soundcloud',
