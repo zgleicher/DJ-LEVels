@@ -29,7 +29,7 @@
       <img src="{{avatar_url}}" class="navbar-avatar">
       <span>{{username}}</span>
     </span>
-    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"><md-tooltip>Logout of DJ-LEVels</md-tooltip></ng-md-icon></md-button>
+    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"><md-tooltip>Logout</md-tooltip></ng-md-icon></md-button>
 </md-toolbar>
 
 
@@ -37,7 +37,7 @@
 
 <!-- make sidebar viewport height -->
 <div layout="column"> 
-  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex>
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Playlists</span>
@@ -48,19 +48,28 @@
         </md-toolbar>
 
     <md-list>
-    <md-item ng-show="groupService.groups.length === 0">
-      <md-item-content class="no-groups">
-        
-          Add a playlist by clicking the + button above!
-        
-      </md-item-content>
-    </md-item>
+      <md-item ng-show="groupService.groups.length === 0">
+        <md-item-content class="no-groups">
+          
+            Add a playlist by clicking the + button above!
+          
+        </md-item-content>
+      </md-item>
       <!-- <md-item ng-repeat="g in groupService.getVisibleGroups()"> -->
       <md-item ng-repeat="g in groupService.groups | visibleGroups">
           <md-item-content>
+<!--             <div layout="row" layout-align="start center">
+              <span class="group-avatar-wrapper">
+                <img draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}">
+              </span>
+              <span class="favorite-title" flex>{{track.title}}</span>
+              </div> -->
             <md-button ng-click="groupService.selectGroup(g)" ng-class="{'selected' : g._id === groupService.selectedGroup._id }" aria-label="{{groupService.selectedGroup}}">
-              <span class="avatar"><img draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
-              {{g.name}}
+              <div layout="row" layout-align="start center">
+                <span class="group-avatar-wrapper" flex="20"><img class="group-avatar" draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
+                <span class="button-text" flex>{{g.name}}</span>
+                
+              </div>
             </md-button>
         </md-item-content>
       </md-item>
@@ -76,7 +85,7 @@
 
 <!-- Favorited Songs on Soundcloud -->
 <div layout="column"> 
-  <md-sidenav class="md-sidenav-right md-whiteframe-z1" id="favorites" md-component-id="favorites" md-is-locked-open="isFavoritesOpen">
+  <md-sidenav class="md-sidenav-right md-whiteframe-z1" id="favorites" md-component-id="favorites" md-is-locked-open="isFavoritesOpen" flex>
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Favorites</span>
@@ -87,6 +96,13 @@
         </md-toolbar>
 
     <md-list>
+      <md-item ng-show="favoriteTracks.length === 0">
+        <md-item-content class="no-groups">
+          
+            It looks like you haven't favorited any songs on SoundCloud yet!
+          
+        </md-item-content>
+      </md-item>
       <md-item ng-repeat="track in favoriteTracks">
           <md-item-content class="favorite-track">
           

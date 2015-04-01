@@ -77,23 +77,12 @@ section li {
   vertical-align: top;
   cursor: default
 }
-
-/* group photos */
-.avatar {
-  position: relative;
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  display: inline-block;
-  overflow: hidden;
-  zoom:0.70;
-  transform: translateZ(0);
-  -webkit-transform: scale(0.70);
-  -moz-transform:scale(0.70);
+/*
+md-sidenav {
+  max-height:200px !important;
+  overflow-y:auto;
 }
-
+*/
 /*#groups {*/
 .md-sidenav-left, .md-sidenav-right {
   min-height: calc(100vh - 103px) !important;
@@ -101,13 +90,13 @@ section li {
   min-height: -webkit-calc(100vh - 103px);
   min-height: -moz-calc(100vh - 103px); 
   max-height: calc(100vh - 103px) !important;
-  max-height: -o-calc(100vh - 103px);
-  max-height: -webkit-calc(100vh - 103px);
-  max-height: -moz-calc(100vh - 103px); 
-  height: calc(100vh - 103px) !important;
+  max-height: -o-calc(100vh - 103px) !important;
+  max-height: -webkit-calc(100vh - 103px) !important;
+  max-height: -moz-calc(100vh - 103px) !important; 
+/*  height: calc(100vh - 103px) !important;
   height: -o-calc(100vh - 103px);
   height: -webkit-calc(100vh - 103px);
-  height: -moz-calc(100vh - 103px); 
+  height: -moz-calc(100vh - 103px); */
   overflow-y: auto;
 }
 
@@ -122,6 +111,38 @@ section li {
 .members-box {
   /*min-height: 150px;*/
 
+}
+
+/* group photos */
+/*.avatar {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  display: inline-block;
+  overflow: hidden;
+  zoom:0.70;
+  transform: translateZ(0);
+  -webkit-transform: scale(0.70);
+  -moz-transform:scale(0.70);
+}*/
+.group-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+
+.group-avatar-wrapper {
+  margin: 10px 10px;
+}
+
+.button-text {
+  /*overflow-x: auto;*/
+  white-space: normal;
 }
 
 .user-avatar {
