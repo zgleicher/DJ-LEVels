@@ -95,7 +95,7 @@ section li {
 }
 
 /*#groups {*/
-.md-sidenav-left {
+.md-sidenav-left, .md-sidenav-right {
   min-height: calc(100vh - 103px) !important;
   min-height: -o-calc(100vh - 103px);
   min-height: -webkit-calc(100vh - 103px);
@@ -117,7 +117,6 @@ section li {
   max-height: -webkit-calc(100vh - 103px) !important;
   max-height: -moz-calc(100vh - 103px) !important; 
   overflow-y: auto;
-
 }
 
 .members-box {
@@ -140,6 +139,28 @@ section li {
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
+}
+
+.favorite-avatar-wrapper {
+  width: 60px;
+}
+
+.favorite-track {
+  margin: 10px 10px;
+}
+
+.favorite-title {
+  text-decoration: none;
+  vertical-align: middle;
+  color:black;
+}
+.favorite-title:hover {
+  text-decoration: none;
+  color:black;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
 }
 
 

@@ -15,9 +15,6 @@ angular.module('levelsApp')
             templateUrl: 'app/landing/landing.noGroups.html',
             controller: function($scope, scAuthService) {
               $scope.username = scAuthService.getUsername();
-            },
-            onEnter: function() {
-              console.log('entered no groups');
             }
           }
 
@@ -119,10 +116,10 @@ angular.module('levelsApp')
 
               $scope.showDeleteGroup = function(ev) {
                 var confirm = $mdDialog.confirm()
-                  .title('Would you like to delete your group ' + groupService.selectedGroup.name + '?')
+                  .title('Would you like to delete your playlist ' + groupService.selectedGroup.name + '?')
                   .content('All of your songs and members will be lost!')
-                  .ariaLabel('Delete Group')
-                  .ok('Delete group')
+                  .ariaLabel('Delete Playlist')
+                  .ok('Delete playlist')
                   .cancel('Cancel')
                   .targetEvent(ev);
 

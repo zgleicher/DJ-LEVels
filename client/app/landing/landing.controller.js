@@ -92,7 +92,7 @@ $scope.setIconColor = function(icon, value) {
   $scope.showGroupToast = function(groupName) {
     $mdToast.show(
       $mdToast.simple()
-        .content('You created group '+ groupName)
+        .content('You created the playlist '+ groupName)
         .position($scope.getToastPosition())
         .hideDelay(1500)
     );
@@ -144,5 +144,12 @@ $scope.setIconColor = function(icon, value) {
   }
   AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
 
+
+  /* Toggle Right Sidenav */
+  $scope.toggleFavorites   = function() {
+    $mdSidenav('favorites').toggle().then(function(){
+      // console.log('hi');
+    });
+  };
 
 }]);

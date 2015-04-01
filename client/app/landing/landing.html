@@ -10,7 +10,7 @@
     <!-- now playing song -->
     <span layout="column" layout-align="center center">
       <span layout="row" layout-align="center center" ng-show="!!playerService.currentTrack">
-        <span><ng-md-icon icon="skip_previous" class="nav" ng-click="playerService.playPrevious()" size="36" style="fill:{{prevIconColor}}" ng-mouseenter="setIconColor('prev','orange')" ng-mouseleave="setIconColor('prev','white')"></ng-md-icon></span>
+        <span><ng-md-icon icon="skip_previous" class="nav grow" ng-click="playerService.playPrevious()" size="36" style="fill:{{prevIconColor}}" ng-mouseenter="setIconColor('prev','orange')" ng-mouseleave="setIconColor('prev','white')"></ng-md-icon></span>
         <span><ng-md-icon icon="play_arrow" ng-show="!playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
         <span><ng-md-icon icon="pause" ng-show="playerService.isPlaying" ng-click="playerService.togglePlay()" class="nav" size="48" style="fill:{{playIconColor}}" ng-mouseenter="setIconColor('play','orange')" ng-mouseleave="setIconColor('play','white')"></ng-md-icon></span>
         <span><ng-md-icon icon="skip_next" class="nav" ng-click="playerService.playNext()" size="36" style="fill:{{nextIconColor}}" ng-mouseenter="setIconColor('next','orange')" ng-mouseleave="setIconColor('next','white')"></ng-md-icon></span>
@@ -22,11 +22,14 @@
     <!-- user info -->
     
     <!-- <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1>  -->
+    <md-button ng-click="isFavoritesOpen = !isFavoritesOpen" aria-label="Show Favorites"><ng-md-icon icon="favorite" size="36" style="fill: white">
+    <md-tooltip>Show My Favorite Songs</md-tooltip>
+    </ng-md-icon></md-button>
     <span layout="column" layout-align="space-between center">
       <img src="{{avatar_url}}" class="navbar-avatar">
       <span>{{username}}</span>
     </span>
-    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"></ng-md-icon></md-button>
+    <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"><md-tooltip>Logout of DJ-LEVels</md-tooltip></ng-md-icon></md-button>
 </md-toolbar>
 
 
@@ -37,10 +40,10 @@
   <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="groups" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
       <md-toolbar>
           <div class="md-toolbar-tools">
-            <span>My Groups</span>
+            <span>My Playlists</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
-            <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('add','orange')" ng-mouseleave="setIconColor('add','white')"></ng-md-icon>
+            <ng-md-icon icon="group_add" class="group-icons" size="18" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('add','orange')" ng-mouseleave="setIconColor('add','white')"><md-tooltip>Create a Playlist</md-tooltip></ng-md-icon>
           </div>
         </md-toolbar>
 
@@ -48,7 +51,7 @@
     <md-item ng-show="groupService.groups.length === 0">
       <md-item-content class="no-groups">
         
-          Add a group by clicking the + button above!
+          Add a playlist by clicking the + button above!
         
       </md-item-content>
     </md-item>
@@ -56,7 +59,7 @@
       <md-item ng-repeat="g in groupService.groups | visibleGroups">
           <md-item-content>
             <md-button ng-click="groupService.selectGroup(g)" ng-class="{'selected' : g._id === groupService.selectedGroup._id }" aria-label="{{groupService.selectedGroup}}">
-              <span class="avatar"><img src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
+              <span class="avatar"><img draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
               {{g.name}}
             </md-button>
         </md-item-content>
@@ -73,21 +76,29 @@
 
 <!-- Favorited Songs on Soundcloud -->
 <div layout="column"> 
-  <md-sidenav class="md-sidenav-left md-whiteframe-z1" id="favorites" md-component-id="right" md-is-locked-open="$mdMedia('gt-sm')">
+  <md-sidenav class="md-sidenav-right md-whiteframe-z1" id="favorites" md-component-id="favorites" md-is-locked-open="isFavoritesOpen">
       <md-toolbar>
           <div class="md-toolbar-tools">
             <span>My Favorites</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
+            <md-button ng-click="isFavoritesOpen = false" aria-label="Close Favorites"><ng-md-icon icon="close" size="28" style="fill: white"></ng-md-icon></md-button>
           </div>
         </md-toolbar>
 
     <md-list>
       <md-item ng-repeat="track in favoriteTracks">
-          <md-item-content>
-              <span class="avatar"><img src="{{track.artwork_url}}"></span>
-              <a href="{{track.track_url}}">{{track.title}}</a>
-            </md-button>
+          <md-item-content class="favorite-track">
+          
+            <a href="{{track.track_url}}">
+            <div layout="row" layout-align="start center">
+              <span class="favorite-avatar-wrapper">
+                <img class="navbar-avatar" src="{{track.artwork_url}}" />
+              </span>
+              <span class="favorite-title" flex>{{track.title}}</span>
+              </div>
+            </a>
+          
         </md-item-content>
       </md-item>
     </md-list>
