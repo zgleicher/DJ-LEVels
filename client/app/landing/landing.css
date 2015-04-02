@@ -114,20 +114,7 @@ md-sidenav {
 }
 
 /* group photos */
-/*.avatar {
-  position: relative;
-  width: 128px;
-  height: 128px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  display: inline-block;
-  overflow: hidden;
-  zoom:0.70;
-  transform: translateZ(0);
-  -webkit-transform: scale(0.70);
-  -moz-transform:scale(0.70);
-}*/
+
 .group-avatar {
   width: 100%;
   height: 100%;
@@ -138,6 +125,7 @@ md-sidenav {
 
 .group-avatar-wrapper {
   margin: 10px 10px;
+  min-height: 50px;
 }
 
 .button-text {

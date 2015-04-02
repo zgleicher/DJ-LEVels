@@ -13,8 +13,43 @@ angular.module('levelsApp')
         views: {
           'center-content': {
             templateUrl: 'app/landing/landing.searchGroups.html',
-            controller: function($scope, scAuthService) {
-              $scope.username = scAuthService.getUsername();
+            controller: function($scope, $q, groupService) {
+              /* Autocomplete for Adding Users */
+              
+              $scope.autocompleteGroups = {
+                'isDisabled': false,
+                'noCache': false,
+                'selectedItem': null,
+                'searchText': null,
+                'querySearch': function (query) {
+                  if (query) {
+                    var deferred = $q.defer();
+                    groupService.getAllGroups().then(function(groups) {
+                      // console.log(members);
+                      deferred.resolve( groups.filter(function (group) {
+                        //console.log(user);
+                        if (group.name) {
+                          var groupName = group.name.toLowerCase();
+                          var lowercaseQuery = angular.lowercase(query);
+                          // console.log('userName is '+ userName);
+                          return (groupName.indexOf(lowercaseQuery) > -1);
+                        } else {
+                          return false;
+                        }
+                      }));
+                    }, function(reason) {
+                      console.log(reason);
+                    });
+                    return deferred.promise;
+                  } else {
+                    return [];
+                  }
+                },
+                'simulateQuery': true,
+                'selectedItemChange': function() {
+                  // console.log('changed');
+                }
+              };
             }
           }
         }

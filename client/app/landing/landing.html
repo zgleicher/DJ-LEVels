@@ -43,9 +43,10 @@
             <span>My Playlists</span>
             <!-- fill up the space between left and right area -->
             <span flex></span>
+             <ng-md-icon icon="search" class="group-icons" size="20" ng-click="showSearchGroups($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('search','orange')" ng-mouseleave="setIconColor('search','white')"><md-tooltip>Search Playlists</md-tooltip></ng-md-icon>
+            
             <ng-md-icon icon="group_add" class="group-icons" size="20" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('add','orange')" ng-mouseleave="setIconColor('add','white')"><md-tooltip>Create a Playlist</md-tooltip></ng-md-icon>
-           <ng-md-icon icon="search" class="group-icons" size="20" ng-click="showSearchGroups($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('search','orange')" ng-mouseleave="setIconColor('search','white')"><md-tooltip>Search Playlists</md-tooltip></ng-md-icon>
-          </div>
+            </div>
         </md-toolbar>
 
     <md-list>
