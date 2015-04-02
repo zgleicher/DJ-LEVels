@@ -13,6 +13,9 @@
 
 Web app for building collaborative SoundCloud playlists with groups of friends.
 
+### Project URL
+
+https://dj-levels.herokuapp.com (works on Chrome and Firefox)
 
 ### Project Outline:
 
@@ -57,7 +60,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 
 	[x] User can follow a group
 	
-	[ ] User can find a group (or be invited) 
+	[x] User can find a group (or be invited) 
 
 	[x] Google Drive style responsive drag and drop
 
