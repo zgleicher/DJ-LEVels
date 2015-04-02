@@ -1,0 +1,35 @@
+  <md-card>
+    <md-toolbar class="md-toolbar-tools" style="background-color: #03a9f4;">
+      <div layout="row" layout-align="spread-apart center">
+        <h1>WEEEEE!</h1>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-card-content>
+        <h2>Find other groups to follow..</h2>
+            <div style="min-height: 60px" class="autocomplete" layout="row" layout-align="space-between center">
+              <div flex="80" layout="column">
+                <md-autocomplete
+                    ng-disabled="autocompleteUsers.isDisabled"
+                    md-no-cache="autocompleteUsers.noCache"
+                    md-selected-item="autocompleteUsers.selectedItem"
+                    md-selected-item-change="autocompleteUsers.selectedItemChange()"
+                    md-search-text="autocompleteUsers.searchText"
+                    md-items="item in autocompleteUsers.querySearch(autocompleteUsers.searchText)"
+                    md-item-text="item.group"
+                    placeholder="Select from current DJ-LEVels groups">
+                  <span md-highlight-text="autocompleteUsers.searchText">{{item.username}}</span>
+                </md-autocomplete>
+              </div>
+              <!-- <br/> -->
+              <div  flex="20">
+                <md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteUsers.selectedItem === null || autocompleteUsers.selectedItem === ''">
+                Add Contributor
+                </md-button>
+                <md-button type="submit" class="md-raised" ng-hide="autocompleteUsers.selectedItem.name === '' || autocompleteUsers.selectedItem === null || autocompleteUsers.searchText === ''" ng-click="groupService.addUser('contributors', autocompleteUsers.selectedItem); clear()">
+                Add {{autocompleteUsers.selectedItem.username}}
+                </md-button>
+              </div>
+            </div>
+    </md-card-content>
+  </md-card>
