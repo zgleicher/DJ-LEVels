@@ -13,7 +13,7 @@ md-progress-linear {
 /* edit & save button */
 ng-md-icon.group-icons {
   fill: white;
-  padding: 0; 
+  padding: 5px; 
   display: inline-block; 
   vertical-align:middle; 
   margin: auto 8px auto auto;

@@ -8,6 +8,17 @@ angular.module('levelsApp')
         templateUrl: 'app/landing/landing.html',
         controller: 'LandingCtrl'
       })
+      .state('landing.search-groups', {
+        url: '/landing/search-groups',
+        views: {
+          'center-content': {
+            templateUrl: 'app/landing/landing.searchGroups.html',
+            controller: function($scope, scAuthService) {
+              $scope.username = scAuthService.getUsername();
+            }
+          }
+        }
+      })
       .state('landing.no-groups', {
         url: '/landing/no-groups',
         views: {
