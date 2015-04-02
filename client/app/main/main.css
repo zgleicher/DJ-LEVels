@@ -2,6 +2,10 @@
     margin: 20px 0;
 }
 
+.login-button {
+    padding-top: 20px;
+}
+
 #banner {
     border-bottom: none;
     margin-top: -20px;
