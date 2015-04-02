@@ -111,6 +111,12 @@ $scope.setIconColor = function(icon, value) {
     });
   };
 
+  $scope.showSearchGroups = function(ev) {
+      console.log('we are getting here');
+      $scope.groups = groupService.searchGroups();
+      return $scope.groups;
+  };
+
   $scope.openRightMenu = function() {
     $mdSidenav('right').toggle();
   };
