@@ -1,16 +1,20 @@
 'use strict';
 
 angular.module('levelsApp')
-  .controller('MainCtrl', ['$scope', '$http', 'socket', 'scAuthService', function ($scope, $http, socket, scAuthService) {
+  .controller('MainCtrl', ['$scope', '$http', 'socket', 'scAuthService', '$location', function ($scope, $http, socket, scAuthService, $location) {
     $scope.awesomeThings = [];
     $scope.levelsGroups = [];
 
     $scope.login = function(provider) {
-      scAuthService.login(provider).then(function(response) {
-        // Login success
-      }, function(reason) {
-        //Failed
-      });
+      if (scAuthService.isAuthenticated()) {
+        $location.path("/landing");
+      } else {
+        scAuthService.login(provider).then(function(response) {
+          // Login success
+        }, function(reason) {
+          //Failed
+        });
+      }
     }
 
     // $http.get('/api/things').success(function(awesomeThings) {
