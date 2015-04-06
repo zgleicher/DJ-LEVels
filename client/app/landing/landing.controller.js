@@ -4,52 +4,48 @@ angular.module('levelsApp')
 .controller('LandingCtrl', ['$scope', '$mdSidenav', 'scAuthService', '$http', 'socket', '$mdDialog', '$mdToast', '$animate', '$state', '$rootScope', 'playerService', 'groupService', 
   function ($scope, $mdSidenav, scAuthService, $http, socket, $mdDialog, $mdToast, $animate, $state, $rootScope, playerService, groupService) {
 
-$scope.favoriteTracks = []
+  $scope.favoriteTracks = [];
 
-if (scAuthService.isAuthenticated()) {
-  $scope.username = scAuthService.getUsername();
-  $scope.avatar_url = scAuthService.getAvatarUrl();
-}
-
-$scope.playerService = playerService;
-$scope.groupService = groupService;
-
-
-$scope.addIconColor = 'white';
-$scope.playIconColor = 'white';
-$scope.prevIconColor = 'white';
-$scope.nextIconColor = 'white';
-
-/* Watch Song Player */
-
-$scope.$watch('playerService.currentTime', function() {
-    
-}, true);
-
-$scope.$watch('playerService.duration', function() {
-    
-}, true);
-
-$scope.setIconColor = function(icon, value) {
-  switch (icon) {
-    case 'add':
-      $scope.addIconColor = value;
-      break;
-    case 'play':
-      $scope.playIconColor = value;
-      break;
-    case 'prev':
-      $scope.prevIconColor = value;
-      break;
-    case 'next':
-      $scope.nextIconColor = value;
-      break;
+  if (scAuthService.isAuthenticated()) {
+    $scope.username = scAuthService.getUsername();
+    $scope.avatar_url = scAuthService.getAvatarUrl();
   }
-};
 
-  // *********************************
-  // Internal methods
-  // *********************************
+  $scope.playerService = playerService;
+  $scope.groupService = groupService;
+  
+
+  /* Watch Song Player */
+
+  $scope.$watch('playerService.currentTime', function() {}, true);
+
+  $scope.$watch('playerService.duration', function() {}, true);
+
+  /* Icon Colors */
+
+  $scope.addIconColor = 'white';
+  $scope.playIconColor = 'white';
+  $scope.prevIconColor = 'white';
+  $scope.nextIconColor = 'white';
+
+  $scope.setIconColor = function(icon, value) {
+    switch (icon) {
+      case 'add':
+        $scope.addIconColor = value;
+        break;
+      case 'play':
+        $scope.playIconColor = value;
+        break;
+      case 'prev':
+        $scope.prevIconColor = value;
+        break;
+      case 'next':
+        $scope.nextIconColor = value;
+        break;
+    }
+  };
+
+
   $scope.getCurrentUserId = function() {
     return scAuthService.getUserId();
   };
@@ -58,7 +54,7 @@ $scope.setIconColor = function(icon, value) {
     return scAuthService.getUsername();
   };
 
-  var getFavoriteTracks = function() {
+  $scope.getFavoriteTracks = function() {
       var id = scAuthService.getScId();
       scAuthService.getFavoriteTracks(id).then(function(tracks) {
         $scope.favoriteTracks = tracks.map(function(curVal, idx, arr) {
@@ -71,11 +67,9 @@ $scope.setIconColor = function(icon, value) {
       });
   };
 
-  // TODO: Janky function call!!! This function should probably not be like this
-  getFavoriteTracks();
 
+  /* Toast Logic for Adding Groups */
 
-  /* toast logic */
   $scope.toastPosition = {
     bottom: false,
     top: true,
@@ -111,24 +105,6 @@ $scope.setIconColor = function(icon, value) {
     });
   };
 
-  $scope.showSearchGroups = function(ev) {
-      console.log('we are getting here');
-      $scope.groups = groupService.searchGroups();
-      return $scope.groups;
-  };
-
-  $scope.openRightMenu = function() {
-    $mdSidenav('right').toggle();
-  };
-
-  $scope.isAuthenticated = function() {
-    return scAuthService.isAuthenticated();
-  };
-
-  $scope.logout = function() {
-    scAuthService.logout();
-  };
-
   function AddGroupController($scope, $mdDialog, groupService) {
     $scope.hide = function() {
       $mdDialog.hide();
@@ -150,9 +126,31 @@ $scope.setIconColor = function(icon, value) {
   }
   AddGroupController.$inject = ['$scope', '$mdDialog', 'groupService'];
 
+  /* Group Search */
+
+  $scope.showSearchGroups = function(ev) {
+      //console.log('we are getting here');
+      $scope.groups = groupService.searchGroups();
+      return $scope.groups;
+  };
+
+  // $scope.openRightMenu = function() {
+  //   $mdSidenav('right').toggle();
+  // };
+
+  /* Auth */
+  
+  $scope.isAuthenticated = function() {
+    return scAuthService.isAuthenticated();
+  };
+
+  $scope.logout = function() {
+    scAuthService.logout();
+  };
+
 
   /* Toggle Right Sidenav */
-  $scope.toggleFavorites   = function() {
+  $scope.toggleFavorites  = function() {
     $mdSidenav('favorites').toggle().then(function(){
       // console.log('hi');
     });

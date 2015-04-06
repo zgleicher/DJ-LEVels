@@ -22,7 +22,7 @@
     <!-- user info -->
     
     <!-- <h1><span><ng-md-icon icon="person" class="nav" size="36"></ng-md-icon></span></h1>  -->
-    <md-button ng-click="isFavoritesOpen = !isFavoritesOpen" aria-label="Show Favorites"><ng-md-icon icon="favorite" size="36" style="fill: white">
+    <md-button ng-click="isFavoritesOpen = !isFavoritesOpen; getFavoriteTracks()" aria-label="Show Favorites"><ng-md-icon icon="favorite" size="36" style="fill: white">
     <md-tooltip>Show My Favorite Songs</md-tooltip>
     </ng-md-icon></md-button>
     <span layout="column" layout-align="space-between center">
