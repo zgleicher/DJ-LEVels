@@ -67,6 +67,16 @@ angular.module('levelsApp')
       });
   };
 
+  $scope.likeSong = function(trackId) {
+    scAuthService.likeTrack(trackId).
+      then(function(result) {
+        //Successfully Liked
+        $scope.getFavoriteTracks();
+      }, function(reason) {
+        //Failed to Like
+      });
+  };
+
 
   /* Toast Logic for Adding Groups */
 
