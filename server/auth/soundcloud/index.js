@@ -46,6 +46,7 @@ router.post('/', function(req, res) {
               user.username = username;
               user.full_name = full_name;
               user.avatar_url = avatar_url;
+              user.sc_token = accessToken;
 
               user.save(function(err) {
                 console.log(user);
@@ -68,6 +69,7 @@ var createToken = function (user) {
     username: user.username,
     full_name: user.full_name,
     avatar_url: user.avatar_url,
+    sc_token: user.sc_token,
     iat: moment().unix(),
     exp: moment().add(14, 'days').unix()
   };

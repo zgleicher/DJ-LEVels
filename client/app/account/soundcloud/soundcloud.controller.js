@@ -59,16 +59,15 @@ angular.module('levelsApp')
     //     // or server returns response with an error status.
     //   });
 
-    scAuthService.getCurrentUser().
-      then(function(user) {
-        console.log(user);
+    scAuthService.likeTrack(142930066).
+      then(function(result) {
+        console.log(result);
+        console.log("success");
       }, function(reason) {
         console.log(reason);
+        console.log("fail");
       });
 
-    console.log(scAuthService.getAvatarUrl());
-    console.log(scAuthService.getFullName());
-    console.log(scAuthService.getUsername());
   };
 
   }]);

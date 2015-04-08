@@ -7,7 +7,8 @@ var scUserSchema = new mongoose.Schema({
   sc_id: Number,
   username: String,
   full_name: String,
-  avatar_url: String
+  avatar_url: String,
+  sc_token: String
 });
 
 module.exports = mongoose.model('ScUser', scUserSchema);

@@ -47,6 +47,11 @@ angular.module('levelsApp')
       return $auth.getPayload().username;
     };
 
+    //SoundCloud token
+    this.getScToken = function() {
+      return $auth.getPayload().sc_token;
+    };
+
     //Mongo User Id
     this.getUserId = function() {
       return $auth.getPayload().sub;
@@ -104,6 +109,21 @@ angular.module('levelsApp')
 
           return deferred.promise;
     };
+
+    this.likeTrack = function(trackId) {
+      var deferred = $q.defer();
+      var token = $auth.getPayload().sc_token;
+          $http({
+            url: 'https://api.soundcloud.com/me/favorites/'+ trackId, 
+            method: 'PUT',
+            params: {oauth_token: token}
+          })
+          .then(function (response) {
+            deferred.resolve(response.data);
+          });
+
+          return deferred.promise;
+    }
 
 
 
