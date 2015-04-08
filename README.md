@@ -64,4 +64,4 @@ A group of friends will have the ability to setup a playlist where everyone can 
 
 	[x] Google Drive style responsive drag and drop
 
-	[ ] User can like a track on DJ-LEVels that will like a track for them on SC
+	[x] User can like a track on DJ-LEVels that will like a track for them on SC
