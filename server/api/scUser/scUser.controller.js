@@ -16,7 +16,7 @@ exports.ensureAuthenticated = function(req, res, next) {
 };
 
 exports.index = function(req, res) {
-  ScUser.find(function (err, users) {
+  ScUser.find({},{sc_token:0}, function (err, users) {
     if (err) { return handleError(res, err); }
     res.json(200, users);
   });
