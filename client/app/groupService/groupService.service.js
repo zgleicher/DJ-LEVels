@@ -70,26 +70,7 @@ angular.module('levelsApp')
       $state.go('landing.search-groups');
       console.log('searching for groups');
 
-      this.groups;
-      console.log('getting all groups');
-
-      $http.get('/api/groups/').success(function(allGroups) {
-        this.groups = allGroups;
-        console.log(this.groups);
-      }.bind(this));
-      return this.groups;
     }.bind(this);
-
-  this.showAllGroups = function() {
-      this.groups;
-      console.log('getting all groups');
-
-      $http.get('/api/groups/').success(function(allGroups) {
-        this.groups = allGroups;
-        console.log(this.groups);
-      }.bind(this));
-    return this.groups;
-  }.bind(this);
 
   this.getAllGroups = function() {
       var deferred = $q.defer();
