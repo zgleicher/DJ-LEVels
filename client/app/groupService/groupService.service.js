@@ -72,6 +72,7 @@ angular.module('levelsApp')
 
     }.bind(this);
 
+
   this.getAllGroups = function() {
       var deferred = $q.defer();
       $http.get('/api/groups/').
@@ -143,6 +144,8 @@ angular.module('levelsApp')
       });
     }.bind(this);
 
+    this.addGroup
+
     this.deleteTrack = function (track) {
       console.log('deleting track');
       $http.delete('/api/groups/' + this.selectedGroup._id + '/tracks/' + track._id)
@@ -163,10 +166,28 @@ angular.module('levelsApp')
     /* User functions */
 
     this.addUser = function(category, user) {
+      console.log(this.selectedGroup);
+      console.log(category);
+      console.log(user);
       $http.put('/api/groups/' + this.selectedGroup._id + '/' + category, {
         "user_id": user._id,
         "user_name": user.username,
         "avatar_url": user.avatar_url
+      }).error(function(err) {
+        console.log(err);
+      });
+    }.bind(this);
+
+    this.addUsertoGroup = function(category, group) {
+      console.log(group);
+      console.log(category);
+      console.log('This is the user');
+      console.log(scAuthService.getUserId());
+      console.log(scAuthService.getUsername());
+      $http.put('/api/groups/' + group._id + '/' + category, {
+        "user_id": scAuthService.getUserId(),
+        "user_name": scAuthService.getUsername(),
+        "avatar_url": scAuthService.getAvatarUrl()
       }).error(function(err) {
         console.log(err);
       });
