@@ -181,9 +181,6 @@ angular.module('levelsApp')
     this.addUsertoGroup = function(category, group) {
       console.log(group);
       console.log(category);
-      console.log('This is the user');
-      console.log(scAuthService.getUserId());
-      console.log(scAuthService.getUsername());
       $http.put('/api/groups/' + group._id + '/' + category, {
         "user_id": scAuthService.getUserId(),
         "user_name": scAuthService.getUsername(),
