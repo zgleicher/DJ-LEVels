@@ -115,6 +115,29 @@ angular.module('levelsApp')
     });
   };
 
+  $scope.showRemoveGroup = function(ev) {
+    var confirm = $mdDialog.confirm()
+      .title('Would you like unfollow ' + groupService.selectedGroup.name + '?')
+      .ariaLabel('Remove Playlist')
+      .ok('Remove Playlist')
+      .cancel('Cancel')
+      .targetEvent(ev);
+
+    $mdDialog.show(confirm).then(function() {
+      var userID = scAuthService.getUserId();
+      var userName = scAuthService.getUsername();
+      var isContributor = groupService.isContributor(userID, groupService.selectedGroup)
+      if (isContributor) {
+        groupService.removeUser('contributors', userID);
+      } else {
+        groupService.removeUser('followers', userID);
+      }
+    }, function() {
+      //$scope.alert = 'You did not delete the group';
+    });
+  };
+
+
   function AddGroupController($scope, $mdDialog, groupService) {
     $scope.hide = function() {
       $mdDialog.hide();

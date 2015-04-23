@@ -19,8 +19,8 @@ router.post('/:id/tracks', controller.track.create);
 router.delete('/:id/tracks/:track_id', controller.track.destroy);
 router.put('/:id/tracks/:track_id/vote', controller.track.vote);
 router.put('/:id/contributors', controller.track.putContributor);
-router.delete('/:id/contributors', controller.track.delContributor);
+router.delete('/:id/contributors/:user_id', controller.track.delContributor);
 router.put('/:id/followers', controller.track.putFollower);
-router.delete('/:id/followers', controller.track.delFollower);
+router.delete('/:id/followers/:user_id', controller.track.delFollower);
 
 module.exports = router;

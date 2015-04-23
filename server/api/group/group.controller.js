@@ -166,7 +166,7 @@ exports.track = {
       var index;
       if ((index = group.contributors.map(function (contributor) {
             return String(contributor.user_id); 
-          }).indexOf(req.body.user_id)) !== -1) {
+          }).indexOf(req.params.user_id)) !== -1) {
         group.contributors.splice(index, 1);
         group.save(function (err) {
           if (err) { return handleError(res, err); }
@@ -207,13 +207,14 @@ exports.track = {
   delFollower: function(req, res) {
     Group.findById(req.params.id, function(err, group) {
       if (err) { return handleError(res, err); }
-      var index;
+      var index;  
       if ((index = group.followers.map(function (follower) {
             return String(follower.user_id); 
-          }).indexOf(req.body.user_id)) !== -1) {
+          }).indexOf(String(req.params.user_id))) !== -1) {
+
         group.followers.splice(index, 1);
         group.save(function (err) {
-          if (err) { return handleError(res, err); }
+          if (err) { return handleError(res, err); } 
           return res.json(204);
         });
       }
