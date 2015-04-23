@@ -55,7 +55,7 @@ angular.module('levelsApp')
         name: name,
         owner: user,
         contributors: [user],
-        followers: [user],
+        followers: [],
       }).success(function (group) {
         this.selectGroup(group);
       }.bind(this));
@@ -166,9 +166,7 @@ angular.module('levelsApp')
     /* User functions */
 
     this.addUser = function(category, user) {
-      console.log(this.selectedGroup);
-      console.log(category);
-      console.log(user);
+
       $http.put('/api/groups/' + this.selectedGroup._id + '/' + category, {
         "user_id": user._id,
         "user_name": user.username,
@@ -179,8 +177,6 @@ angular.module('levelsApp')
     }.bind(this);
 
     this.addUsertoGroup = function(category, group) {
-      console.log(group);
-      console.log(category);
       $http.put('/api/groups/' + group._id + '/' + category, {
         "user_id": scAuthService.getUserId(),
         "user_name": scAuthService.getUsername(),
@@ -191,9 +187,7 @@ angular.module('levelsApp')
     }.bind(this);
 
     this.removeUser = function(category, userId) {
-      $http.delete('/api/groups/' + this.selectedGroup._id + '/' + category, {
-        "user_id": userId
-      });
+      $http.delete('/api/groups/' + this.selectedGroup._id + '/' + category + '/' + userId);
     }.bind(this);
 
 
