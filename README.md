@@ -41,7 +41,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[x] User can be added to a group
 
-	[ ] Only contributers can add songs to group
+	[x] Only contributers can add songs to group
 
 
 3) Song functionality
@@ -74,10 +74,17 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[ ] Disable like button for already liked songs
 	
-	[ ] Mobile
+	[ ] Works on mobile/small screen
 	
 	[ ] List most popular playlists listed when searching
 	
-	[ ] Group Photo
+	[ ] Add a Group Photo
 	
 	[ ] Clean up code
+	
+	[ ] Fix socket so that it doesnt kick you out of your current group. 
+	
+	[ ] Error handling for creating a duplicate group name (500 error on server)
+	
+	[ ] Error handling for only contributors deleting songs
+	
