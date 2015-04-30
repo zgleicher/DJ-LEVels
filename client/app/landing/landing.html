@@ -26,7 +26,7 @@
     <md-tooltip>Show My Favorite Songs</md-tooltip>
     </ng-md-icon></md-button>
     <span layout="column" layout-align="space-between center">
-      <img src="{{avatar_url}}" class="navbar-avatar">
+      <img ng-src="{{avatar_url}}" err-src="assets/images/user_img_not_found.png" class="navbar-avatar">
       <span>{{username}}</span>
     </span>
     <md-button ng-show="isAuthenticated()" ng-click="logout()" aria-label="Logout"><ng-md-icon icon="close" size="28" style="fill: white"><md-tooltip>Logout</md-tooltip></ng-md-icon></md-button>
@@ -68,7 +68,7 @@
               </div> -->
             <md-button ng-click="groupService.selectGroup(g)" ng-class="{'selected' : g._id === groupService.selectedGroup._id }" aria-label="{{groupService.selectedGroup}}">
               <div layout="row" layout-align="start center">
-                <span class="group-avatar-wrapper" flex="20"><img class="group-avatar" draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
+                <span class="group-avatar-wrapper" flex="20"><img class="group-avatar" draggable="false" ng-src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" err-src="assets/images/group_img_not_found.png" alt="{{g.name}}"></span>
                 <span class="button-text" flex>{{g.name}}</span>
                 <ng-md-icon icon="close" class="group-icons" size="20" ng-click="showRemoveGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('close','orange')" ng-mouseleave="setIconColor('close','white')"><md-tooltip>Remove</md-tooltip></ng-md-icon>
               </div>
@@ -111,7 +111,7 @@
             <a href="{{track.track_url}}">
             <div layout="row" layout-align="start center">
               <span class="favorite-avatar-wrapper">
-                <img class="navbar-avatar" src="{{track.artwork_url}}" />
+                <img class="navbar-avatar" ng-src="{{track.artwork_url}}" err-src="assets/images/track_img_not_found.png"/>
               </span>
               <span class="favorite-title" flex>{{track.title}}</span>
               </div>

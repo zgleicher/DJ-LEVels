@@ -1,6 +1,23 @@
 'use strict';
 
 angular.module('levelsApp')
+  .directive('errSrc', function() {
+    //handle bad picture request
+    return {
+      link: function(scope, element, attrs) {
+        element.bind('error', function() {
+          if (attrs.src != attrs.errSrc) {
+            attrs.$set('src', attrs.errSrc);
+          }
+        });
+        attrs.$observe('ngSrc', function(value) {
+          if (!value && attrs.errSrc) {
+            attrs.$set('src', attrs.errSrc);
+          }
+        });
+      }
+    }
+  })
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('landing', {

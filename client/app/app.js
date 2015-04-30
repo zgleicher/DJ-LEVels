@@ -58,10 +58,5 @@ angular.module('levelsApp', [
       if(!scAuthService.isAuthenticated()) {
         $location.path('/');
       }
-      // Auth.isLoggedInAsync(function(loggedIn) {
-      //   if (next.authenticate && !loggedIn) {
-      //     $location.path('/');
-      //   }
-      // });
     });
   }]);
