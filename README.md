@@ -65,3 +65,15 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	[x] Google Drive style responsive drag and drop
 
 	[x] User can like a track on DJ-LEVels that will like a track for them on SC
+	
+5) Summer Todos
+
+	[ ] Song scrubbing
+	
+	[ ] Improve UI
+	
+	[ ] Disable like button for already liked songs
+	
+	[ ] Mobile
+	
+	[ ] List most popular playlists listed when searching
