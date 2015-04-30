@@ -45,7 +45,7 @@
             <span flex></span>
              <ng-md-icon icon="search" class="group-icons" size="20" ng-click="showSearchGroups($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('search','orange')" ng-mouseleave="setIconColor('search','white')"><md-tooltip>Search Playlists</md-tooltip></ng-md-icon>
             
-            <ng-md-icon icon="group_add" class="group-icons" size="20" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('add','orange')" ng-mouseleave="setIconColor('add','white')"><md-tooltip>Create a Playlist</md-tooltip></ng-md-icon>
+            <ng-md-icon icon="group_add" class="group-icons" size="20" ng-click="showAddGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('group_add','orange')" ng-mouseleave="setIconColor('group_add','white')"><md-tooltip>Create a Playlist</md-tooltip></ng-md-icon>
             </div>
         </md-toolbar>
 
@@ -70,7 +70,7 @@
               <div layout="row" layout-align="start center">
                 <span class="group-avatar-wrapper" flex="20"><img class="group-avatar" draggable="false" src="http://loremflickr.com/128/128/{{g.name.split(' ').join(',')}}" alt="{{g.name}}"></span>
                 <span class="button-text" flex>{{g.name}}</span>
-                
+                <ng-md-icon icon="close" class="group-icons" size="20" ng-click="showRemoveGroup($event)" style="fill:{{addIconColor}}" ng-mouseenter="setIconColor('close','orange')" ng-mouseleave="setIconColor('close','white')"><md-tooltip>Remove</md-tooltip></ng-md-icon>
               </div>
             </md-button>
         </md-item-content>
