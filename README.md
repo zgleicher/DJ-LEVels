@@ -77,3 +77,7 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	[ ] Mobile
 	
 	[ ] List most popular playlists listed when searching
+	
+	[ ] Group Photo
+	
+	[ ] Clean up code
