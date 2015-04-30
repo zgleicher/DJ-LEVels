@@ -213,4 +213,10 @@ angular.module('levelsApp')
       return this.isFollower(scAuthService.getUserId(), group) || this.isContributor(scAuthService.getUserId(), group);
     }.bind(this);
 
+    this.isGroupOwner = function(group) {
+      console.log(group.owner.user_id);
+      console.log(scAuthService.getUserId());
+      return group.owner.user_id === scAuthService.getUserId();
+    }.bind(this);
+
   }]);
