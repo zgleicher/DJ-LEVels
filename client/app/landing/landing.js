@@ -142,7 +142,20 @@ angular.module('levelsApp')
                     $('#overlayBox').addClass('visuallyhidden');
                     var track_url = event.dataTransfer.getData('URL');
                     SC.get('/resolve', { url: track_url }, function(track) {
-                      groupService.addTrack(track);
+                      //function to check whether or not the user is a contributor
+                      var userID = scAuthService.getUserId();
+                      console.log(groupService.selectedGroup);
+                      if(groupService.isContributor(userID, groupService.selectedGroup)){
+                        groupService.addTrack(track);
+                      }
+                      else{
+                        var confirm = $mdDialog.confirm()
+                          .title('Sorry, you are not authorized to contribute!')
+                          .ariaLabel('OK')
+                          .ok('OK');
+                        $mdDialog.show(confirm);
+                      }
+
                     });
                   }
               }); 
@@ -270,7 +283,7 @@ angular.module('levelsApp')
               /* Voting Colors */
 
               $scope.upColor = function(track) {
-                if (track.upvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                if (track.upvotes.indexOf(scAuthService.getCurrentUser()._id) !== -1) {
                   return 'orange';
                 }
                 else {
@@ -279,7 +292,7 @@ angular.module('levelsApp')
               };
 
               $scope.downColor = function(track) {
-                if (track.downvotes.indexOf(Auth.getCurrentUser()._id) !== -1) {
+                if (track.downvotes.indexOf(scAuthService.getCurrentUser()._id) !== -1) {
                   return 'orange';
                 }
                 else {
