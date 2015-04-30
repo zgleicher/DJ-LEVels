@@ -32,8 +32,8 @@ angular.module('levelsApp')
       } else if (event === 'deleted' && this.groups.length > 0) {
     		this.selectGroup(this.groups[0]);
       } else if (this.groups.length > 0) {
-        console.log(event)
-        console.log(item)
+        // console.log(event)
+        // console.log(item)
         this.selectGroup(this.groups[0]);
       } else {
         $state.go('landing.no-groups');
@@ -68,7 +68,7 @@ angular.module('levelsApp')
    this.searchGroups = function() {
 
       $state.go('landing.search-groups');
-      console.log('searching for groups');
+      // console.log('searching for groups');
 
     }.bind(this);
 
@@ -95,7 +95,7 @@ angular.module('levelsApp')
   		var sorted = this.selectedGroup.tracks.sort(function (a, b) {
   			return this.getTrackScore(b) - this.getTrackScore(a);
   		}.bind(this));
-      console.log(sorted);
+      // console.log(sorted);
   		if (!this.selectedGroup.selectedTrack) {
   			this.selectedGroup.selectedTrack = sorted[0];
   		} else {
@@ -147,7 +147,7 @@ angular.module('levelsApp')
     this.addGroup
 
     this.deleteTrack = function (track) {
-      console.log('deleting track');
+      // console.log('deleting track');
       $http.delete('/api/groups/' + this.selectedGroup._id + '/tracks/' + track._id)
       .error(function(track, status) {
         console.log('error in delete track: '+ status);
@@ -214,8 +214,8 @@ angular.module('levelsApp')
     }.bind(this);
 
     this.isGroupOwner = function(group) {
-      console.log(group.owner.user_id);
-      console.log(scAuthService.getUserId());
+      // console.log(group.owner.user_id);
+      // console.log(scAuthService.getUserId());
       return group.owner.user_id === scAuthService.getUserId();
     }.bind(this);
 

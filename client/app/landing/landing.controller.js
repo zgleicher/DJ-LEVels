@@ -119,7 +119,7 @@ angular.module('levelsApp')
     var confirm = $mdDialog.confirm()
       .title('Would you like unfollow ' + groupService.selectedGroup.name + '?')
       .ariaLabel('Remove Playlist')
-      .ok('Remove Playlist')
+      .ok('Stop Following Playlist')
       .cancel('Cancel')
       .targetEvent(ev);
 

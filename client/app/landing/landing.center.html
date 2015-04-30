@@ -148,7 +148,11 @@
 				        md-swipe-left="next()"
 				        md-swipe-right="previous()" 
 				        class="groupbox">
-		        <md-button class="md-raised md-warn" ng-disabled="!groupService.isGroupOwner(groupService.selectedGroup)" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"> Delete {{groupService.selectedGroup.name}} <md-tooltip>Only the playlist creator can delete this playlist!</md-tooltip> </md-button>
+		        <md-button class="md-raised md-warn" ng-disabled="!groupService.isGroupOwner(groupService.selectedGroup)" ng-click="showDeleteGroup($event)" aria-label="Delete group {{groupService.selectedGroup.name}}"> Delete {{groupService.selectedGroup.name}} <md-tooltip>Creator can delete playlist</md-tooltip> </md-button>
+		        <div>
+		        <br>
+		        	To stop following a playlist, select the playlist on the left, and click the white X button on the right of the selected tab.
+		        </div>
 				   </div>
 
 				</ng-switch>
