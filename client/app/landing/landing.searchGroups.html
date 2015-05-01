@@ -6,7 +6,7 @@
       </div>
     </md-toolbar>
     <md-card-content>
-        <h2>Find other playlists to contribute to...</h2>
+        <h2>Find other playlists to follow...</h2>
             <div style="min-height: 60px" class="autocomplete" layout="row" layout-align="space-between center">
               <div flex="80" layout="column">
                 <md-autocomplete
@@ -26,8 +26,8 @@
                 <md-button type="submit" class="md-raised" ng-disabled="true" ng-show="autocompleteGroups.selectedItem === null || autocompleteGroups.selectedItem === ''">
                 Select a Playlist
                 </md-button>
-                <md-button type="submit" class="md-raised" ng-hide="autocompleteGroups.selectedItem.name === '' || autocompleteGroups.selectedItem === null || autocompleteGroups.searchText === ''" ng-click="groupService.addUsertoGroup('contributors', autocompleteGroups.selectedItem); clear()">
-                Contribute to {{autocompleteGroups.selectedItem.name}}
+                <md-button type="submit" class="md-raised" ng-hide="autocompleteGroups.selectedItem.name === '' || autocompleteGroups.selectedItem === null || autocompleteGroups.searchText === ''" ng-click="groupService.addUsertoGroup('followers', autocompleteGroups.selectedItem); clear()">
+                Follow {{autocompleteGroups.selectedItem.name}}
                 </md-button>
               </div>
             </div>
