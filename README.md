@@ -80,11 +80,15 @@ A group of friends will have the ability to setup a playlist where everyone can 
 	
 	[ ] Add a Group Photo
 	
-	[ ] Clean up code
+	[ ] Clean up code (make directives)
 	
 	[ ] Fix socket so that it doesnt kick you out of your current group. 
 	
 	[ ] Error handling for creating a duplicate group name (500 error on server)
 	
 	[ ] Error handling for only contributors deleting songs
+	
+	[ ] Add business logic for not being a contributor and a follower at the same time
+	
+	[ ] Handle errors in console with mixed media types
 	
